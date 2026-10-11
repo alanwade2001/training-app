@@ -1,0 +1,115 @@
+<!doctype html>
+
+<html
+        lang="en-IE"
+        xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1">
+
+    <title>Training</title>
+
+    <link
+            rel="stylesheet"
+            th:href="@{/css/training.css}">
+
+</head>
+
+<body>
+
+<div class="app">
+
+
+    <header class="topbar">
+
+        <h1>
+            Training
+        </h1>
+
+    </header>
+
+
+    <main class="content">
+
+
+        <div class="eyebrow">
+            Workout execution
+        </div>
+
+
+        <h1 class="page-title">
+            Ready to train?
+        </h1>
+
+
+        <p class="intro">
+            Choose today's workout and I'll guide
+            you through each exercise, set and rest.
+        </p>
+
+
+        <div class="workout-list">
+
+
+            <article
+                    class="workout-card"
+                    th:each="workout : ${workouts}">
+
+
+                <h2 th:text="${workout.name}">
+                    Heavy Force
+                </h2>
+
+
+                <p class="workout-meta">
+
+                    <span
+                            th:text="${workout.exercises.size()}">
+                        3
+                    </span>
+
+                    exercises
+
+                </p>
+
+
+                <form
+                        th:action="@{/sessions}"
+                        method="post">
+
+                    <input
+                            type="hidden"
+                            name="workoutId"
+                            th:value="${workout.id}">
+
+
+                    <button
+                            type="submit"
+                            class="button button-start">
+
+                        START WORKOUT
+
+                    </button>
+
+                </form>
+
+
+            </article>
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+</body>
+
+</html>
