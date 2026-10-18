@@ -1,8 +1,8 @@
-package com.acme.wo;
+package com.acme.wo.internal.workout;
 
+import com.acme.wo.service.WorkoutService;
 import com.acme.wo.model.Workout;
 import com.acme.wo.model.WorkoutExercise;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

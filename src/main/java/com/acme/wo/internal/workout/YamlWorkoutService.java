@@ -1,5 +1,6 @@
-package com.acme.wo;
+package com.acme.wo.internal.workout;
 
+import com.acme.wo.service.WorkoutService;
 import com.acme.wo.model.Workout;
 import com.acme.wo.model.WorkoutDefinitions;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,14 +16,14 @@ import java.util.List;
 public class YamlWorkoutService implements WorkoutService {
 
     private final WorkoutDefinitions workoutDefinitions;
-    private final ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
 
     public YamlWorkoutService() throws IOException {
 
-        ClassPathResource r = new  ClassPathResource("workouts/workouts.yaml");
+        ClassPathResource r = new  ClassPathResource("workouts/workouts.yml");
 
         try (var inputStream = r.getInputStream()) {
 
+            ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
             workoutDefinitions =
                     objectMapper.readValue(
                             inputStream,
@@ -39,7 +40,7 @@ public class YamlWorkoutService implements WorkoutService {
     @Override
     public Workout findById(String workoutId) {
         return workoutDefinitions.workouts().stream()
-                .filter(w->w.name().equalsIgnoreCase(workoutId))
+                .filter(w->w.id().equalsIgnoreCase(workoutId))
                 .findFirst()
                 .orElse(null);
     }

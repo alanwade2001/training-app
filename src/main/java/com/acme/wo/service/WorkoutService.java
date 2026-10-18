@@ -1,4 +1,4 @@
-package com.acme.wo;
+package com.acme.wo.service;
 
 import com.acme.wo.model.Workout;
 

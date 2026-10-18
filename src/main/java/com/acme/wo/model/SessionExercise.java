@@ -6,4 +6,8 @@ public record SessionExercise(
         int sets,
         int reps,
         int recoveryInSecs) {
+
+    public boolean hasMoreSets(int currentSet) {
+        return sets > currentSet;
+    }
 }

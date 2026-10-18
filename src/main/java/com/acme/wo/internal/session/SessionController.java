@@ -1,5 +1,6 @@
-package com.acme.wo;
+package com.acme.wo.internal.session;
 
+import com.acme.wo.service.SessionService;
 import com.acme.wo.model.Session;
 import com.acme.wo.model.SessionExecution;
 import com.acme.wo.model.SessionExercise;
@@ -41,15 +42,13 @@ public class SessionController {
             Model model) {
 
         Session session =
-                sessionService.findById(
+                sessionService.getSessionById(
                         sessionId
                 );
 
-        SessionExecution execution =
-                sessionService.execution(sessionId);
+        SessionExecution execution = session.execution();
 
-        SessionExercise exercise =
-                sessionService.currentExercise(sessionId);
+        SessionExercise exercise = session.getCurrentExercise();
 
 
         model.addAttribute(

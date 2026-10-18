@@ -1,4 +1,4 @@
-package com.acme.wo.model;
+package com.acme.wo.home;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

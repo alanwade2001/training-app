@@ -6,5 +6,14 @@ public record Session(
         Long id,
         String workoutId,
         String workoutName,
+        SessionExecution execution,
         List<SessionExercise> exercises) {
+
+    public boolean hasMoreExercises(int currentSet) {
+        return exercises.size() > currentSet;
+    }
+
+    public SessionExercise getCurrentExercise() {
+        return exercises.get(execution.exerciseIndex());
+    }
 }
