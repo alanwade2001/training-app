@@ -37,3 +37,4 @@ out/
 .vscode/
 /src/main/resources/certs/training.pem
 /src/main/resources/certs/training-key.pem
+/src/main/resources/workouts/workouts.bak
