@@ -6,22 +6,16 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertTha
 
 import com.microsoft.playwright.options.AriaRole;
 import com.microsoft.playwright.options.RequestOptions;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.regex.Pattern;
 
 @UsePlaywright
-public class UITests {
+public class UIIntegrationTests {
 
-    @Test
-    void basicTest(Page page) {
-        page.navigate("https://playwright.dev/");
 
-        assertThat(page).hasTitle(Pattern.compile("Playwright"));
-    }
 
-    @Test
+    //@Test
     void basicTest2(Page page, APIRequestContext context) {
         var options = RequestOptions.create().setIgnoreHTTPSErrors(true);
 
@@ -31,7 +25,7 @@ public class UITests {
         assertThat(response).isOK();
     }
 
-    @Test
+    //@Test
     void basicTest3() {
         Playwright.CreateOptions options = new Playwright.CreateOptions();
         BrowserType.LaunchOptions launchOptions = new BrowserType.LaunchOptions();

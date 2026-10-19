@@ -27,7 +27,7 @@
     <header class="topbar session-topbar">
 
         <a
-                class="exit-link"
+                class="exit-button"
                 th:if="${execution.state.name() != 'SESSION_COMPLETE'}"
                 th:href="@{/workouts}">
 
@@ -84,6 +84,8 @@
             </div>
 
         </div>
+
+
 
 
         <section
@@ -199,17 +201,6 @@
             <div class="eyebrow">
                 Rest
             </div>
-
-
-            <div
-                    id="restTimer"
-                    class="rest-timer"
-                    th:data-seconds="${exercise.recoveryInSecs}">
-
-                02:00
-
-            </div>
-
 
             <div class="next-card">
 
@@ -345,6 +336,17 @@
 
     </main>
 
+    <div id="session-timer"
+         class="session-timer"
+         th:if="${execution.state.name() == 'ACTIVE'
+             or execution.state.name() == 'RESTING'}"
+         th:data-state="${execution.state}"
+         th:data-started-at="${execution.stateStartedAt}"
+         th:data-recovery-seconds="${exercise.recoveryInSecs}">
+
+        <span id="timer-display">00:00</span>
+    </div>
+
     <div
             class="session-actions"
             th:if="${execution.state.name() == 'READY'}">
@@ -447,58 +449,7 @@
 
     </div>
 </div>
-
-
-
-
-<script>
-
-    const timer =
-        document.getElementById("restTimer");
-
-    if (timer) {
-
-        let remaining =
-            Number(timer.dataset.seconds);
-
-
-        function displayTime() {
-
-            const minutes =
-                Math.floor(remaining / 60);
-
-            const seconds =
-                remaining % 60;
-
-
-            timer.textContent =
-                String(minutes).padStart(2, "0")
-                + ":"
-                + String(seconds).padStart(2, "0");
-        }
-
-
-        displayTime();
-
-
-        const interval =
-            setInterval(() => {
-
-                if (remaining > 0) {
-                    remaining--;
-                }
-
-                displayTime();
-
-
-                if (remaining === 0) {
-                    clearInterval(interval);
-                }
-
-            }, 1000);
-    }
-
-</script>
+<script th:src="@{/js/session.js}"></script>
 </body>
 
 </html>

@@ -1,23 +1,19 @@
 :root {
     --background: #f2f4f7;
     --surface: #ffffff;
-
     --text: #101828;
     --muted: #667085;
     --border: #e4e7ec;
-
     --blue: #175cd3;
     --green: #16a34a;
     --red: #dc2626;
     --orange: #ea580c;
+    --action-height: 104px;
 }
 
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
-html,
-body {
+html, body {
     margin: 0;
     min-height: 100%;
 }
@@ -25,227 +21,185 @@ body {
 body {
     background: var(--background);
     color: var(--text);
-
-    font-family:
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .app {
     width: min(100%, 480px);
-    min-height: 100vh;
-
+    min-height: 100dvh;
     margin: 0 auto;
-
     background: var(--surface);
-
-    display: flex;
-    flex-direction: column;
 }
-
-.topbar
 
 /* ---------- Session header ---------- */
-
-.session-topbar {
-    justify-content: space-between;
-}
+.session-topbar { justify-content: space-between; }
 
 .session-topbar h1 {
     flex: 1;
-
     margin: 0;
-
     text-align: center;
-
     font-size: 17px;
 }
 
-.exit-link {
-    min-width: 55px;
-
-    color: var(--text);
-
-    font-size: 15px;
-    font-weight: 700;
-
+.exit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 56px;
+    background: #1f2937;
+    color: white;
+    font-size: 18px;
+    font-weight: 750;
     text-decoration: none;
+    border-radius: inherit;
 }
 
-.topbar-spacer {
-    min-width: 55px;
-}
+.topbar-spacer { min-width: 55px; }
 
+.eyebrow {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 14px;
+}
 
 /* ---------- Session content ---------- */
-
 .session-content {
-    display: flex;
-    flex-direction: column;
-
-    padding-bottom: 120px;
+    display: block;
+    padding-bottom: 220px;
 }
-
 
 /* ---------- Exercise progress ---------- */
-
-.exercise-progress {
-    margin-bottom: 32px;
-}
+.exercise-progress { margin-bottom: 24px; }
 
 .exercise-progress-label {
-    margin-bottom: 10px;
-
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: 750;
+    line-height: 1.2;
+    margin-bottom: 12px;
 }
 
 .progress-track {
     width: 100%;
-    height: 8px;
-
+    height: 18px;
+    background: #e5e7eb;
+    border-radius: 9px;
     overflow: hidden;
-
-    background: #eaecf0;
-
-    border-radius: 999px;
 }
 
 .progress-fill {
     height: 100%;
-
-    background: var(--blue);
-
-    border-radius: inherit;
+    background: #2563eb;
+    border-radius: 9px;
 }
-
 
 /* ---------- Ready state ---------- */
-
-.ready-screen {
-    flex: 1;
-
- *  padding-top: 28px;
-
-    text-align: center;
-}
-
-.ready-screen .eyebrow {
-    margin-bottom: 14px;
-}
+.ready-screen { text-align: center; }
+.ready-screen .eyebrow { margin-bottom: 14px; }
 
 .exercise-name {
     margin: 0;
-
     font-size: clamp(36px, 11vw, 52px);
     font-weight: 800;
-
     line-height: 1.02;
-
     letter-spacing: -0.04em;
 }
 
 .set-number {
     margin-top: 30px;
-
     color: var(--muted);
-
     font-size: 19px;
     font-weight: 650;
 }
 
 .exercise-target {
     margin-top: 14px;
-
     font-size: clamp(48px, 15vw, 68px);
     font-weight: 850;
-
     line-height: 1;
-
     letter-spacing: -0.05em;
 }
 
 .recovery {
     margin-top: 16px;
-
     color: var(--muted);
-
     font-size: 17px;
 }
 
+/* ---------- Active set ---------- */
+.active-screen {
+    padding-top: 16px;
+    text-align: center;
+}
+
+.active-screen .eyebrow {
+    margin-bottom: 14px;
+    color: var(--red);
+}
+
+/* ---------- Rest screen ---------- */
+.rest-screen {
+    padding-top: 16px;
+    text-align: center;
+}
+
+.rest-screen .eyebrow { color: var(--orange); }
+
+/* ---------- Fixed timer above bottom action ---------- */
+.session-timer {
+    position: fixed;
+    z-index: 20;
+    left: 50%;
+    bottom: var(--action-height);
+    transform: translateX(-50%);
+    width: min(100%, 480px);
+    padding: 8px 20px 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to top, white 78%, rgba(255,255,255,0.94));
+    font-size: clamp(72px, 22vw, 104px);
+    font-weight: 850;
+    line-height: 1;
+    letter-spacing: -0.06em;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+}
 
 /* ---------- Bottom action ---------- */
-
 .session-actions {
     position: fixed;
-
+    z-index: 30;
     bottom: 0;
     left: 50%;
-
     width: min(100%, 480px);
-
-    padding:
-        18px
-        20px
-        max(18px, env(safe-area-inset-bottom));
-
+    min-height: var(--action-height);
+    padding: 18px 20px max(18px, env(safe-area-inset-bottom));
     transform: translateX(-50%);
-
-    background:
-        linear-gradient(
-            to top,
-            white 80%,
-            rgba(255, 255, 255, 0)
-        );
+    background: white;
 }
 
-.session-actions form {
-    margin: 0;
-}
-
-.session-actions .button {
-    min-height: 68px;
-
-    font-size: 18px;
-}
+.session-actions form { margin: 0; }
 
 .button {
     display: block;
-
     width: 100%;
     min-height: 68px;
-
     padding: 0 20px;
-
     border: none;
     border-radius: 14px;
-
     color: white;
-
     font-size: 18px;
     font-weight: 800;
-
     cursor: pointer;
 }
 
-.button-start {
-    background-color: #16a34a;
-}
-
-.button-done {
-    background-color: #dc2626;
-}
-
-.button-rest {
-    background-color: #ea580c;
-}
-
-.button-next {
-    background-color: #175cd3;
-}
+.button-start { background-color: var(--green); }
+.button-done { background-color: var(--red); }
+.button-done:hover { background-color: #b91c1c; }
+.button-rest { background-color: var(--orange); }
+.button-next { background-color: var(--blue); }
 
 .button-finished {
     display: flex;
@@ -256,156 +210,72 @@ body {
     text-decoration: none;
 }
 
-/* ---------- Active set ---------- */
-
-.active-screen {
-    flex: 1;
-
-    padding-top: 28px;
-
-    text-align: center;
-}
-
-.active-screen .eyebrow {
-    margin-bottom: 14px;
-
-    color: var(--red);
-}
-
-.button-done {
-    background-color: var(--red);
-}
-
-.button-done:hover {
-    background-color: #b91c1c;
-}
-
-/* ---------- Rest screen ---------- */
-
-.rest-screen {
-    flex: 1;
-
-    padding-top: 28px;
-
-    text-align: center;
-}
-
-.rest-screen .eyebrow {
-    color: var(--orange);
-}
-
-.rest-timer {
-    margin: 24px 0 34px;
-
-    font-size: clamp(72px, 22vw, 104px);
-    font-weight: 850;
-
-    line-height: 1;
-
-    letter-spacing: -0.06em;
-
-    font-variant-numeric: tabular-nums;
-}
-
-
 /* ---------- Up next card ---------- */
-
 .next-card {
     padding: 20px;
-
     border: 1px solid var(--border);
     border-radius: 18px;
-
     text-align: left;
-
     background: #f9fafb;
 }
 
 .next-card .eyebrow {
     margin-bottom: 8px;
-
     color: var(--muted);
 }
 
 .next-exercise-name {
     margin: 0;
-
     font-size: 24px;
     font-weight: 800;
-
     letter-spacing: -0.02em;
 }
 
 .next-set {
     margin: 8px 0 0;
-
     color: var(--muted);
-
     font-size: 16px;
 }
 
 .next-target {
     margin: 12px 0 0;
-
     font-size: 20px;
     font-weight: 800;
 }
 
-
-/* ---------- Rest action ---------- */
-
-.button-rest {
-    background-color: var(--orange);
-}
-
 /* ---------- Exercise complete ---------- */
-
 .exercise-complete-screen {
-    flex: 1;
-
     padding-top: 48px;
-
     text-align: center;
 }
 
 .complete-icon {
     width: 82px;
     height: 82px;
-
     margin: 0 auto 24px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     border-radius: 50%;
-
     background-color: #ecfdf3;
     color: var(--green);
-
     font-size: 46px;
     font-weight: 900;
 }
 
 .exercise-complete-screen .eyebrow {
     margin-bottom: 14px;
-
     color: var(--green);
 }
 
 .exercise-summary {
     margin-top: 24px;
-
     color: var(--muted);
-
-    font-size: 19px
-
+    font-size: 19px;
 }
 
 /* ---------- Workout complete ---------- */
-
 .workout-complete-screen {
-    flex: 1;
     padding-top: 48px;
     text-align: center;
 }
@@ -413,50 +283,32 @@ body {
 .workout-complete-icon {
     width: 96px;
     height: 96px;
-
     margin: 0 auto 24px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     border-radius: 50%;
-
     background-color: #ecfdf3;
-    color: #16a34a;
-
+    color: var(--green);
     font-size: 54px;
     font-weight: 900;
 }
 
 .workout-complete-screen .eyebrow {
     margin-bottom: 14px;
-    color: #16a34a;
+    color: var(--green);
 }
 
 .workout-complete-name {
     margin: 0;
-
-    color: #101828;
-
+    color: var(--text);
     font-size: 42px;
     font-weight: 800;
-
     line-height: 1.05;
     letter-spacing: -0.04em;
 }
 
 .workout-summary {
     margin-top: 24px;
-
-    color: #101828;
-}
-
-/* Keep desktop bottom action aligned with app */
-
-@media (min-width: 60*px) {
-
-    .session-actions {
-    *   bottom: 24px;
-    }
+    color: var(--text);
 }

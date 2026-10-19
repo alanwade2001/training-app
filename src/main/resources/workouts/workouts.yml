@@ -7,37 +7,37 @@ workouts:
 
       - sequence: 1
         name: Pogos
-        sets: 3
+        sets: 2
         reps: 20
         recoveryInSecs: 60
 
       - sequence: 2
-        name: Deadlift - 87.5kg
-        sets: 5
+        name: Deadlift - 77.0kg
+        sets: 3
         reps: 3
         recoveryInSecs: 180
 
       - sequence: 3
         name: Bulgarian Split Squat 12.5 each leg
-        sets: 3
+        sets: 2
         reps: 5
         recoveryInSecs: 120
 
       - sequence: 4
         name: Romanian Deadlift 57.5kg
-        sets: 3
+        sets: 2
         reps: 5
         recoveryInSecs: 120
 
       - sequence: 5
         name: Standing calf raise
-        sets: 3
+        sets: 2
         reps: 8
         recoveryInSecs: 90
 
       - sequence: 6
         name: Pallof Press - each side
-        sets: 3
+        sets: 2
         reps: 10
         recoveryInSecs: 60
 
@@ -48,31 +48,60 @@ workouts:
 
       - sequence: 1
         name: RDL Single Leg - 10kg
-        sets: 3
+        sets: 2
         reps: 6
         recoveryInSecs: 60
 
       - sequence: 2
         name: Walking lunge - 20kg
-        sets: 3
+        sets: 2
         reps: 8
         recoveryInSecs: 60
 
       - sequence: 3
         name: Nordic Hamstring
-        sets: 3
+        sets: 2
         reps: 5
         recoveryInSecs: 60
 
       - sequence: 4
         name: CopenHagen plank - each side
-        sets: 3
+        sets: 2
         reps: 25
         recoveryInSecs: 60
 
       - sequence: 5
         name: Soleus raise
-        sets: 3
+        sets: 2
         reps: 15
+        recoveryInSecs: 60
+
+  - id: power
+    name: Power
+
+    exercises:
+
+      - sequence: 1
+        name: Single Leg hops - 10m
+        sets: 4
+        reps: 2
+        recoveryInSecs: 60
+
+      - sequence: 2
+        name: Bounds - 20m
+        sets: 4
+        reps: 1
+        recoveryInSecs: 60
+
+      - sequence: 3
+        name: Jump Squat - 10kg
+        sets: 3
+        reps: 5
+        recoveryInSecs: 60
+
+      - sequence: 4
+        name: Medicine ball - over,under,right,left
+        sets: 4
+        reps: 5
         recoveryInSecs: 60
 

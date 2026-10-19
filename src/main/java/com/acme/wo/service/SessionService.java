@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -38,7 +39,7 @@ public class SessionService {
                                 )
                         )
                         .toList();
-        var execution = new SessionExecution( 0, 1, ExecutionState.READY);
+        var execution = new SessionExecution( 0, 1, Instant.now(), ExecutionState.READY);
 
         Session session =
                 new Session(
@@ -82,6 +83,7 @@ public class SessionService {
         return new SessionExecution(
                 current.exerciseIndex(),
                 current.currentSet(),
+                Instant.now(),
                 ExecutionState.ACTIVE
         );
     }
@@ -122,6 +124,7 @@ public class SessionService {
             return new SessionExecution(
                     current.exerciseIndex(),
                     current.currentSet(),
+                    Instant.now(),
                     ExecutionState.RESTING
             );
         }
@@ -130,6 +133,7 @@ public class SessionService {
         return new SessionExecution(
                 current.exerciseIndex(),
                 current.currentSet(),
+                Instant.now(),
                 ExecutionState.EXERCISE_COMPLETE
         );
     }
@@ -164,6 +168,7 @@ public class SessionService {
         return new SessionExecution(
                 current.exerciseIndex(),
                 current.currentSet() + 1,
+                Instant.now(),
                 ExecutionState.READY
         );
     }
@@ -204,6 +209,7 @@ public class SessionService {
             return new SessionExecution(
                     nextIndex,
                     1,
+                    Instant.now(),
                     ExecutionState.READY
             );
         }
@@ -211,6 +217,7 @@ public class SessionService {
         return new SessionExecution(
                 current.exerciseIndex(),
                 current.currentSet(),
+                Instant.now(),
                 ExecutionState.SESSION_COMPLETE
         );
     }

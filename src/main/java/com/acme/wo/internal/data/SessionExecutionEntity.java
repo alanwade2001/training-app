@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -16,6 +18,7 @@ public class SessionExecutionEntity {
 
     int exerciseIndex;
     int currentSet;
+    Instant stateStartedAt;
 
     @Enumerated(EnumType.STRING)
     ExecutionState state;

@@ -21,6 +21,7 @@ public class DaoService {
                         .currentSet(session.execution().currentSet())
                         .exerciseIndex(session.execution().exerciseIndex())
                         .state(session.execution().state())
+                        .stateStartedAt(session.execution().stateStartedAt())
                         .build()
                 )
                 .build();
@@ -32,6 +33,7 @@ public class DaoService {
 
         var execution = new SessionExecution(savedEntity.getCurrentSessionExecution().getExerciseIndex(),
                 savedEntity.getCurrentSessionExecution().getCurrentSet(),
+                savedEntity.getCurrentSessionExecution().getStateStartedAt(),
                 savedEntity.getCurrentSessionExecution().getState()
         );
 
@@ -67,7 +69,7 @@ public class DaoService {
             return new SessionExercise(e.sequence(), e.name(), e.sets(), e.reps(), e.recoveryInSecs());
         }).toList();
 
-        var executionModel = new SessionExecution(execution.exerciseIndex, execution.currentSet, execution.state);
+        var executionModel = new SessionExecution(execution.exerciseIndex, execution.currentSet, execution.stateStartedAt, execution.state);
 
         return new Session(session.getId()
                 , session.getWorkoutId()
@@ -81,6 +83,7 @@ public class DaoService {
         entity.getCurrentSessionExecution().setState(updated.state());
         entity.getCurrentSessionExecution().setCurrentSet(updated.currentSet());
         entity.getCurrentSessionExecution().setExerciseIndex(updated.exerciseIndex());
+        entity.getCurrentSessionExecution().setStateStartedAt(updated.stateStartedAt());
         sessionRepos.save(entity);
     }
 }
