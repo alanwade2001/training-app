@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title th:text="${trainingsession.workoutName}">
+        Session
+    </title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/training.css}">
+</head>
+
+<body>
+
+<main class="history-detail-page">
+
+    <header class="history-detail-header">
+
+        <a class="back-link"
+           th:href="@{/history}">
+            &larr; History
+        </a>
+
+        <p class="history-detail-date"
+           th:text="${#temporals.format(
+               trainingsession.startedAt,
+               'd MMMM yyyy'
+           )}">
+            25 October 2026
+        </p>
+
+        <h1 th:text="${trainingsession.workoutName}">
+            Power
+        </h1>
+
+    </header>
+
+    <section class="history-detail-summary"
+             aria-label="Session summary">
+
+        <div class="history-summary-item">
+
+            <span class="history-summary-label">
+                Started
+            </span>
+
+            <span class="history-summary-value"
+                  th:text="${#temporals.format(
+                      trainingsession.startedAt,
+                      'HH:mm'
+                  )}">
+                20:28
+            </span>
+
+        </div>
+
+        <div class="history-summary-item">
+
+            <span class="history-summary-label">
+                Last activity
+            </span>
+
+            <span class="history-summary-value"
+                  th:text="${#temporals.format(
+                      trainingsession.updatedAt,
+                      'HH:mm'
+                  )}">
+                20:29
+            </span>
+
+        </div>
+
+    </section>
+
+    <section class="history-exercises"
+             aria-labelledby="exercises-heading"
+             th:if="${!#lists.isEmpty(trainingsession.exercises)}">
+
+        <h2 id="exercises-heading">
+            Exercises
+        </h2>
+
+        <article class="history-exercise-card"
+                 th:each="exercise : ${trainingsession.exercises}">
+
+            <div class="history-exercise-sequence"
+                 th:text="|Exercise ${exercise.sequence}|">
+                Exercise 1
+            </div>
+
+            <h3 class="history-exercise-name"
+                th:text="${exercise.name}">
+                Deadlift
+            </h3>
+
+            <div class="history-exercise-details">
+
+                <div class="history-exercise-detail">
+
+                    <span class="history-exercise-label">
+                        Sets
+                    </span>
+
+                    <span class="history-exercise-value"
+                          th:text="${exercise.sets}">
+                        3
+                    </span>
+
+                </div>
+
+                <div class="history-exercise-detail">
+
+                    <span class="history-exercise-label">
+                        Reps
+                    </span>
+
+                    <span class="history-exercise-value"
+                          th:text="${exercise.reps}">
+                        5
+                    </span>
+
+                </div>
+
+                <div class="history-exercise-detail"
+                     th:if="${exercise.recoveryInSecs > 0}">
+
+                    <span class="history-exercise-label">
+                        Recovery
+                    </span>
+
+                    <span class="history-exercise-value"
+                          th:text="|${exercise.recoveryInSecs}s|">
+                        90s
+                    </span>
+
+                </div>
+
+            </div>
+
+        </article>
+
+    </section>
+
+    <section class="empty-message"
+             th:if="${#lists.isEmpty(trainingsession.exercises)}">
+
+        <h2>No exercises recorded</h2>
+
+        <p>
+            This session does not contain any exercise details.
+        </p>
+
+    </section>
+
+    <footer class="history-detail-footer">
+
+        <a class="back-button"
+           th:href="@{/history}">
+            Back to history
+        </a>
+
+    </footer>
+
+</main>
+
+</body>
+</html>

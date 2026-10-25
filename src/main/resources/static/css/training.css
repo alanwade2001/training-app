@@ -1027,3 +1027,357 @@ textarea {
         min-height: 56px;
     }
 }
+
+/* ---------- History page ---------- */
+
+.history-page {
+    width: min(100%, 480px);
+    min-height: 100dvh;
+    margin: 0 auto;
+    padding: 24px 20px 40px;
+
+    background: var(--surface);
+}
+
+
+/* ---------- History header ---------- */
+
+.history-header {
+    margin-bottom: 28px;
+}
+
+.history-header h1 {
+    margin: 0;
+
+    color: var(--text);
+
+    font-size: clamp(32px, 9vw, 44px);
+    font-weight: 850;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+}
+
+.history-header > p:last-child {
+    margin: 10px 0 0;
+
+    color: var(--muted);
+
+    font-size: 17px;
+}
+
+
+/* ---------- History list ---------- */
+
+.history-list {
+    display: grid;
+    gap: 16px;
+}
+
+
+/* ---------- History card ---------- */
+
+.history-card {
+    padding: 20px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+}
+
+.history-card-date {
+    margin-bottom: 8px;
+
+    color: var(--muted);
+
+    font-size: 14px;
+    font-weight: 750;
+}
+
+.history-card-title {
+    margin: 0;
+
+    color: var(--text);
+
+    font-size: 25px;
+    font-weight: 850;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+}
+
+
+/* ---------- Session times ---------- */
+
+.history-card-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+
+    margin: 20px 0 0;
+}
+
+.history-card-detail {
+    padding: 12px;
+
+    background: #f9fafb;
+
+    border-radius: 12px;
+}
+
+.history-card-detail dt {
+    margin: 0 0 4px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.history-card-detail dd {
+    margin: 0;
+
+    color: var(--text);
+
+    font-size: 18px;
+    font-weight: 800;
+
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* ---------- View session ---------- */
+
+.history-card-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 52px;
+
+    margin-top: 18px;
+    padding: 0 18px;
+
+    background: var(--blue);
+    color: white;
+
+    border-radius: 12px;
+
+    font-size: 16px;
+    font-weight: 800;
+
+    text-decoration: none;
+
+    transition:
+            background-color 120ms ease,
+            transform 120ms ease;
+}
+
+.history-card-action:hover {
+    background: var(--blue-hover);
+}
+
+.history-card-action:active {
+    transform: translateY(1px);
+}
+
+.history-card-action:focus-visible {
+    outline: 3px solid #84adff;
+    outline-offset: 3px;
+}
+
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 520px) {
+
+    .history-page {
+        padding: 18px 16px 32px;
+    }
+
+    .history-header {
+        margin-bottom: 22px;
+    }
+
+    .history-card {
+        padding: 18px;
+    }
+
+    .history-card-title {
+        font-size: 23px;
+    }
+
+    .history-card-details {
+        gap: 10px;
+    }
+}
+
+/* ---------- History session detail ---------- */
+
+.history-detail-page {
+    width: min(100%, 480px);
+    min-height: 100dvh;
+    margin: 0 auto;
+    padding: 24px 20px 40px;
+
+    background: var(--surface);
+}
+
+.history-detail-header {
+    margin-bottom: 24px;
+}
+
+.history-detail-date {
+    margin: 0 0 8px;
+
+    color: var(--muted);
+
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.history-detail-header h1 {
+    margin: 0;
+
+    color: var(--text);
+
+    font-size: clamp(32px, 9vw, 44px);
+    font-weight: 850;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+}
+
+
+/* ---------- Session summary ---------- */
+
+.history-detail-summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+
+    margin-bottom: 32px;
+}
+
+.history-summary-item {
+    padding: 16px;
+
+    background: #f9fafb;
+
+    border: 1px solid var(--border);
+    border-radius: 14px;
+}
+
+.history-summary-label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.history-summary-value {
+    color: var(--text);
+
+    font-size: 21px;
+    font-weight: 850;
+
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* ---------- Historical exercises ---------- */
+
+.history-exercises h2 {
+    margin: 0 0 16px;
+
+    font-size: 22px;
+    font-weight: 850;
+}
+
+.history-exercise-card {
+    margin-bottom: 14px;
+    padding: 18px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+}
+
+.history-exercise-sequence {
+    margin-bottom: 5px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+    font-weight: 750;
+}
+
+.history-exercise-name {
+    margin: 0;
+
+    color: var(--text);
+
+    font-size: 22px;
+    font-weight: 850;
+    line-height: 1.15;
+}
+
+.history-exercise-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+
+    margin-top: 16px;
+}
+
+.history-exercise-detail {
+    padding: 10px;
+
+    background: #f9fafb;
+
+    border-radius: 10px;
+}
+
+.history-exercise-label {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.history-exercise-value {
+    color: var(--text);
+
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.history-detail-footer {
+    margin-top: 24px;
+}
+
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 520px) {
+
+    .history-detail-page {
+        padding: 18px 16px 32px;
+    }
+
+    .history-exercise-details {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

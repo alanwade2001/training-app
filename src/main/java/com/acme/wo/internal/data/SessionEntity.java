@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -19,7 +20,12 @@ public class SessionEntity {
 
     private Long workoutId;
     private String workoutName;
+    Instant startedAt;
+    Instant updatedAt;
 
     @Embedded
     private SessionExecutionEntity currentSessionExecution;
+
+    @OneToMany(mappedBy = "session", fetch =  FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<SessionExerciseEntity> exercises;
 }

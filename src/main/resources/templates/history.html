@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title>History</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/training.css}">
+</head>
+
+<body>
+
+<main class="history-page">
+
+    <header class="history-header">
+
+        <a class="back-link"
+           th:href="@{/}">
+            &larr; Home
+        </a>
+
+        <h1>History</h1>
+
+        <p>Your previous training sessions</p>
+
+    </header>
+
+    <section class="history-list"
+             aria-label="Training history"
+             th:if="${!#lists.isEmpty(sessions)}">
+
+        <article class="history-card"
+                 th:each="s : ${sessions}">
+
+            <div class="history-card-date">
+
+                <time th:datetime="${s.startedAt}"
+                      th:text="${#temporals.format(
+                          s.startedAt,
+                          'd MMMM yyyy'
+                      )}">
+                    25 October 2026
+                </time>
+
+            </div>
+
+            <h2 class="history-card-title"
+                th:text="${s.workoutName}">
+                Force and Reactive
+            </h2>
+
+            <dl class="history-card-details">
+
+                <div class="history-card-detail">
+
+                    <dt>Started</dt>
+
+                    <dd th:text="${#temporals.format(
+                        s.startedAt,
+                        'HH:mm'
+                    )}">
+                        18:05
+                    </dd>
+
+                </div>
+
+                <div class="history-card-detail">
+
+                    <dt>Last activity</dt>
+
+                    <dd th:text="${#temporals.format(
+                        s.updatedAt,
+                        'HH:mm'
+                    )}">
+                        18:47
+                    </dd>
+
+                </div>
+
+            </dl>
+
+            <a class="history-card-action"
+               th:href="@{/history/{sessionId}(
+                   sessionId=${s.id}
+               )}">
+                View session
+            </a>
+
+        </article>
+
+    </section>
+
+    <section class="empty-message"
+             th:if="${#lists.isEmpty(sessions)}">
+
+        <h2>No training history yet</h2>
+
+        <p>
+            Completed and previous sessions will appear here.
+        </p>
+
+    </section>
+
+</main>
+
+</body>
+</html>

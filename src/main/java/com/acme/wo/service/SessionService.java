@@ -1,19 +1,22 @@
 package com.acme.wo.service;
 
-import com.acme.wo.internal.data.DaoService;
+import com.acme.wo.internal.session.SessionJpaPersistor;
 import com.acme.wo.model.*;
 import jakarta.transaction.Transactional;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.List;
 
 @Data
 @Service
 public class SessionService {
 
-    private final DaoService daoService;
+    private final SessionJpaPersistor sessionPersistor;
+
+    private final SessionSource sessionSource;
 
     private final WorkoutService workoutService;
 
@@ -39,33 +42,38 @@ public class SessionService {
                                 )
                         )
                         .toList();
-        var execution = new SessionExecution( 0, 1, Instant.now(), ExecutionState.READY);
+        var now = Instant.now();
+        var execution = new SessionExecution( 0, 1, now, ExecutionState.READY);
 
         Session session =
                 new Session(
                         null,
                         workout.id(),
                         workout.name(),
+                        now,
+                        now,
                         execution,
                         exercises
                 );
 
-        return daoService.saveSession( session );
+        return sessionPersistor.persist( session );
     }
 
 
-
+    private Session findSessionBySessionId(Long sessionId) {
+        return sessionSource.getSessions().stream().filter(s->s.id().equals(sessionId)).findFirst().orElse(null);
+    }
 
     public void startSet(Long sessionId) {
 
-        Session session = daoService.getSession(sessionId);
+        Session session = findSessionBySessionId(sessionId);
 
         SessionExecution current = session.execution();
 
         SessionExecution updated =
                 nextExecutionAfterStartSet(current);
 
-        daoService.updateSessionExecution(sessionId, updated);
+        sessionPersistor.updateSessionExecution(sessionId, updated);
     }
 
     private SessionExecution nextExecutionAfterStartSet(
@@ -91,7 +99,7 @@ public class SessionService {
     public void completeSet(Long sessionId) {
 
         // Get the current session, including its current execution
-        Session session = daoService.getSession(sessionId);
+        Session session = findSessionBySessionId(sessionId);
 
         SessionExecution current = session.execution();
 
@@ -100,7 +108,7 @@ public class SessionService {
                 nextExecutionAfterSet(session, current);
 
         // Persist the result
-        daoService.updateSessionExecution(sessionId, updated);
+        sessionPersistor.updateSessionExecution(sessionId, updated);
     }
 
     private SessionExecution nextExecutionAfterSet(
@@ -140,14 +148,14 @@ public class SessionService {
 
     public void completeRest(Long sessionId) {
 
-        Session session = daoService.getSession(sessionId);
+        Session session = findSessionBySessionId(sessionId);
 
         SessionExecution current = session.execution();
 
         SessionExecution updated =
                 nextExecutionAfterRest(current);
 
-        daoService.updateSessionExecution(
+        sessionPersistor.updateSessionExecution(
                 sessionId,
                 updated
         );
@@ -176,7 +184,7 @@ public class SessionService {
     @Transactional
     public void nextExercise(Long sessionId) {
 
-        Session session = daoService.getSession(sessionId);
+        Session session = findSessionBySessionId(sessionId);
 
         SessionExecution updated =
                 nextExecutionAfterExercise(
@@ -184,7 +192,7 @@ public class SessionService {
                         session.execution()
                 );
 
-        daoService.updateSessionExecution(
+        sessionPersistor.updateSessionExecution(
                 sessionId,
                 updated
         );
@@ -225,6 +233,19 @@ public class SessionService {
 
 
     public Session getSessionById(Long sessionId) {
-        return daoService.getSession(sessionId);
+        return findSessionBySessionId(sessionId);
+    }
+
+    public List<Session> history() {
+        return sessionSource.getSessions().stream()
+                .sorted(
+                        Comparator.comparing(Session::startedAt)
+                                .reversed()
+                )
+                .toList();
+    }
+
+    public Session findById(Long sessionId) {
+        return findSessionBySessionId(sessionId);
     }
 }
