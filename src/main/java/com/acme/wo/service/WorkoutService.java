@@ -1,7 +1,10 @@
 package com.acme.wo.service;
 
+import com.acme.wo.internal.workout.WorkoutPersistor;
 import com.acme.wo.model.Workout;
+import org.springframework.core.io.InputStreamSource;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -12,9 +15,13 @@ import java.util.stream.Stream;
 public class WorkoutService {
 
     private final List<WorkoutSource> sources;
+    private final YamlUploadService uploadService;
+    private final WorkoutPersistor workoutPersistor;
 
-    public WorkoutService(List<WorkoutSource> sources) {
+    public WorkoutService(List<WorkoutSource> sources, YamlUploadService uploadService, WorkoutPersistor workoutPersistor) {
         this.sources = sources;
+        this.uploadService = uploadService;
+        this.workoutPersistor = workoutPersistor;
     }
 
     public List<Workout> findAll() {
@@ -32,5 +39,10 @@ public class WorkoutService {
     public Workout findByName(String name) {
         var workouts = findAll();
         return workouts.stream().filter(w->name.equals(w.name())).findFirst().orElse(null);
+    }
+
+    public List<Workout> persist(InputStreamSource source) {
+        var workout = uploadService.importWorkout(source);
+        return workoutPersistor.persist(workout.workouts());
     }
 }

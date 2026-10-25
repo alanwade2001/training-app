@@ -25,13 +25,42 @@
 <div class="app">
 
 
-    <header class="topbar">
 
-        <h1>
-            Training
-        </h1>
+    <header class="workouts-header">
+
+        <a class="back-link"
+           th:href="@{/}">
+            &larr; Home
+        </a>
+
+        <h1>Workouts</h1>
+
+        <p>Select a workout</p>
 
     </header>
+
+    <form th:action="@{/workouts/upload}"
+          method="post"
+          enctype="multipart/form-data"
+          class="upload-form">
+
+        <label class="upload-file">
+
+            <span>Choose workout YAML</span>
+
+            <input type="file"
+                   name="file"
+                   accept=".yaml,.yml"
+                   required>
+
+        </label>
+
+        <button type="submit"
+                class="upload-button">
+            Upload workout
+        </button>
+
+    </form>
 
 
     <main class="content">
