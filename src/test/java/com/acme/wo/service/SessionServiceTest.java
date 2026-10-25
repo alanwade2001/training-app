@@ -1,6 +1,7 @@
 package com.acme.wo.service;
 
 import com.acme.wo.model.ExecutionState;
+import com.acme.wo.model.Session;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -66,109 +67,99 @@ class SessionServiceTest {
                 .isEqualTo(state);
     }
 
+    public void executeExerciseSet(Session session, int exerciseIndex, int currentSet) {
+
+        assertSessionState(session.id(), ExecutionState.READY);
+        assertSessionExecution(session.id(), exerciseIndex, currentSet, ExecutionState.READY);
+
+        sessionService.startSet(session.id());
+        assertSessionState(session.id(), ExecutionState.ACTIVE);
+        assertSessionExecution(
+                session.id(), exerciseIndex, currentSet, ExecutionState.ACTIVE);
+
+        sessionService.completeSet(session.id());
+    }
+
+    public void executeRest(Session session, int exerciseIndex, int currentSet) {
+        assertSessionState(session.id(), ExecutionState.RESTING);
+
+        assertSessionExecution(
+                session.id(), exerciseIndex, currentSet, ExecutionState.RESTING);
+
+        sessionService.completeRest(session.id());
+    }
+
 
 
     @Test
     void testHappyPath() {
 
-        var workout = workoutService.findAll().getFirst();
+        String name = "Force & Reactive - Test";
+        var workout = workoutService.findByName(name);
+
 
         var session = sessionService.createSession(workout.id());
-        assertSessionState(session.id(), ExecutionState.READY);
-        assertSessionExecution(session.id(), 0, 1, ExecutionState.READY);
-
-        // Exercise 1 - Dead Lift - Set 1
-        sessionService.startSet(session.id());
-        assertSessionState(session.id(), ExecutionState.ACTIVE);
-        assertSessionExecution(
-                session.id(), 0, 1, ExecutionState.ACTIVE);
-
-        sessionService.completeSet(session.id());
-        assertSessionState(session.id(), ExecutionState.RESTING);
-        assertSessionExecution(
-                session.id(), 0, 1, ExecutionState.RESTING);
-
-        sessionService.completeRest(session.id());
-        assertSessionState(session.id(), ExecutionState.READY);
-        assertSessionExecution(
-                session.id(), 0, 2, ExecutionState.READY);
-
-        // Exercise 1 - Dead Lift - Set 2
-        sessionService.startSet(session.id());
-        assertSessionState(session.id(), ExecutionState.ACTIVE);
-        assertSessionExecution(
-                session.id(), 0, 2, ExecutionState.ACTIVE);
-
-        sessionService.completeSet(session.id());
-        assertSessionState(session.id(), ExecutionState.EXERCISE_COMPLETE);
-        assertSessionExecution(
-                session.id(), 0, 2, ExecutionState.EXERCISE_COMPLETE);
+        //////////////////////////////////
+        // Exercise 1 - Pogos - Set 1/2
+        executeExerciseSet(session, 0, 1);
+        executeRest(session, 0, 1);
+        // Exercise 1 - Pogos - Set 2/2
+        executeExerciseSet(session, 0, 2);
+        //////////////////////
 
         sessionService.nextExercise(session.id());
-        assertSessionState(session.id(), ExecutionState.READY);
-        assertSessionExecution(
-                session.id(), 1, 1, ExecutionState.READY);
 
+        /////////////////////////////
+        // Exercise 2 - Dead Lift - Set 1/3
+        executeExerciseSet(session, 1, 1);
+        executeRest(session, 1, 1);
+        // Exercise 2 - Dead Lift - Set 2/3
+        executeExerciseSet(session, 1, 2);
+        executeRest(session, 1, 2);
+        // Exercise 2 - Dead Lift - Set 3/3
+        executeExerciseSet(session, 1, 3);
+        /// ///////////////////////////////
+        sessionService.nextExercise(session.id());
 
-        // Exercise 2 - Bulgarian Split Squat - Set 1
-        sessionService.startSet(session.id());
-        assertSessionState(session.id(), ExecutionState.ACTIVE);
-        assertSessionExecution(
-                session.id(), 1, 1, ExecutionState.ACTIVE);
-
-        sessionService.completeSet(session.id());
-        assertSessionState(session.id(), ExecutionState.RESTING);
-
-        sessionService.completeRest(session.id());
-        assertSessionState(session.id(), ExecutionState.READY);
-
-        // Exercise 2 - Set 2
-        sessionService.startSet(session.id());
-        assertSessionState(session.id(), ExecutionState.ACTIVE);
-
-        sessionService.completeSet(session.id());
-        assertSessionState(session.id(), ExecutionState.RESTING);
-
-        sessionService.completeRest(session.id());
-        assertSessionState(session.id(), ExecutionState.READY);
-
-        // Exercise 2 - Set 3
-        sessionService.startSet(session.id());
-        assertSessionState(session.id(), ExecutionState.ACTIVE);
-
-        sessionService.completeSet(session.id());
-        assertSessionState(session.id(), ExecutionState.EXERCISE_COMPLETE);
+        /// ////////////////////////////////
+        // Exercise 3 - Bulgarian Split Squat - Set 1/2
+        executeExerciseSet(session, 2, 1);
+        executeRest(session, 2, 1);
+        // Exercise 3 - Bulgarian Split Squat - Set 2/2
+        executeExerciseSet(session, 2, 2);
+        /// /////////////////////////////
 
         sessionService.nextExercise(session.id());
-        assertSessionState(session.id(), ExecutionState.READY);
 
+        // Exercise 4 - Romanian Deadlift - Set 1/2
+        executeExerciseSet(session, 3, 1);
+        executeRest(session, 3, 1);
+        // Exercise 4 - Romanian Deadlift - Set 2/2
+        executeExerciseSet(session, 3, 2);
+        /// /////////////////////////////
 
-        // Exercise 3 - Romanian Deadlift - Set 1
-        sessionService.startSet(session.id());
-        assertSessionState(session.id(), ExecutionState.ACTIVE);
+        sessionService.nextExercise(session.id());
 
-        sessionService.completeSet(session.id());
-        assertSessionState(session.id(), ExecutionState.RESTING);
+        /// /////////////////////////
+        // Exercise 5 - Standing calf raise - Set 1/2
+        executeExerciseSet(session, 4, 1);
+        executeRest(session, 4, 1);
+        // Exercise 5 - Standing calf raise - Set 2/2
+        executeExerciseSet(session, 4, 2);
+        /// /////////////////////////////
 
-        sessionService.completeRest(session.id());
-        assertSessionState(session.id(), ExecutionState.READY);
+        sessionService.nextExercise(session.id());
 
-        // Exercise 3 - Set 2
-        sessionService.startSet(session.id());
-        assertSessionState(session.id(), ExecutionState.ACTIVE);
-
-        sessionService.completeSet(session.id());
-        assertSessionState(session.id(), ExecutionState.RESTING);
-
-        sessionService.completeRest(session.id());
-        assertSessionState(session.id(), ExecutionState.READY);
-
-        // Exercise 3 - Set 3
-        sessionService.startSet(session.id());
-        assertSessionState(session.id(), ExecutionState.ACTIVE);
-
-        sessionService.completeSet(session.id());
-        assertSessionState(session.id(), ExecutionState.EXERCISE_COMPLETE);
+        /// /////////////////////////////
+        // Exercise 6 - Pallof Press - each side - Set 1/2
+        executeExerciseSet(session, 5, 1);
+        executeRest(session, 5, 1);
+        // Exercise 6 - Pallof Press - each side - Set 2/2
+        executeExerciseSet(session, 5, 2);
+        executeRest(session, 5, 2);
+        // Exercise 6 - Pallof Press - each side - Set 2/2
+        executeExerciseSet(session, 5, 3);
+        /// /////////////////////////////
 
         sessionService.nextExercise(session.id());
         assertSessionState(session.id(), ExecutionState.SESSION_COMPLETE);

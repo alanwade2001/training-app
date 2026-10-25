@@ -22,7 +22,6 @@ public class WorkoutEntity {
     private Long id;
 
     private String name;
-    private int plannedWeek;
     private DayOfWeek plannedDay;
     @OneToMany(mappedBy = "workout")
     private List<WorkoutExerciseEntity> exercises;

@@ -28,4 +28,9 @@ public class WorkoutService {
         var workouts = findAll();
         return workouts.stream().filter(w->workoutId.equals(w.id())).findFirst().orElse(null);
     }
+
+    public Workout findByName(String name) {
+        var workouts = findAll();
+        return workouts.stream().filter(w->name.equals(w.name())).findFirst().orElse(null);
+    }
 }

@@ -1,6 +1,6 @@
 workouts:
 
-  - name: Force & Reactive
+  - name: Force & Reactive - Test
     plannedDay : MONDAY
 
     exercises:
@@ -41,7 +41,7 @@ workouts:
         recoveryInSecs: 90
 
       - name: Pallof Press - each side
-        sets: 2
+        sets: 3
         reps: 10
         quantity: 0
         units: KG
