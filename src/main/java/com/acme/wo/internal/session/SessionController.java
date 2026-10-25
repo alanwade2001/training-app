@@ -24,7 +24,7 @@ public class SessionController {
 
     @PostMapping
     public String createSession(
-            @RequestParam String workoutId) {
+            @RequestParam Long workoutId) {
 
         Session session =
                 sessionService.createSession(

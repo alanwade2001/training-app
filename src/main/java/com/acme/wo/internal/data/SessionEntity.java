@@ -17,7 +17,7 @@ public class SessionEntity {
     @Id @GeneratedValue
     private Long id;
 
-    private String workoutId;
+    private Long workoutId;
     private String workoutName;
 
     @Embedded

@@ -1,9 +1,6 @@
 package com.acme.wo.service;
 
-import com.acme.wo.internal.data.DaoService;
 import com.acme.wo.model.ExecutionState;
-import com.acme.wo.internal.workout.HardcodedWorkoutService;
-import com.acme.wo.model.Session;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,8 +8,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.ImportResource;
 
 import java.util.stream.Stream;
 

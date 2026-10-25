@@ -5,15 +5,23 @@
     --muted: #667085;
     --border: #e4e7ec;
     --blue: #175cd3;
+    --blue-hover: #1849a9;
+    --blue-soft: #eff8ff;
     --green: #16a34a;
     --red: #dc2626;
     --orange: #ea580c;
     --action-height: 104px;
+    --radius: 18px;
+    --shadow: 0 1px 2px rgba(16, 24, 40, 0.05),
+              0 6px 18px rgba(16, 24, 40, 0.08);
 }
 
-* { box-sizing: border-box; }
+* {
+    box-sizing: border-box;
+}
 
-html, body {
+html,
+body {
     margin: 0;
     min-height: 100%;
 }
@@ -24,6 +32,13 @@ body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
 .app {
     width: min(100%, 480px);
     min-height: 100dvh;
@@ -31,8 +46,245 @@ body {
     background: var(--surface);
 }
 
+/* ---------- Shared selection-page layout ---------- */
+.programme-page,
+.week-page {
+    width: min(100%, 480px);
+    min-height: 100dvh;
+    margin: 0 auto;
+    padding: 24px 20px 40px;
+    background: var(--surface);
+}
+
+.programme-header,
+.week-header {
+    margin-bottom: 28px;
+}
+
+.programme-header {
+    text-align: center;
+}
+
+.programme-header h1,
+.week-header h1 {
+    margin: 0;
+    color: var(--text);
+    font-size: clamp(32px, 9vw, 44px);
+    font-weight: 850;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+}
+
+.programme-header p,
+.week-header > p:last-child {
+    margin: 10px 0 0;
+    color: var(--muted);
+    font-size: 17px;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin: -8px 0 18px;
+    color: var(--blue);
+    font-size: 16px;
+    font-weight: 750;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    color: var(--blue-hover);
+    text-decoration: underline;
+}
+
+.back-link:focus-visible,
+.week-button:focus-visible,
+.workout-button:focus-visible,
+.back-button:focus-visible {
+    outline: 3px solid #84adff;
+    outline-offset: 3px;
+}
+
+.programme-name {
+    margin: 0 0 8px;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* ---------- Programme page ---------- */
+.week-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+}
+
+.week-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 132px;
+    padding: 22px;
+    background: var(--surface);
+    color: var(--text);
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: transform 120ms ease,
+                border-color 120ms ease,
+                box-shadow 120ms ease;
+}
+
+.week-button:hover {
+    transform: translateY(-2px);
+    border-color: var(--blue);
+    box-shadow: 0 2px 4px rgba(16, 24, 40, 0.06),
+                0 10px 24px rgba(16, 24, 40, 0.12);
+}
+
+.week-button:active {
+    transform: translateY(0);
+}
+
+.week-label {
+    color: var(--muted);
+    font-size: 15px;
+    font-weight: 750;
+}
+
+.week-number {
+    margin-top: 4px;
+    color: var(--text);
+    font-size: 44px;
+    font-weight: 850;
+    line-height: 1;
+    letter-spacing: -0.04em;
+}
+
+/* ---------- Week page ---------- */
+.workout-list {
+    display: grid;
+    gap: 16px;
+}
+
+.workout-card {
+    padding: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.workout-schedule {
+    margin-bottom: 8px;
+}
+
+.workout-day {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 4px 10px;
+    background: var(--blue-soft);
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 850;
+    line-height: 1;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    border-radius: 999px;
+}
+
+.workout-name {
+    margin: 0;
+    color: var(--text);
+    font-size: 26px;
+    font-weight: 850;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+}
+
+.exercise-count {
+    margin: 8px 0 20px;
+    color: var(--muted);
+    font-size: 16px;
+}
+
+.workout-card form {
+    margin: 0;
+}
+
+.workout-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 58px;
+    padding: 0 20px;
+    background: var(--blue);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 17px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background-color 120ms ease,
+                transform 120ms ease;
+}
+
+.workout-button:hover {
+    background: var(--blue-hover);
+}
+
+.workout-button:active {
+    transform: translateY(1px);
+}
+
+.empty-message {
+    margin: 0;
+    padding: 28px 20px;
+    color: var(--muted);
+    text-align: center;
+    background: #f9fafb;
+    border: 1px dashed #98a2b3;
+    border-radius: var(--radius);
+}
+
+.week-footer {
+    margin-top: 24px;
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    padding: 0 18px;
+    color: var(--text);
+    font-size: 16px;
+    font-weight: 750;
+    text-align: center;
+    text-decoration: none;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+}
+
+.back-button:hover {
+    background: #f9fafb;
+    border-color: #98a2b3;
+}
+
 /* ---------- Session header ---------- */
-.session-topbar { justify-content: space-between; }
+.session-topbar {
+    justify-content: space-between;
+}
 
 .session-topbar h1 {
     flex: 1;
@@ -55,13 +307,15 @@ body {
     border-radius: inherit;
 }
 
-.topbar-spacer { min-width: 55px; }
+.topbar-spacer {
+    min-width: 55px;
+}
 
 .eyebrow {
+    margin-bottom: 14px;
     font-size: 32px;
     font-weight: 800;
     line-height: 1.2;
-    margin-bottom: 14px;
 }
 
 /* ---------- Session content ---------- */
@@ -71,21 +325,23 @@ body {
 }
 
 /* ---------- Exercise progress ---------- */
-.exercise-progress { margin-bottom: 24px; }
+.exercise-progress {
+    margin-bottom: 24px;
+}
 
 .exercise-progress-label {
+    margin-bottom: 12px;
     font-size: 22px;
     font-weight: 750;
     line-height: 1.2;
-    margin-bottom: 12px;
 }
 
 .progress-track {
     width: 100%;
     height: 18px;
+    overflow: hidden;
     background: #e5e7eb;
     border-radius: 9px;
-    overflow: hidden;
 }
 
 .progress-fill {
@@ -95,8 +351,13 @@ body {
 }
 
 /* ---------- Ready state ---------- */
-.ready-screen { text-align: center; }
-.ready-screen .eyebrow { margin-bottom: 14px; }
+.ready-screen {
+    text-align: center;
+}
+
+.ready-screen .eyebrow {
+    margin-bottom: 14px;
+}
 
 .exercise-name {
     margin: 0;
@@ -144,7 +405,9 @@ body {
     text-align: center;
 }
 
-.rest-screen .eyebrow { color: var(--orange); }
+.rest-screen .eyebrow {
+    color: var(--orange);
+}
 
 /* ---------- Fixed timer above bottom action ---------- */
 .session-timer {
@@ -152,18 +415,18 @@ body {
     z-index: 20;
     left: 50%;
     bottom: var(--action-height);
-    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: min(100%, 480px);
     padding: 8px 20px 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(to top, white 78%, rgba(255,255,255,0.94));
+    transform: translateX(-50%);
+    background: linear-gradient(to top, white 78%, rgba(255, 255, 255, 0.94));
     font-size: clamp(72px, 22vw, 104px);
     font-weight: 850;
+    font-variant-numeric: tabular-nums;
     line-height: 1;
     letter-spacing: -0.06em;
-    font-variant-numeric: tabular-nums;
     text-align: center;
 }
 
@@ -180,26 +443,42 @@ body {
     background: white;
 }
 
-.session-actions form { margin: 0; }
+.session-actions form {
+    margin: 0;
+}
 
 .button {
     display: block;
     width: 100%;
     min-height: 68px;
     padding: 0 20px;
+    color: white;
     border: none;
     border-radius: 14px;
-    color: white;
     font-size: 18px;
     font-weight: 800;
     cursor: pointer;
 }
 
-.button-start { background-color: var(--green); }
-.button-done { background-color: var(--red); }
-.button-done:hover { background-color: #b91c1c; }
-.button-rest { background-color: var(--orange); }
-.button-next { background-color: var(--blue); }
+.button-start {
+    background-color: var(--green);
+}
+
+.button-done {
+    background-color: var(--red);
+}
+
+.button-done:hover {
+    background-color: #b91c1c;
+}
+
+.button-rest {
+    background-color: var(--orange);
+}
+
+.button-next {
+    background-color: var(--blue);
+}
 
 .button-finished {
     display: flex;
@@ -213,10 +492,10 @@ body {
 /* ---------- Up next card ---------- */
 .next-card {
     padding: 20px;
+    background: #f9fafb;
     border: 1px solid var(--border);
     border-radius: 18px;
     text-align: left;
-    background: #f9fafb;
 }
 
 .next-card .eyebrow {
@@ -250,15 +529,15 @@ body {
 }
 
 .complete-icon {
-    width: 82px;
-    height: 82px;
-    margin: 0 auto 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
+    width: 82px;
+    height: 82px;
+    margin: 0 auto 24px;
     background-color: #ecfdf3;
     color: var(--green);
+    border-radius: 50%;
     font-size: 46px;
     font-weight: 900;
 }
@@ -281,15 +560,15 @@ body {
 }
 
 .workout-complete-icon {
-    width: 96px;
-    height: 96px;
-    margin: 0 auto 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 24px;
     background-color: #ecfdf3;
     color: var(--green);
+    border-radius: 50%;
     font-size: 54px;
     font-weight: 900;
 }
@@ -311,4 +590,150 @@ body {
 .workout-summary {
     margin-top: 24px;
     color: var(--text);
+}
+
+@media (max-width: 520px) {
+    .programme-page,
+    .week-page {
+        padding: 18px 16px 32px;
+    }
+
+    .programme-header,
+    .week-header {
+        margin-bottom: 22px;
+    }
+
+    .week-list {
+        grid-template-columns: 1fr;
+    }
+
+    .week-button {
+        min-height: 116px;
+    }
+
+    .workout-card {
+        padding: 18px;
+    }
+
+    .workout-name {
+        font-size: 24px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .week-button,
+    .workout-button {
+        transition: none;
+    }
+}
+
+/* ---------- Home page ---------- */
+
+.home-page {
+    width: min(100%, 480px);
+    min-height: 100dvh;
+    margin: 0 auto;
+    padding: 24px 20px 40px;
+
+    background: var(--surface);
+}
+
+.home-header {
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.home-header h1 {
+    margin: 0;
+
+    color: var(--text);
+
+    font-size: clamp(32px, 9vw, 44px);
+    font-weight: 850;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+}
+
+.home-header p {
+    margin: 10px 0 0;
+
+    color: var(--muted);
+
+    font-size: 17px;
+}
+
+.home-options {
+    display: grid;
+    gap: 16px;
+}
+
+.home-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    min-height: 150px;
+    padding: 24px;
+
+    background: var(--surface);
+    color: var(--text);
+
+    text-decoration: none;
+
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+
+    transition:
+        transform 120ms ease,
+        border-color 120ms ease,
+        box-shadow 120ms ease;
+}
+
+.home-card:hover {
+    transform: translateY(-2px);
+
+    border-color: var(--blue);
+
+    box-shadow:
+        0 2px 4px rgba(16, 24, 40, 0.06),
+        0 10px 24px rgba(16, 24, 40, 0.12);
+}
+
+.home-card:active {
+    transform: translateY(0);
+}
+
+.home-card:focus-visible {
+    outline: 3px solid #84adff;
+    outline-offset: 3px;
+}
+
+.home-card-title {
+    margin-bottom: 8px;
+
+    font-size: 28px;
+    font-weight: 850;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+}
+
+.home-card-description {
+    color: var(--muted);
+
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+@media (max-width: 520px) {
+
+    .home-page {
+        padding: 18px 16px 32px;
+    }
+
+    .home-card {
+        min-height: 140px;
+        padding: 20px;
+    }
 }

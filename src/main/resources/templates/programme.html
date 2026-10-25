@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title th:text="${programme.name}">Programme</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/training.css}">
+</head>
+
+<body>
+
+<main class="programme-page">
+
+    <header class="programme-header">
+        <h1 th:text="${programme.name}">
+            Strength and Conditioning
+        </h1>
+
+        <p>Select a week</p>
+    </header>
+
+    <nav class="week-list"
+         aria-label="Programme weeks">
+
+        <a class="week-button"
+           th:each="week : ${programme.weeks}"
+           th:href="@{/programme/weeks/{weekNumber}(
+                weekNumber=${week.number}
+           )}">
+
+            <span class="week-label">Week</span>
+
+            <span class="week-number"
+                  th:text="${week.number}">
+                1
+            </span>
+
+        </a>
+
+    </nav>
+
+</main>
+
+</body>
+</html>

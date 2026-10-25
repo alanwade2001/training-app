@@ -1,0 +1,124 @@
+name: programme 1
+weeks :
+  - number: 1
+    workouts:
+      - name: Force & Reactive
+        plannedDay : MONDAY
+
+        exercises:
+
+          - name: Pogos
+            sets: 2
+            reps: 20
+            quantity: 0
+            units: KG
+            recoveryInSecs: 60
+
+          - name: Deadlift - 77.0kg
+            sets: 3
+            reps: 3
+            quantity: 77
+            units: KG
+            recoveryInSecs: 180
+
+          - name: Bulgarian Split Squat 12.5 each leg
+            sets: 2
+            reps: 5
+            quantity: 10
+            units: KG
+            recoveryInSecs: 120
+
+          - name: Romanian Deadlift 57.5kg
+            sets: 2
+            reps: 5
+            quantity: 57
+            units: KG
+            recoveryInSecs: 120
+
+          - name: Standing calf raise
+            sets: 2
+            reps: 8
+            quantity: 77
+            units: KG
+            recoveryInSecs: 90
+
+          - name: Pallof Press - each side
+            sets: 2
+            reps: 10
+            quantity: 0
+            units: KG
+            recoveryInSecs: 60
+
+      - name: Robustness
+        plannedDay: WEDNESDAY
+
+        exercises:
+
+          - name: RDL Single Leg - 10kg
+            sets: 2
+            reps: 6
+            quantity: 10
+            units: KG
+            recoveryInSecs: 60
+
+          - name: Walking lunge - 20kg
+            sets: 2
+            reps: 8
+            quantity: 20
+            units: KG
+            recoveryInSecs: 60
+
+          - name: Nordic Hamstring
+            sets: 2
+            reps: 5
+            quantity: 0
+            units: KG
+            recoveryInSecs: 60
+
+          - name: CopenHagen plank - each side
+            sets: 2
+            reps: 2
+            quantity: 25
+            units: SECONDS
+            recoveryInSecs: 60
+
+          - name: Soleus raise
+            sets: 2
+            reps: 15
+            quantity: 0
+            units: KG
+            recoveryInSecs: 60
+
+      - name: Power
+        plannedDay: SATURDAY
+
+        exercises:
+
+          - name: Single Leg hops - 10m
+            sets: 4
+            reps: 2
+            quantity: 10
+            units: METERS
+            recoveryInSecs: 60
+
+          - name: Bounds - 20m
+            sets: 4
+            reps: 1
+            quantity: 20
+            units: METERS
+            recoveryInSecs: 60
+
+          - name: Jump Squat - 10kg
+            sets: 3
+            reps: 5
+            quantity: 10
+            units: KG
+            recoveryInSecs: 60
+
+          - name: Medicine ball - over,under,right,left
+            sets: 4
+            reps: 5
+            quantity: 4
+            units: KG
+            recoveryInSecs: 60
+

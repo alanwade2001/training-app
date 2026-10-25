@@ -4,7 +4,7 @@ import java.util.List;
 
 public record Session(
         Long id,
-        String workoutId,
+        Long workoutId,
         String workoutName,
         SessionExecution execution,
         List<SessionExercise> exercises) {

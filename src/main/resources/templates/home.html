@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title>Training</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/training.css}">
+</head>
+
+<body>
+
+<main class="home-page">
+
+    <header class="home-header">
+
+        <h1>Training</h1>
+
+        <p>Choose how you want to train</p>
+
+    </header>
+
+    <nav class="home-options"
+         aria-label="Training options">
+
+        <a class="home-card"
+           th:href="@{/programme}">
+
+            <span class="home-card-title">
+                Programme
+            </span>
+
+            <span class="home-card-description">
+                Select a week and follow your training programme
+            </span>
+
+        </a>
+
+        <a class="home-card"
+           th:href="@{/workouts}">
+
+            <span class="home-card-title">
+                Workouts
+            </span>
+
+            <span class="home-card-description">
+                Choose a workout directly
+            </span>
+
+        </a>
+
+    </nav>
+
+</main>
+
+</body>
+
+</html>

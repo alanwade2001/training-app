@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title th:text="|Week ${week.number} - ${programme.name}|">
+        Programme Week
+    </title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/training.css}">
+</head>
+
+<body>
+
+<main class="week-page">
+
+    <header class="week-header">
+
+        <a class="back-link"
+           th:href="@{/programme}">
+            &larr; Programme
+        </a>
+
+        <p class="programme-name"
+           th:text="${programme.name}">
+            Strength and Conditioning
+        </p>
+
+        <h1>
+            Week
+            <span th:text="${week.number}">1</span>
+        </h1>
+
+        <p>Select a workout</p>
+
+    </header>
+
+    <section class="workout-list"
+             aria-label="Workouts">
+
+        <article class="workout-card"
+                 th:each="workout, status : ${week.workouts}">
+
+            <div class="workout-schedule">
+
+                <span class="workout-day"
+                      th:text="${#strings.capitalize(
+                          #strings.toLowerCase(
+                              workout.dayOfWeek.toString()
+                          )
+                      )}">
+                    Monday
+                </span>
+
+            </div>
+
+            <h2 class="workout-name"
+                th:text="${workout.name}">
+                Force
+            </h2>
+
+            <p class="exercise-count"
+               th:if="${workout.exercises != null}"
+               th:text="|${#lists.size(workout.exercises)} exercises|">
+                5 exercises
+            </p>
+
+            <form th:action="@{/sessions}" method="post">
+
+                <input type="hidden"
+                       name="workoutId"
+                       th:value="${workout.id}">
+
+                <button type="submit"
+                        class="workout-button">
+                    Select workout
+                </button>
+
+            </form>
+
+        </article>
+
+    </section>
+
+    <p class="empty-message"
+       th:if="${#lists.isEmpty(week.workouts)}">
+        There are no workouts configured for this week.
+    </p>
+
+    <footer class="week-footer">
+
+        <a class="back-button"
+           th:href="@{/programme}">
+            Back to weeks
+        </a>
+
+    </footer>
+
+</main>
+
+</body>
+</html>

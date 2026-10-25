@@ -15,7 +15,7 @@ public class DaoService {
 
     public Session saveSession(Session session) {
         var entity = SessionEntity.builder()
-                .workoutId(session.workoutName())
+                .workoutId(session.workoutId())
                 .workoutName(session.workoutName())
                 .currentSessionExecution(SessionExecutionEntity.builder()
                         .currentSet(session.execution().currentSet())

@@ -20,7 +20,7 @@ public class SessionService {
 
     @Transactional
     public Session createSession(
-            String workoutId) {
+            Long workoutId) {
 
         Workout workout =
                 workoutService.findById(workoutId);

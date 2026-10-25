@@ -5,5 +5,7 @@ public record WorkoutExercise(
         String name,
         int sets,
         int reps,
+        int quantity,
+        ExerciseUnit exerciseUnit,
         int recoveryInSecs
 ){}
