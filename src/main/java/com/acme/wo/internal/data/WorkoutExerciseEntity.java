@@ -1,5 +1,6 @@
 package com.acme.wo.internal.data;
 
+import com.acme.wo.model.ExerciseUnit;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -24,8 +25,10 @@ public class WorkoutExerciseEntity {
     private String name;
     private int sets;
     private int reps;
+    private int quantity;
+    private ExerciseUnit units;
     private int recoveryInSecs;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private WorkoutEntity workout;
 }

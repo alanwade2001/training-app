@@ -1,0 +1,246 @@
+name: programme upload
+weeks :
+  - number: 1
+    workouts:
+      - name: Force & Reactive prog-upload
+        plannedDay : MONDAY
+
+        exercises:
+
+          - name: Pogos prog-upload
+            sets: 2
+            reps: 20
+            quantity: 0
+            units: KG
+            recoveryInSecs: 60
+
+          - name: Deadlift - 77.0kg prog-upload
+            sets: 3
+            reps: 3
+            quantity: 77
+            units: KG
+            recoveryInSecs: 180
+
+          - name: Bulgarian Split Squat 12.5 each leg prog-upload
+            sets: 2
+            reps: 5
+            quantity: 10
+            units: KG
+            recoveryInSecs: 120
+
+          - name: Romanian Deadlift 57.5kg prog-upload
+            sets: 2
+            reps: 5
+            quantity: 57
+            units: KG
+            recoveryInSecs: 120
+
+          - name: Standing calf raise prog-upload
+            sets: 2
+            reps: 8
+            quantity: 77
+            units: KG
+            recoveryInSecs: 90
+
+          - name: Pallof Press - each side prog-upload
+            sets: 2
+            reps: 10
+            quantity: 0
+            units: KG
+            recoveryInSecs: 60
+
+      - name: Robustness prog-upload
+        plannedDay: WEDNESDAY
+
+        exercises:
+
+          - name: RDL Single Leg - 10kg prog-upload
+            sets: 2
+            reps: 6
+            quantity: 10
+            units: KG
+            recoveryInSecs: 60
+
+          - name: Walking lunge - 20kg prog-upload
+            sets: 2
+            reps: 8
+            quantity: 20
+            units: KG
+            recoveryInSecs: 60
+
+          - name: Nordic Hamstring prog-upload
+            sets: 2
+            reps: 5
+            quantity: 0
+            units: KG
+            recoveryInSecs: 60
+
+          - name: CopenHagen plank - each side prog-upload
+            sets: 2
+            reps: 2
+            quantity: 25
+            units: SECONDS
+            recoveryInSecs: 60
+
+          - name: Soleus raise prog-upload
+            sets: 2
+            reps: 15
+            quantity: 0
+            units: KG
+            recoveryInSecs: 60
+
+      - name: Power prog-upload
+        plannedDay: SATURDAY
+
+        exercises:
+
+          - name: Single Leg hops - 10m prog-upload
+            sets: 4
+            reps: 2
+            quantity: 10
+            units: METERS
+            recoveryInSecs: 60
+
+          - name: Bounds - 20m prog-upload
+            sets: 4
+            reps: 1
+            quantity: 20
+            units: METERS
+            recoveryInSecs: 60
+
+          - name: Jump Squat - 10kg prog-upload
+            sets: 3
+            reps: 5
+            quantity: 10
+            units: KG
+            recoveryInSecs: 60
+
+          - name: Medicine ball - over,under,right,left prog-upload
+            sets: 4
+            reps: 5
+            quantity: 4
+            units: KG
+            recoveryInSecs: 60
+
+  - number: 2
+    workouts:
+      - name: Force & Reactive prog-upload 2
+        plannedDay : MONDAY
+
+        exercises:
+
+          - name: Pogos prog-upload 2
+            sets: 2
+            reps: 20
+            quantity: 0
+            units: KG
+            recoveryInSecs: 60
+
+          - name: Deadlift - 77.0kg prog-upload 2
+            sets: 3
+            reps: 3
+            quantity: 77
+            units: KG
+            recoveryInSecs: 180
+
+          - name: Bulgarian Split Squat 12.5 each leg prog-upload 2
+            sets: 2
+            reps: 5
+            quantity: 10
+            units: KG
+            recoveryInSecs: 120
+
+          - name: Romanian Deadlift 57.5kg prog-upload 2
+            sets: 2
+            reps: 5
+            quantity: 57
+            units: KG
+            recoveryInSecs: 120
+
+          - name: Standing calf raise prog-upload 2
+            sets: 2
+            reps: 8
+            quantity: 77
+            units: KG
+            recoveryInSecs: 90
+
+          - name: Pallof Press - each side prog-upload 2
+            sets: 2
+            reps: 10
+            quantity: 0
+            units: KG
+            recoveryInSecs: 60
+
+      - name: Robustness prog-upload 2
+        plannedDay: WEDNESDAY
+
+        exercises:
+
+          - name: RDL Single Leg - 10kg prog-upload 2
+            sets: 2
+            reps: 6
+            quantity: 10
+            units: KG
+            recoveryInSecs: 60
+
+          - name: Walking lunge - 20kg prog-upload 2
+            sets: 2
+            reps: 8
+            quantity: 20
+            units: KG
+            recoveryInSecs: 60
+
+          - name: Nordic Hamstring prog-upload 2
+            sets: 2
+            reps: 5
+            quantity: 0
+            units: KG
+            recoveryInSecs: 60
+
+          - name: CopenHagen plank - each side prog-upload 2
+            sets: 2
+            reps: 2
+            quantity: 25
+            units: SECONDS
+            recoveryInSecs: 60
+
+          - name: Soleus raise prog-upload 2
+            sets: 2
+            reps: 15
+            quantity: 0
+            units: KG
+            recoveryInSecs: 60
+
+      - name: Power prog-upload 2
+        plannedDay: SATURDAY
+
+        exercises:
+
+          - name: Single Leg hops - 10m prog-upload 2
+            sets: 4
+            reps: 2
+            quantity: 10
+            units: METERS
+            recoveryInSecs: 60
+
+          - name: Bounds - 20m prog-upload 2
+            sets: 4
+            reps: 1
+            quantity: 20
+            units: METERS
+            recoveryInSecs: 60
+
+          - name: Jump Squat - 10kg prog-upload 2
+            sets: 3
+            reps: 5
+            quantity: 10
+            units: KG
+            recoveryInSecs: 60
+
+          - name: Medicine ball - over,under,right,left prog-upload 2
+            sets: 4
+            reps: 5
+            quantity: 4
+            units: KG
+            recoveryInSecs: 60
+

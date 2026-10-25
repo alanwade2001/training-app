@@ -1,115 +1,97 @@
-<!doctype html>
-
-<html
-        lang="en-IE"
-        xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
     <meta charset="UTF-8">
 
-    <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
 
-    <title>Training</title>
+    <title>Programmes</title>
 
-    <link
-            rel="stylesheet"
-            th:href="@{/css/training.css}">
-
+    <link rel="stylesheet"
+          th:href="@{/css/training.css}">
 </head>
 
 <body>
 
-<div class="app">
+<main class="programmes-page">
 
+    <header class="programmes-header">
 
-    <header class="topbar">
+        <a class="back-link"
+           th:href="@{/}">
+            &larr; Home
+        </a>
 
-        <h1>
-            Training
-        </h1>
+        <h1>Programmes</h1>
+
+        <p>Select a training programme</p>
 
     </header>
 
+    <form th:action="@{/programmes/upload}"
+          method="post"
+          enctype="multipart/form-data"
+          class="upload-form">
 
-    <main class="content">
+        <label class="upload-file">
 
+            <span>Choose programme YAML</span>
 
-        <div class="eyebrow">
-            Programme execution
-        </div>
+            <input type="file"
+                   name="file"
+                   accept=".yaml,.yml"
+                   required>
 
+        </label>
 
-        <h1 class="page-title">
-            Ready to train?
-        </h1>
+        <button type="submit"
+                class="upload-button">
+            Upload programme
+        </button>
 
+    </form>
 
-        <p class="intro">
-            Choose today's programme and I'll guide
-            you through each exercise, set and rest.
-        </p>
+    <nav class="programme-list"
+         aria-label="Training programmes"
+         th:if="${!#lists.isEmpty(programmes)}">
 
+        <a class="programme-card"
+           th:each="programme : ${programmes}"
+           th:href="@{/programmes/{programmeId}(
+               programmeId=${programme.id}
+           )}">
 
-        <div class="programme-list">
+            <span class="programme-card-title"
+                  th:text="${programme.name}">
+                Strength and Conditioning
+            </span>
 
+            <span class="programme-card-detail"
+                  th:text="|${#lists.size(programme.weeks)} weeks|">
+                4 weeks
+            </span>
 
-            <article
-                    class="programme-card"
-                    th:each="programme : ${programmes}">
+            <span class="programme-card-action">
+                View programme
+            </span>
 
+        </a>
 
-                <h2 th:text="${programe.name}">
-                    Heavy Force
-                </h2>
+    </nav>
 
+    <section class="empty-message"
+             th:if="${#lists.isEmpty(programmes)}">
 
-                <p class="programme-meta">
+        <h2>No programmes available</h2>
 
-                    <span
-                            th:text="${programme.weeks.size()}">
-                        3
-                    </span>
+        <p>Upload a programme to begin training.</p>
 
-                    weeks
+    </section>
 
-                </p>
-
-
-                <form
-                        th:action="@{/sessions}"
-                        method="post">
-
-                    <input
-                            type="hidden"
-                            name="workoutId"
-                            th:value="${workout.id}">
-
-
-                    <button
-                            type="submit"
-                            class="button button-start">
-
-                        START WORKOUT
-
-                    </button>
-
-                </form>
-
-
-            </article>
-
-
-        </div>
-
-
-    </main>
-
-
-</div>
+</main>
 
 </body>
-
 </html>

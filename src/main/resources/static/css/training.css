@@ -737,3 +737,293 @@ textarea {
         padding: 20px;
     }
 }
+
+/* ---------- Programmes page ---------- */
+
+.programmes-page {
+    width: min(100%, 480px);
+    min-height: 100dvh;
+    margin: 0 auto;
+    padding: 24px 20px 40px;
+
+    background: var(--surface);
+}
+
+.programmes-header {
+    margin-bottom: 28px;
+}
+
+.programmes-header h1 {
+    margin: 0;
+
+    color: var(--text);
+
+    font-size: clamp(32px, 9vw, 44px);
+    font-weight: 850;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+}
+
+.programmes-header > p:last-child {
+    margin: 10px 0 0;
+
+    color: var(--muted);
+
+    font-size: 17px;
+}
+
+
+/* ---------- Programme list ---------- */
+
+.programme-list {
+    display: grid;
+    gap: 16px;
+}
+
+
+/* ---------- Programme card ---------- */
+
+.programme-card {
+    display: flex;
+    flex-direction: column;
+
+    min-height: 150px;
+    padding: 22px;
+
+    background: var(--surface);
+    color: var(--text);
+
+    text-decoration: none;
+
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+
+    transition:
+            transform 120ms ease,
+            border-color 120ms ease,
+            box-shadow 120ms ease;
+}
+
+.programme-card:hover {
+    transform: translateY(-2px);
+
+    border-color: var(--blue);
+
+    box-shadow:
+            0 2px 4px rgba(16, 24, 40, 0.06),
+            0 10px 24px rgba(16, 24, 40, 0.12);
+}
+
+.programme-card:active {
+    transform: translateY(0);
+}
+
+.programme-card:focus-visible {
+    outline: 3px solid #84adff;
+    outline-offset: 3px;
+}
+
+
+/* ---------- Programme information ---------- */
+
+.programme-card-title {
+    color: var(--text);
+
+    font-size: 25px;
+    font-weight: 850;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+}
+
+.programme-card-detail {
+    margin-top: 8px;
+
+    color: var(--muted);
+
+    font-size: 16px;
+}
+
+.programme-card-action {
+    margin-top: auto;
+    padding-top: 22px;
+
+    color: var(--blue);
+
+    font-size: 16px;
+    font-weight: 800;
+}
+
+
+/* ---------- Empty programmes ---------- */
+
+.programmes-page .empty-message {
+    padding: 28px 20px;
+
+    background: #f9fafb;
+
+    border: 1px dashed #98a2b3;
+    border-radius: var(--radius);
+
+    text-align: center;
+}
+
+.programmes-page .empty-message h2 {
+    margin: 0 0 8px;
+
+    color: var(--text);
+
+    font-size: 22px;
+}
+
+.programmes-page .empty-message p {
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 16px;
+}
+
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 520px) {
+
+    .programmes-page {
+        padding: 18px 16px 32px;
+    }
+
+    .programme-card {
+        min-height: 140px;
+        padding: 20px;
+    }
+
+    .programme-card-title {
+        font-size: 23px;
+    }
+}
+
+/* ---------- Upload form ---------- */
+
+.upload-form {
+    margin: 24px 0 28px;
+    padding: 18px;
+
+    background: #f9fafb;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.upload-file {
+    display: block;
+}
+
+.upload-file > span {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: var(--text);
+
+    font-size: 15px;
+    font-weight: 750;
+}
+
+
+/* ---------- File chooser ---------- */
+
+.upload-file input[type="file"] {
+    display: block;
+
+    width: 100%;
+
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+.upload-file input[type="file"]::file-selector-button {
+    min-height: 44px;
+
+    margin-right: 12px;
+    padding: 0 16px;
+
+    background: var(--surface);
+    color: var(--text);
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    font-weight: 750;
+
+    cursor: pointer;
+
+    transition:
+            border-color 120ms ease,
+            background-color 120ms ease;
+}
+
+.upload-file input[type="file"]::file-selector-button:hover {
+    background: var(--blue-soft);
+    border-color: var(--blue);
+}
+
+
+/* ---------- Upload button ---------- */
+
+.upload-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 52px;
+
+    margin-top: 16px;
+    padding: 0 18px;
+
+    background: var(--blue);
+    color: white;
+
+    border: none;
+    border-radius: 12px;
+
+    font-size: 16px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+            background-color 120ms ease,
+            transform 120ms ease;
+}
+
+.upload-button:hover {
+    background: var(--blue-hover);
+}
+
+.upload-button:active {
+    transform: translateY(1px);
+}
+
+.upload-button:focus-visible {
+    outline: 3px solid #84adff;
+    outline-offset: 3px;
+}
+
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 520px) {
+
+    .upload-form {
+        margin: 20px 0 24px;
+        padding: 16px;
+    }
+
+    .upload-button {
+        min-height: 56px;
+    }
+}

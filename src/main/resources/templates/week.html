@@ -23,7 +23,9 @@
     <header class="week-header">
 
         <a class="back-link"
-           th:href="@{/programme}">
+           th:href="@{/programmes/{programmeId}(
+               programmeId=${programme.id}
+           )}">
             &larr; Programme
         </a>
 
@@ -34,7 +36,9 @@
 
         <h1>
             Week
-            <span th:text="${week.number}">1</span>
+            <span th:text="${week.number}">
+                1
+            </span>
         </h1>
 
         <p>Select a workout</p>
@@ -45,7 +49,7 @@
              aria-label="Workouts">
 
         <article class="workout-card"
-                 th:each="workout, status : ${week.workouts}">
+                 th:each="workout : ${week.workouts}">
 
             <div class="workout-schedule">
 
@@ -71,7 +75,8 @@
                 5 exercises
             </p>
 
-            <form th:action="@{/sessions}" method="post">
+            <form th:action="@{/sessions}"
+                  method="post">
 
                 <input type="hidden"
                        name="workoutId"
@@ -96,7 +101,9 @@
     <footer class="week-footer">
 
         <a class="back-button"
-           th:href="@{/programme}">
+           th:href="@{/programmes/{programmeId}(
+               programmeId=${programme.id}
+           )}">
             Back to weeks
         </a>
 
