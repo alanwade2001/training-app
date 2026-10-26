@@ -18,9 +18,9 @@
 
 <body>
 
-<main class="history-detail-page">
+<main class="page history-detail-page">
 
-    <header class="history-detail-header">
+    <header class="page-header history-detail-header">
 
         <a class="back-link"
            th:href="@{/history}">
@@ -35,7 +35,8 @@
             25 October 2026
         </p>
 
-        <h1 th:text="${trainingsession.workoutName}">
+        <h1 class="page-title"
+            th:text="${trainingsession.workoutName}">
             Power
         </h1>
 
@@ -44,13 +45,13 @@
     <section class="history-detail-summary"
              aria-label="Session summary">
 
-        <div class="history-summary-item">
+        <div class="summary-item history-summary-item">
 
-            <span class="history-summary-label">
+            <span class="summary-label">
                 Started
             </span>
 
-            <span class="history-summary-value"
+            <span class="summary-value"
                   th:text="${#temporals.format(
                       trainingsession.startedAt,
                       'HH:mm'
@@ -60,13 +61,13 @@
 
         </div>
 
-        <div class="history-summary-item">
+        <div class="summary-item history-summary-item">
 
-            <span class="history-summary-label">
+            <span class="summary-label">
                 Last activity
             </span>
 
-            <span class="history-summary-value"
+            <span class="summary-value"
                   th:text="${#temporals.format(
                       trainingsession.updatedAt,
                       'HH:mm'
@@ -86,7 +87,7 @@
             Exercises
         </h2>
 
-        <article class="history-exercise-card"
+        <article class="card history-exercise-card"
                  th:each="exercise : ${trainingsession.exercises}">
 
             <div class="history-exercise-sequence"
@@ -94,47 +95,47 @@
                 Exercise 1
             </div>
 
-            <h3 class="history-exercise-name"
+            <h3 class="card-title history-exercise-name"
                 th:text="${exercise.name}">
                 Deadlift
             </h3>
 
             <div class="history-exercise-details">
 
-                <div class="history-exercise-detail">
+                <div class="summary-item history-exercise-detail">
 
-                    <span class="history-exercise-label">
+                    <span class="summary-label">
                         Sets
                     </span>
 
-                    <span class="history-exercise-value"
+                    <span class="summary-value"
                           th:text="${exercise.sets}">
                         3
                     </span>
 
                 </div>
 
-                <div class="history-exercise-detail">
+                <div class="summary-item history-exercise-detail">
 
-                    <span class="history-exercise-label">
+                    <span class="summary-label">
                         Reps
                     </span>
 
-                    <span class="history-exercise-value"
+                    <span class="summary-value"
                           th:text="${exercise.reps}">
                         5
                     </span>
 
                 </div>
 
-                <div class="history-exercise-detail"
+                <div class="summary-item history-exercise-detail"
                      th:if="${exercise.recoveryInSecs > 0}">
 
-                    <span class="history-exercise-label">
+                    <span class="summary-label">
                         Recovery
                     </span>
 
-                    <span class="history-exercise-value"
+                    <span class="summary-value"
                           th:text="|${exercise.recoveryInSecs}s|">
                         90s
                     </span>
@@ -147,7 +148,7 @@
 
     </section>
 
-    <section class="empty-message"
+    <section class="empty-state"
              th:if="${#lists.isEmpty(trainingsession.exercises)}">
 
         <h2>No exercises recorded</h2>
@@ -160,7 +161,7 @@
 
     <footer class="history-detail-footer">
 
-        <a class="back-button"
+        <a class="button button-secondary back-button"
            th:href="@{/history}">
             Back to history
         </a>

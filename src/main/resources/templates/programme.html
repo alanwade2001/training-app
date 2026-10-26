@@ -18,45 +18,73 @@
 
 <body>
 
-<main class="programme-page">
+<main class="page programme-page">
 
-    <header class="programme-header">
+    <header class="page-header programme-header">
 
         <a class="back-link"
            th:href="@{/programmes}">
             &larr; Programmes
         </a>
 
-        <h1 th:text="${programme.name}">
+        <h1 class="page-title"
+            th:text="${programme.name}">
             Strength and Conditioning
         </h1>
 
-        <p>Select a week</p>
+        <p class="page-description">
+            Programme progress
+        </p>
 
     </header>
 
     <nav class="week-list"
          aria-label="Programme weeks">
 
-        <a class="week-button"
-           th:each="week : ${programme.weeks}"
+        <a class="card week-button"
+           th:each="item : ${weeks}"
+           th:classappend="${item.done}
+               ? 'week-button-complete'
+               : ''"
            th:href="@{/programmes/{programmeId}/weeks/{weekNumber}(
                programmeId=${programme.id},
-               weekNumber=${week.number}
+               weekNumber=${item.week.number}
            )}">
+
+            <span class="week-status"
+                  th:if="${item.done}"
+                  aria-label="Week completed">
+                &#10003;
+            </span>
 
             <span class="week-label">
                 Week
             </span>
 
             <span class="week-number"
-                  th:text="${week.number}">
+                  th:text="${item.week.number}">
                 1
+            </span>
+
+            <span class="week-progress-summary"
+                  th:text="|${item.completedWorkouts} of ${item.totalWorkouts} workouts|">
+                2 of 3 workouts
             </span>
 
         </a>
 
     </nav>
+
+    <section class="empty-state"
+             th:if="${#lists.isEmpty(weeks)}">
+
+        <h2>No weeks available</h2>
+
+        <p>
+            This programme does not contain any weeks.
+        </p>
+
+    </section>
 
 </main>
 

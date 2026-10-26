@@ -2,10 +2,13 @@ package com.acme.wo.internal.programme;
 
 import com.acme.wo.model.Programme;
 import com.acme.wo.service.ProgrammeService;
+import com.acme.wo.service.SessionService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 
@@ -14,11 +17,13 @@ import java.io.IOException;
 public class ProgrammeController {
 
     private final ProgrammeService programmeService;
+    private final SessionService sessionService;
 
     public ProgrammeController(
-            ProgrammeService programmeService) {
+            ProgrammeService programmeService, SessionService sessionService) {
 
         this.programmeService = programmeService;
+        this.sessionService = sessionService;
     }
 
     @PostMapping("/upload")
@@ -48,13 +53,33 @@ public class ProgrammeController {
         var programme =
                 programmeService.findById(programmeId);
 
+        var weeks = programme.weeks().stream()
+                .map(week -> {
+
+                    long completedWorkouts =
+                            week.workouts().stream()
+                                    .filter(workout ->
+                                            sessionService.countCompletedByWorkoutId(
+                                                    workout.id()
+                                            ) > 0
+                                    )
+                                    .count();
+
+                    return new WeekProgress(
+                            week,
+                            completedWorkouts
+                    );
+                })
+                .toList();
+
         model.addAttribute("programme", programme);
+        model.addAttribute("weeks", weeks);
 
         return "programme";
     }
 
     @GetMapping("/{programmeId}/weeks/{weekNumber}")
-    public String week(
+    public String showWeek(
             @PathVariable Long programmeId,
             @PathVariable int weekNumber,
             Model model) {
@@ -64,10 +89,27 @@ public class ProgrammeController {
         var week = programme.weeks().stream()
                 .filter(w -> w.number() == weekNumber)
                 .findFirst()
-                .orElseThrow();
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Week not found: " + weekNumber
+                ));
+
+        var workouts = week.workouts().stream()
+                .map(workout -> new WorkoutProgress(
+                        workout,
+                        sessionService.countByWorkoutId(workout.id()),
+                        sessionService.countCompletedByWorkoutId(workout.id())
+                ))
+                .toList();
+
+        long completedWorkouts = workouts.stream()
+                .filter(WorkoutProgress::done)
+                .count();
 
         model.addAttribute("programme", programme);
         model.addAttribute("week", week);
+        model.addAttribute("workouts", workouts);
+        model.addAttribute("completedWorkouts", completedWorkouts);
 
         return "week";
     }

@@ -4,6 +4,7 @@ import com.acme.wo.internal.data.WorkoutEntity;
 import com.acme.wo.internal.data.WorkoutExerciseEntity;
 import com.acme.wo.internal.data.WorkoutExerciseRepository;
 import com.acme.wo.internal.data.WorkoutRepository;
+import com.acme.wo.model.ProgrammeLocation;
 import com.acme.wo.model.Workout;
 import com.acme.wo.model.WorkoutExercise;
 import com.acme.wo.service.WorkoutSource;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Transactional
 @Component
@@ -40,6 +43,17 @@ public class JpaWorkoutPersistor implements WorkoutSource, WorkoutPersistor {
                 , savedWorkoutEntity.getPlannedDay()
                 , w.exercises());
 
+    }
+
+    @Override
+    public Optional<ProgrammeLocation> findProgrammeLocation(Long workoutId) {
+        return workoutRepository.findById(workoutId)
+                .map(WorkoutEntity::getWeek)
+                .filter(Objects::nonNull)
+                .map(week -> new ProgrammeLocation(
+                        week.getProgramme().getId(),
+                        week.getNumber()
+                ));
     }
 
     @Override

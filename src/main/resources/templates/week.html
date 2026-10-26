@@ -18,9 +18,9 @@
 
 <body>
 
-<main class="week-page">
+<main class="page week-page">
 
-    <header class="week-header">
+    <header class="page-header week-header">
 
         <a class="back-link"
            th:href="@{/programmes/{programmeId}(
@@ -34,29 +34,42 @@
             Strength and Conditioning
         </p>
 
-        <h1>
+        <h1 class="page-title">
             Week
-            <span th:text="${week.number}">
-                1
-            </span>
+            <span th:text="${week.number}">1</span>
         </h1>
 
-        <p>Select a workout</p>
+        <p class="page-description week-progress">
+            <strong th:text="${completedWorkouts}">2</strong>
+            of
+            <strong th:text="${#lists.size(workouts)}">3</strong>
+            workouts done
+        </p>
 
     </header>
 
     <section class="workout-list"
-             aria-label="Workouts">
+             aria-label="Workouts"
+             th:if="${!#lists.isEmpty(workouts)}">
 
-        <article class="workout-card"
-                 th:each="workout : ${week.workouts}">
+        <article class="card workout-card"
+                 th:each="item : ${workouts}"
+                 th:classappend="${item.done}
+                     ? 'workout-card-complete'
+                     : ''">
 
             <div class="workout-schedule">
+
+                <span class="workout-complete"
+                      th:if="${item.done}"
+                      aria-label="Workout complete">
+                    &#10003;
+                </span>
 
                 <span class="workout-day"
                       th:text="${#strings.capitalize(
                           #strings.toLowerCase(
-                              workout.dayOfWeek.toString()
+                              item.workout.dayOfWeek.toString()
                           )
                       )}">
                     Monday
@@ -64,15 +77,31 @@
 
             </div>
 
-            <h2 class="workout-name"
-                th:text="${workout.name}">
-                Force
+            <h2 class="card-title workout-name"
+                th:text="${item.workout.name}">
+                Force &amp; Reactive
             </h2>
 
             <p class="exercise-count"
-               th:if="${workout.exercises != null}"
-               th:text="|${#lists.size(workout.exercises)} exercises|">
-                5 exercises
+               th:if="${item.workout.exercises != null}"
+               th:text="|${#lists.size(item.workout.exercises)} exercises|">
+                6 exercises
+            </p>
+
+            <p class="workout-session-count"
+               th:if="${item.sessionCount > 0}"
+               th:text="${item.sessionCount == 1
+                   ? '1 attempt'
+                   : item.sessionCount + ' attempts'}">
+                2 attempts
+            </p>
+
+            <p class="workout-completion-count"
+               th:if="${item.completedSessionCount > 0}"
+               th:text="${item.completedSessionCount == 1
+                   ? 'Completed once'
+                   : 'Completed ' + item.completedSessionCount + ' times'}">
+                Completed once
             </p>
 
             <form th:action="@{/sessions}"
@@ -80,11 +109,16 @@
 
                 <input type="hidden"
                        name="workoutId"
-                       th:value="${workout.id}">
+                       th:value="${item.workout.id}">
 
                 <button type="submit"
-                        class="workout-button">
-                    Select workout
+                        class="button button-primary workout-button"
+                        th:text="${item.done
+                            ? 'Start again'
+                            : item.sessionCount > 0
+                                ? 'Try again'
+                                : 'Start workout'}">
+                    Start workout
                 </button>
 
             </form>
@@ -93,14 +127,18 @@
 
     </section>
 
-    <p class="empty-message"
-       th:if="${#lists.isEmpty(week.workouts)}">
-        There are no workouts configured for this week.
-    </p>
+    <section class="empty-state"
+             th:if="${#lists.isEmpty(workouts)}">
+
+        <p>
+            There are no workouts configured for this week.
+        </p>
+
+    </section>
 
     <footer class="week-footer">
 
-        <a class="back-button"
+        <a class="button button-secondary back-button"
            th:href="@{/programmes/{programmeId}(
                programmeId=${programme.id}
            )}">

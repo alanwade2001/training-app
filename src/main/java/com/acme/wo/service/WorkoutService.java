@@ -1,15 +1,15 @@
 package com.acme.wo.service;
 
+import com.acme.wo.model.ProgrammeLocation;
 import com.acme.wo.internal.workout.WorkoutPersistor;
 import com.acme.wo.model.Workout;
 import org.springframework.core.io.InputStreamSource;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.Optional;
 
 @Service
 public class WorkoutService {
@@ -44,5 +44,11 @@ public class WorkoutService {
     public List<Workout> persist(InputStreamSource source) {
         var workout = uploadService.importWorkout(source);
         return workoutPersistor.persist(workout.workouts());
+    }
+
+    public Optional<ProgrammeLocation> findProgrammeLocation(
+            Long workoutId) {
+
+        return workoutPersistor.findProgrammeLocation(workoutId);
     }
 }

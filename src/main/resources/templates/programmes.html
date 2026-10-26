@@ -16,55 +16,67 @@
 
 <body>
 
-<main class="programmes-page">
+<main class="page programmes-page">
 
-    <header class="programmes-header">
+    <header class="page-header programmes-header">
 
         <a class="back-link"
            th:href="@{/}">
             &larr; Home
         </a>
 
-        <h1>Programmes</h1>
+        <h1 class="page-title">
+            Programmes
+        </h1>
 
-        <p>Select a training programme</p>
+        <p class="page-description">
+            Select a training programme
+        </p>
 
     </header>
 
-    <form th:action="@{/programmes/upload}"
-          method="post"
-          enctype="multipart/form-data"
-          class="upload-form">
+    <details class="upload-panel">
 
-        <label class="upload-file">
-
-            <span>Choose programme YAML</span>
-
-            <input type="file"
-                   name="file"
-                   accept=".yaml,.yml"
-                   required>
-
-        </label>
-
-        <button type="submit"
-                class="upload-button">
+        <summary class="upload-toggle">
             Upload programme
-        </button>
+        </summary>
 
-    </form>
+        <form class="upload-form"
+              th:action="@{/programmes/upload}"
+              method="post"
+              enctype="multipart/form-data">
+
+            <label class="upload-file">
+
+                <span>Programme YAML</span>
+
+                <input type="file"
+                       name="file"
+                       accept=".yaml,.yml"
+                       required>
+
+            </label>
+
+            <button class="button button-primary upload-button"
+                    type="submit">
+                Upload
+            </button>
+
+        </form>
+
+    </details>
 
     <nav class="programme-list"
          aria-label="Training programmes"
          th:if="${!#lists.isEmpty(programmes)}">
 
-        <a class="programme-card"
+        <a class="card programme-card"
            th:each="programme : ${programmes}"
            th:href="@{/programmes/{programmeId}(
                programmeId=${programme.id}
            )}">
 
-            <span class="programme-card-title"
+            <span class="card-title programme-card-title"
                   th:text="${programme.name}">
                 Strength and Conditioning
             </span>
@@ -82,7 +94,7 @@
 
     </nav>
 
-    <section class="empty-message"
+    <section class="empty-state"
              th:if="${#lists.isEmpty(programmes)}">
 
         <h2>No programmes available</h2>

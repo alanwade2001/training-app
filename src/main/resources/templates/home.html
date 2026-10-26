@@ -16,23 +16,27 @@
 
 <body>
 
-<main class="home-page">
+<main class="page home-page">
 
-    <header class="home-header">
+    <header class="page-header home-header">
 
-        <h1>Training</h1>
+        <h1 class="page-title">
+            Training
+        </h1>
 
-        <p>Choose how you want to train</p>
+        <p class="page-description">
+            Choose how you want to train
+        </p>
 
     </header>
 
     <nav class="home-options"
          aria-label="Training options">
 
-        <a class="home-card"
+        <a class="card home-card"
            th:href="@{/programmes}">
 
-            <span class="home-card-title">
+            <span class="card-title home-card-title">
                 Programmes
             </span>
 
@@ -42,10 +46,10 @@
 
         </a>
 
-        <a class="home-card"
+        <a class="card home-card"
            th:href="@{/workouts}">
 
-            <span class="home-card-title">
+            <span class="card-title home-card-title">
                 Workouts
             </span>
 
@@ -55,10 +59,10 @@
 
         </a>
 
-        <a class="home-card"
+        <a class="card home-card"
            th:href="@{/history}">
 
-            <span class="home-card-title">
+            <span class="card-title home-card-title">
                 History
             </span>
 
@@ -73,5 +77,4 @@
 </main>
 
 </body>
-
 </html>

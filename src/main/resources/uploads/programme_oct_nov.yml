@@ -1,0 +1,302 @@
+name: October-November Strength Block
+
+weeks:
+
+  - number: 4
+
+    workouts:
+
+      - name: Deload
+        plannedDay: MONDAY
+
+        exercises:
+
+          - name: Pogos
+            sets: 2
+            reps: 20
+            quantity: 0
+            units: KG
+
+          - name: Deadlift
+            sets: 3
+            reps: 3
+            quantity: 82.5
+            units: KG
+
+          - name: Bulgarian split squat
+            sets: 2
+            reps: 5
+            quantity: 0
+            units: KG
+
+          - name: Romanian deadlift
+            sets: 2
+            reps: 5
+            quantity: 0
+            units: KG
+
+          - name: Standing calf raise
+            sets: 2
+            reps: 8
+            quantity: 0
+            units: KG
+
+      - name: Deload Robustness
+        plannedDay: WEDNESDAY
+
+        exercises:
+
+          - name: Single-leg Romanian deadlift
+            sets: 2
+            reps: 6
+            quantity: 0
+            units: KG
+
+          - name: Walking lunge
+            sets: 2
+            reps: 8
+            quantity: 0
+            units: KG
+
+          - name: Nordic hamstring
+            sets: 2
+            reps: 5
+            quantity: 0
+            units: KG
+
+          - name: Copenhagen plank
+            sets: 2
+            reps: 25
+            quantity: 25
+            units: SECONDS
+
+          - name: Soleus raise
+            sets: 2
+            reps: 15
+            quantity: 0
+            units: KG
+
+      - name: Deload Power
+        plannedDay: SATURDAY
+
+        exercises:
+
+          - name: Single-leg hops
+            sets: 2
+            reps: 10
+            quantity: 0
+            units: KG
+
+          - name: Bounds
+            sets: 2
+            reps: 20
+            quantity: 0
+            units: KG
+
+          - name: Jump squat
+            sets: 3
+            reps: 5
+            quantity: 0
+            units: KG
+
+
+  - number: 5
+
+    workouts:
+
+      - name: Force + Reactive
+        plannedDay: MONDAY
+
+        exercises:
+
+          - name: Pogos
+            sets: 3
+            reps: 20
+            quantity: 0
+            units: KG
+
+          - name: Deadlift
+            sets: 5
+            reps: 3
+            quantity: 90
+            units: KG
+
+          - name: Bulgarian split squat
+            sets: 3
+            reps: 5
+            quantity: 15
+            units: KG
+
+          - name: Romanian deadlift
+            sets: 3
+            reps: 5
+            quantity: 60
+            units: KG
+
+          - name: Standing calf raise
+            sets: 3
+            reps: 8
+            quantity: 90
+            units: KG
+
+      - name: Robustness
+        plannedDay: WEDNESDAY
+
+        exercises:
+
+          - name: Single-leg Romanian deadlift
+            sets: 3
+            reps: 6
+            quantity: 0
+            units: KG
+
+          - name: Walking lunge
+            sets: 3
+            reps: 8
+            quantity: 0
+            units: KG
+
+          - name: Nordic hamstring
+            sets: 3
+            reps: 6
+            quantity: 0
+            units: KG
+
+          - name: Copenhagen plank
+            sets: 3
+            reps: 35
+            quantity: 35
+            units: SECONDS
+
+          - name: Soleus raise
+            sets: 3
+            reps: 15
+            quantity: 0
+            units: KG
+
+      - name: Power
+        plannedDay: SATURDAY
+
+        exercises:
+
+          - name: Single-leg hops
+            sets: 4
+            reps: 10
+            quantity: 0
+            units: KG
+
+          - name: Bounds
+            sets: 4
+            reps: 20
+            quantity: 0
+            units: KG
+
+          - name: Alternate bounds
+            sets: 3
+            reps: 20
+            quantity: 0
+            units: KG
+
+          - name: Jump squat
+            sets: 4
+            reps: 5
+            quantity: 0
+            units: KG
+
+
+  - number: 6
+
+    workouts:
+
+      - name: Performance
+        plannedDay: MONDAY
+
+        exercises:
+
+          - name: Pogos
+            sets: 3
+            reps: 20
+            quantity: 0
+            units: KG
+
+          - name: Deadlift
+            sets: 3
+            reps: 3
+            quantity: 90
+            units: KG
+
+          - name: Bulgarian split squat
+            sets: 2
+            reps: 5
+            quantity: 0
+            units: KG
+
+          - name: Romanian deadlift
+            sets: 2
+            reps: 5
+            quantity: 0
+            units: KG
+
+      - name: Robustness Maintenance
+        plannedDay: WEDNESDAY
+
+        exercises:
+
+          - name: Single-leg Romanian deadlift
+            sets: 2
+            reps: 6
+            quantity: 0
+            units: KG
+
+          - name: Walking lunge
+            sets: 2
+            reps: 8
+            quantity: 0
+            units: KG
+
+          - name: Nordic hamstring
+            sets: 2
+            reps: 5
+            quantity: 0
+            units: KG
+
+          - name: Copenhagen plank
+            sets: 2
+            reps: 30
+            quantity: 30
+            units: SECONDS
+
+          - name: Soleus raise
+            sets: 2
+            reps: 15
+            quantity: 0
+            units: KG
+
+      - name: Elasticity Assessment
+        plannedDay: SATURDAY
+
+        exercises:
+
+          - name: Single-leg hops
+            sets: 3
+            reps: 10
+            quantity: 0
+            units: KG
+
+          - name: Bounds
+            sets: 3
+            reps: 20
+            quantity: 0
+            units: KG
+
+          - name: Alternate bounds
+            sets: 3
+            reps: 20
+            quantity: 0
+            units: KG
+
+          - name: Broad jump
+            sets: 5
+            reps: 3
+            quantity: 0
+            units: KG

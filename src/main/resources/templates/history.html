@@ -16,18 +16,22 @@
 
 <body>
 
-<main class="history-page">
+<main class="page history-page">
 
-    <header class="history-header">
+    <header class="page-header history-header">
 
         <a class="back-link"
            th:href="@{/}">
             &larr; Home
         </a>
 
-        <h1>History</h1>
+        <h1 class="page-title">
+            History
+        </h1>
 
-        <p>Your previous training sessions</p>
+        <p class="page-description">
+            Your previous training sessions
+        </p>
 
     </header>
 
@@ -35,7 +39,7 @@
              aria-label="Training history"
              th:if="${!#lists.isEmpty(sessions)}">
 
-        <article class="history-card"
+        <article class="card history-card"
                  th:each="s : ${sessions}">
 
             <div class="history-card-date">
@@ -50,34 +54,40 @@
 
             </div>
 
-            <h2 class="history-card-title"
+            <h2 class="card-title history-card-title"
                 th:text="${s.workoutName}">
                 Force and Reactive
             </h2>
 
             <dl class="history-card-details">
 
-                <div class="history-card-detail">
+                <div class="summary-item history-card-detail">
 
-                    <dt>Started</dt>
+                    <dt class="summary-label">
+                        Started
+                    </dt>
 
-                    <dd th:text="${#temporals.format(
-                        s.startedAt,
-                        'HH:mm'
-                    )}">
+                    <dd class="summary-value"
+                        th:text="${#temporals.format(
+                            s.startedAt,
+                            'HH:mm'
+                        )}">
                         18:05
                     </dd>
 
                 </div>
 
-                <div class="history-card-detail">
+                <div class="summary-item history-card-detail">
 
-                    <dt>Last activity</dt>
+                    <dt class="summary-label">
+                        Last activity
+                    </dt>
 
-                    <dd th:text="${#temporals.format(
-                        s.updatedAt,
-                        'HH:mm'
-                    )}">
+                    <dd class="summary-value"
+                        th:text="${#temporals.format(
+                            s.updatedAt,
+                            'HH:mm'
+                        )}">
                         18:47
                     </dd>
 
@@ -85,7 +95,7 @@
 
             </dl>
 
-            <a class="history-card-action"
+            <a class="button button-primary history-card-action"
                th:href="@{/history/{sessionId}(
                    sessionId=${s.id}
                )}">
@@ -96,7 +106,7 @@
 
     </section>
 
-    <section class="empty-message"
+    <section class="empty-state"
              th:if="${#lists.isEmpty(sessions)}">
 
         <h2>No training history yet</h2>

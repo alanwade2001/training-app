@@ -1,144 +1,120 @@
 <!doctype html>
-
-<html
-        lang="en-IE"
-        xmlns:th="http://www.thymeleaf.org">
+<html lang="en-IE"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
     <meta charset="UTF-8">
 
-    <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
 
-    <title>Training</title>
+    <title>Workouts</title>
 
-    <link
-            rel="stylesheet"
-            th:href="@{/css/training.css}">
-
+    <link rel="stylesheet"
+          th:href="@{/css/training.css}">
 </head>
 
 <body>
 
-<div class="app">
+<main class="page workouts-page">
 
-
-
-    <header class="workouts-header">
+    <header class="page-header workouts-header">
 
         <a class="back-link"
            th:href="@{/}">
             &larr; Home
         </a>
 
-        <h1>Workouts</h1>
+        <h1 class="page-title">
+            Workouts
+        </h1>
 
-        <p>Select a workout</p>
+        <p class="page-description">
+            Select a workout
+        </p>
 
     </header>
 
-    <form th:action="@{/workouts/upload}"
-          method="post"
-          enctype="multipart/form-data"
-          class="upload-form">
+    <details class="upload-panel">
 
-        <label class="upload-file">
-
-            <span>Choose workout YAML</span>
-
-            <input type="file"
-                   name="file"
-                   accept=".yaml,.yml"
-                   required>
-
-        </label>
-
-        <button type="submit"
-                class="upload-button">
+        <summary class="upload-toggle">
             Upload workout
-        </button>
+        </summary>
 
-    </form>
+        <form class="upload-form"
+              th:action="@{/workouts/upload}"
+              method="post"
+              enctype="multipart/form-data">
 
+            <label class="upload-file">
 
-    <main class="content">
+                <span>Workout YAML</span>
 
+                <input type="file"
+                       name="file"
+                       accept=".yaml,.yml"
+                       required>
 
-        <div class="eyebrow">
-            Workout execution
-        </div>
+            </label>
 
+            <button type="submit"
+                    class="button button-primary upload-button">
+                Upload
+            </button>
 
-        <h1 class="page-title">
-            Ready to train?
-        </h1>
+        </form>
 
+    </details>
 
-        <p class="intro">
-            Choose today's workout and I'll guide
-            you through each exercise, set and rest.
+    <section class="workout-list"
+             aria-label="Available workouts"
+             th:if="${!#lists.isEmpty(workouts)}">
+
+        <article class="card workout-card"
+                 th:each="workout : ${workouts}">
+
+            <h2 class="card-title workout-name"
+                th:text="${workout.name}">
+                Heavy Force
+            </h2>
+
+            <p class="workout-meta">
+                <span th:text="${#lists.size(workout.exercises)}">
+                    3
+                </span>
+                exercises
+            </p>
+
+            <form th:action="@{/sessions}"
+                  method="post">
+
+                <input type="hidden"
+                       name="workoutId"
+                       th:value="${workout.id}">
+
+                <button type="submit"
+                        class="button button-primary workout-button">
+                    Start workout
+                </button>
+
+            </form>
+
+        </article>
+
+    </section>
+
+    <section class="empty-state"
+             th:if="${#lists.isEmpty(workouts)}">
+
+        <h2>No workouts available</h2>
+
+        <p>
+            Upload a workout to begin training.
         </p>
 
+    </section>
 
-        <div class="workout-list">
-
-
-            <article
-                    class="workout-card"
-                    th:each="workout : ${workouts}">
-
-
-                <h2 th:text="${workout.name}">
-                    Heavy Force
-                </h2>
-
-
-                <p class="workout-meta">
-
-                    <span
-                            th:text="${workout.exercises.size()}">
-                        3
-                    </span>
-
-                    exercises
-
-                </p>
-
-
-                <form
-                        th:action="@{/sessions}"
-                        method="post">
-
-                    <input
-                            type="hidden"
-                            name="workoutId"
-                            th:value="${workout.id}">
-
-
-                    <button
-                            type="submit"
-                            class="button button-start">
-
-                        START WORKOUT
-
-                    </button>
-
-                </form>
-
-
-            </article>
-
-
-        </div>
-
-
-    </main>
-
-
-</div>
+</main>
 
 </body>
-
 </html>

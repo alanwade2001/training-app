@@ -61,6 +61,11 @@ public class SessionJpaPersistor implements SessionPersistor, SessionSource {
     }
 
     @Override
+    public List<Session> findSessionByWorkoutId(Long workoutId) {
+        return sessionRepos.findByWorkoutId(workoutId).stream().map(SessionMapper::fromEntity).toList();
+    }
+
+    @Override
     public List<Session> getSessions() {
         return sessionRepos.findAll().stream().map(SessionMapper::fromEntity).toList();
     }

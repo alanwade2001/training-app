@@ -1,168 +1,135 @@
 <!doctype html>
-
-<html
-        lang="en-IE"
-        xmlns:th="http://www.thymeleaf.org">
+<html lang="en-IE"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
     <meta charset="UTF-8">
 
-    <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
 
     <title>Training Session</title>
 
-    <link
-            rel="stylesheet"
-            th:href="@{/css/training.css}">
-
+    <link rel="stylesheet"
+          th:href="@{/css/training.css}">
 </head>
-<body>
 
+<body>
 
 <div class="app">
 
     <header class="topbar session-topbar">
 
-        <a
-                class="exit-button"
-                th:if="${execution.state.name() != 'SESSION_COMPLETE'}"
-                th:href="@{/workouts}">
-
+        <a class="exit-button"
+           th:if="${execution.state.name() != 'SESSION_COMPLETE'}"
+           th:href="@{/sessions/{sessionId}/exit(
+               sessionId=${sessionId}
+           )}">
             ‹ Exit
-
         </a>
 
-        <span
-                class="topbar-spacer"
-                th:if="${execution.state.name() == 'SESSION_COMPLETE'}">
+        <span class="topbar-spacer"
+              th:if="${execution.state.name() == 'SESSION_COMPLETE'}">
         </span>
-
 
         <h1 th:text="${session.workoutName}">
             Heavy Force
         </h1>
 
-
         <span class="topbar-spacer"></span>
 
     </header>
 
-
     <main class="content session-content">
-        <div
-                class="exercise-progress"
-                th:if="${execution.state.name() != 'SESSION_COMPLETE'}">
 
+        <div class="exercise-progress"
+             th:if="${execution.state.name() != 'SESSION_COMPLETE'}">
 
             <div class="exercise-progress-label">
 
                 Exercise
 
                 <span th:text="${exerciseNumber}">
-            1
-        </span>
+                    1
+                </span>
 
                 of
 
                 <span th:text="${exerciseCount}">
-            3
-        </span>
+                    3
+                </span>
 
             </div>
 
-
             <div class="progress-track">
 
-                <div
-                        class="progress-fill"
-                        th:style="'width: ' + (${exerciseNumber} * 100 / ${exerciseCount}) + '%'">
+                <div class="progress-fill"
+                     th:style="'width: ' + (${exerciseNumber} * 100 / ${exerciseCount}) + '%'">
                 </div>
 
             </div>
 
         </div>
 
+        <!-- READY -->
 
-
-
-        <section
-                class="ready-screen"
-                th:if="${execution.state.name() == 'READY'}">
-
+        <section class="ready-screen"
+                 th:if="${execution.state.name() == 'READY'}">
 
             <div class="eyebrow">
                 Ready
             </div>
 
-
-            <h2
-                    class="exercise-name"
-                    th:text="${exercise.name}">
-
+            <h2 class="exercise-name"
+                th:text="${exercise.name}">
                 Dead Lift
-
             </h2>
-
 
             <div class="set-number">
 
                 Set
 
                 <span th:text="${execution.currentSet}">
-            1
-        </span>
+                    1
+                </span>
 
                 of
 
                 <span th:text="${exercise.sets}">
-            5
-        </span>
+                    5
+                </span>
 
             </div>
 
-
-            <div
-                    class="exercise-target"
-                    th:text="${exercise.reps + ' reps'}">
-
+            <div class="exercise-target"
+                 th:text="${exercise.reps + ' reps'}">
                 3 reps
-
             </div>
-
 
             <div class="recovery">
 
-        <span th:text="${exercise.recoveryInSecs}">
-            120
-        </span>
+                <span th:text="${exercise.recoveryInSecs}">
+                    120
+                </span>
 
                 sec recovery
 
             </div>
 
-
         </section>
-
 
         <!-- ACTIVE -->
 
-        <section
-                class="active-screen"
-                th:if="${execution.state.name() == 'ACTIVE'}">
+        <section class="active-screen"
+                 th:if="${execution.state.name() == 'ACTIVE'}">
 
             <div class="eyebrow">
                 Set in progress
             </div>
 
-            <h2
-                    class="exercise-name"
-                    th:text="${exercise.name}">
-
+            <h2 class="exercise-name"
+                th:text="${exercise.name}">
                 Dead Lift
-
             </h2>
 
             <div class="set-number">
@@ -170,33 +137,28 @@
                 Set
 
                 <span th:text="${execution.currentSet}">
-            1
-        </span>
+                    1
+                </span>
 
                 of
 
                 <span th:text="${exercise.sets}">
-            5
-        </span>
+                    5
+                </span>
 
             </div>
 
-            <div
-                    class="exercise-target"
-                    th:text="${exercise.reps + ' reps'}">
-
+            <div class="exercise-target"
+                 th:text="${exercise.reps + ' reps'}">
                 3 reps
-
             </div>
 
         </section>
 
         <!-- RESTING -->
 
-        <section
-                class="rest-screen"
-                th:if="${execution.state.name() == 'RESTING'}">
-
+        <section class="rest-screen"
+                 th:if="${execution.state.name() == 'RESTING'}">
 
             <div class="eyebrow">
                 Rest
@@ -204,133 +166,103 @@
 
             <div class="next-card">
 
-
                 <div class="eyebrow">
                     Up next
                 </div>
 
-
-                <h2
-                        class="next-exercise-name"
-                        th:text="${exercise.name}">
-
+                <h2 class="next-exercise-name"
+                    th:text="${exercise.name}">
                     Dead Lift
-
                 </h2>
-
 
                 <p class="next-set">
 
                     Set
 
                     <span th:text="${execution.currentSet + 1}">
-                2
-            </span>
+                        2
+                    </span>
 
                     of
 
                     <span th:text="${exercise.sets}">
-                5
-            </span>
+                        5
+                    </span>
 
                 </p>
 
-
-                <p
-                        class="next-target"
-                        th:text="${exercise.reps + ' reps'}">
-
+                <p class="next-target"
+                   th:text="${exercise.reps + ' reps'}">
                     3 reps
-
                 </p>
-
 
             </div>
-
 
         </section>
 
         <!-- EXERCISE COMPLETE -->
 
-        <section
-                class="exercise-complete-screen"
-                th:if="${execution.state.name() == 'EXERCISE_COMPLETE'}">
-
+        <section class="exercise-complete-screen"
+                 th:if="${execution.state.name() == 'EXERCISE_COMPLETE'}">
 
             <div class="complete-icon">
                 ✓
             </div>
 
-
             <div class="eyebrow">
                 Exercise complete
             </div>
 
-
-            <h2
-                    class="exercise-name"
-                    th:text="${exercise.name}">
-
+            <h2 class="exercise-name"
+                th:text="${exercise.name}">
                 Dead Lift
-
             </h2>
-
 
             <div class="exercise-summary">
 
-        <span th:text="${exercise.sets}">
-            5
-        </span>
+                <span th:text="${exercise.sets}">
+                    5
+                </span>
 
                 sets ×
 
                 <span th:text="${exercise.reps}">
-            3
-        </span>
+                    3
+                </span>
 
                 reps
 
             </div>
 
-
         </section>
 
         <!-- SESSION COMPLETE -->
 
-        <section
-                class="workout-complete-screen"
-                th:if="${execution.state.name() == 'SESSION_COMPLETE'}">
-
+        <section class="workout-complete-screen"
+                 th:if="${execution.state.name() == 'SESSION_COMPLETE'}">
 
             <div class="workout-complete-icon">
                 ✓
             </div>
 
-
             <div class="eyebrow">
                 Workout complete
             </div>
 
-
-            <h2
-                    class="workout-complete-name"
-                    th:text="${session.workoutName}">
-
+            <h2 class="workout-complete-name"
+                th:text="${session.workoutName}">
                 Heavy Force
-
             </h2>
-
 
             <div class="workout-summary">
 
-        <span th:text="${exerciseCount}">
-            3
-        </span>
+                <span th:text="${exerciseCount}">
+                    3
+                </span>
 
                 exercises completed
 
             </div>
-
 
         </section>
 
@@ -344,112 +276,100 @@
          th:data-started-at="${execution.stateStartedAt}"
          th:data-recovery-seconds="${exercise.recoveryInSecs}">
 
-        <span id="timer-display">00:00</span>
+        <span id="timer-display">
+            00:00
+        </span>
+
     </div>
 
-    <div
-            class="session-actions"
-            th:if="${execution.state.name() == 'READY'}">
+    <div class="session-actions"
+         th:if="${execution.state.name() == 'READY'}">
 
+        <form th:action="@{/sessions/{sessionId}/sets/start(
+                  sessionId=${sessionId}
+              )}"
+              method="post">
 
-        <form
-                th:action="@{/sessions/{sessionId}/sets/start(sessionId=${sessionId})}"
-                method="post">
-
-
-            <button
-                    type="submit"
+            <button type="submit"
                     class="button button-start">
-
                 START
-
             </button>
-
 
         </form>
 
-
     </div>
 
-    <div
-            class="session-actions"
-            th:if="${execution.state.name() == 'ACTIVE'}">
+    <div class="session-actions"
+         th:if="${execution.state.name() == 'ACTIVE'}">
 
-        <form
-                th:action="@{/sessions/{sessionId}/sets/complete(sessionId=${sessionId})}"
-                method="post">
+        <form th:action="@{/sessions/{sessionId}/sets/complete(
+                  sessionId=${sessionId}
+              )}"
+              method="post">
 
-            <button
-                    type="submit"
+            <button type="submit"
                     class="button button-done">
-
                 DONE
-
             </button>
 
         </form>
 
     </div>
-    <div
-            class="session-actions"
-            th:if="${execution.state.name() == 'RESTING'}">
 
+    <div class="session-actions"
+         th:if="${execution.state.name() == 'RESTING'}">
 
-        <form
-                th:action="@{/sessions/{sessionId}/rest/complete(sessionId=${sessionId})}"
-                method="post">
+        <form th:action="@{/sessions/{sessionId}/rest/complete(
+                  sessionId=${sessionId}
+              )}"
+              method="post">
 
-
-            <button
-                    type="submit"
+            <button type="submit"
                     class="button button-rest">
-
                 START NOW
-
             </button>
 
-
         </form>
+
     </div>
-    <div
-            class="session-actions"
-            th:if="${execution.state.name() == 'EXERCISE_COMPLETE'}">
 
+    <div class="session-actions"
+         th:if="${execution.state.name() == 'EXERCISE_COMPLETE'}">
 
-        <form
-                th:action="@{/sessions/{sessionId}/exercises/next(sessionId=${sessionId})}"
-                method="post">
+        <form th:action="@{/sessions/{sessionId}/exercises/next(
+                  sessionId=${sessionId}
+              )}"
+              method="post">
 
-
-            <button
-                    type="submit"
+            <button type="submit"
                     class="button button-next">
-
                 NEXT EXERCISE
-
             </button>
-
 
         </form>
 
+    </div>
+
+    <div class="session-actions"
+         th:if="${execution.state.name() == 'SESSION_COMPLETE'}">
+
+        <form th:action="@{/sessions/{sessionId}/complete(
+                  sessionId=${sessionId}
+              )}"
+              method="post">
+
+            <button type="submit"
+                    class="button button-finished">
+                DONE
+            </button>
+
+        </form>
 
     </div>
 
-    <div
-            class="session-actions"
-            th:if="${execution.state.name() == 'SESSION_COMPLETE'}">
-
-        <a
-                th:href="@{/workouts}"
-                class="button button-finished">
-
-            DONE
-
-        </a>
-
-    </div>
 </div>
-<script th:src="@{/js/session.js}"></script>
-</body>
 
+<script th:src="@{/js/session.js}"></script>
+
+</body>
 </html>

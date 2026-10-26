@@ -1,6 +1,7 @@
 package com.acme.wo.service;
 
 import com.acme.wo.internal.session.SessionJpaPersistor;
+import com.acme.wo.internal.session.SessionPersistor;
 import com.acme.wo.model.*;
 import jakarta.transaction.Transactional;
 import lombok.Data;
@@ -14,7 +15,7 @@ import java.util.List;
 @Service
 public class SessionService {
 
-    private final SessionJpaPersistor sessionPersistor;
+    private final SessionPersistor sessionPersistor;
 
     private final SessionSource sessionSource;
 
@@ -247,5 +248,16 @@ public class SessionService {
 
     public Session findById(Long sessionId) {
         return findSessionBySessionId(sessionId);
+    }
+
+    public long countByWorkoutId(Long workoutId) {
+        return sessionPersistor.findSessionByWorkoutId(workoutId).size();
+    }
+
+    public long countCompletedByWorkoutId(Long workoutId) {
+        return sessionPersistor.findSessionByWorkoutId(workoutId)
+                .stream()
+                .filter(s->s.execution().state().isComplete())
+                .count();
     }
 }
