@@ -1,10 +1,7 @@
 package com.acme.wo.model.upload;
 
 import com.acme.wo.model.ExerciseUnit;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.*;
 
 public record WorkoutExerciseUpload(
         @NotBlank String name,
@@ -12,6 +9,6 @@ public record WorkoutExerciseUpload(
         @Positive int reps,
         @PositiveOrZero int quantity,
         @NotNull ExerciseUnit units,
-        @PositiveOrZero int recoveryInSecs
+        @PositiveOrZero @Min(15) int recoveryInSecs
 ) {
 }

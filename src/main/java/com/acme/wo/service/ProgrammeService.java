@@ -41,4 +41,8 @@ public class ProgrammeService {
         var programme = uploadService.importProgramme(source);
         return programmePersistor.persist(programme);
     }
+
+    public void deleteProgramme(Long programmeId) {
+        programmePersistor.deleteById(programmeId);
+    }
 }

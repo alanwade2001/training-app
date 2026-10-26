@@ -35,11 +35,34 @@
 
     </header>
 
-    <details class="upload-panel">
+    <details class="upload-panel"
+             th:attr="open=${uploadErrors != null || uploadError != null} ? 'open' : null">
 
         <summary class="upload-toggle">
             Upload workout
         </summary>
+
+        <div class="upload-errors"
+             th:if="${uploadErrors != null || uploadError != null}"
+             role="alert">
+
+            <strong>Workout could not be uploaded</strong>
+
+            <p th:if="${uploadError != null}"
+               th:text="${uploadError}">
+                The file could not be uploaded.
+            </p>
+
+            <ul th:if="${uploadErrors != null}">
+
+                <li th:each="error : ${uploadErrors}"
+                    th:text="${error.message}">
+                    Recovery must be greater than or equal to 15.
+                </li>
+
+            </ul>
+
+        </div>
 
         <form class="upload-form"
               th:action="@{/workouts/upload}"

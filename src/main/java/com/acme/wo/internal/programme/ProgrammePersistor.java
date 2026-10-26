@@ -9,4 +9,6 @@ public interface ProgrammePersistor {
     List<Programme> persist(List<Programme> programmes);
 
     Programme persist(Programme p);
+
+    void deleteById(Long programmeId);
 }

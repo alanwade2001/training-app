@@ -49,7 +49,7 @@ public class YamlUploadService {
         WorkoutDefinitionsUpload upload =
                 parseWorkout(stream);
 
-        validateWorkout(upload);
+        validate(upload);
 
         return maptoWorkoutDefinitions(upload);
     }
@@ -79,28 +79,25 @@ public class YamlUploadService {
         }
     }
 
-    private void validateWorkout(WorkoutDefinitionsUpload upload) {
-
-        Set<ConstraintViolation<WorkoutDefinitionsUpload>> violations =
-                validator.validate(upload);
-
-        if (violations.isEmpty()) {
-            return;
-        }
-
-        List<String> errors = violations.stream()
-                .map(violation ->
-                        violation.getPropertyPath()
-                                + " "
-                                + violation.getMessage()
-                )
-                .sorted()
-                .toList();
-
-        throw new WorkoutUploadException(
-                String.format("The workout is invalid: %s", errors)
-        );
-    }
+//    private void validateWorkout(WorkoutDefinitionsUpload upload) {
+//
+//        var violations = validator.validate(upload);
+//
+//        if (violations.isEmpty()) {
+//            return;
+//        }
+//
+//        List<ValidationError> errors = violations.stream()
+//                .map(violation ->
+//                        new ValidationError(violation.getPropertyPath().toString(), violation.getMessage())
+//                )
+//                .sorted()
+//                .toList();
+//
+//        throw new UploadValidationException(
+//                errors
+//        );
+//    }
 
     private WorkoutDefinitions maptoWorkoutDefinitions(WorkoutDefinitionsUpload upload) {
         var definitions = IntStream.range(0, upload.workouts().size())
@@ -147,7 +144,7 @@ public class YamlUploadService {
 
 
     public Programme importProgramme(
-            InputStreamSource source) {
+            InputStreamSource source)  {
         try (var stream = source.getInputStream()){
             return importProgramme(stream);
         } catch (IOException e) {
@@ -194,24 +191,20 @@ public class YamlUploadService {
 
     private void validate(Object upload) {
 
-        var violations =
-                validator.validate(upload);
+        var violations = validator.validate(upload);
 
         if (violations.isEmpty()) {
             return;
         }
 
-        List<String> errors = violations.stream()
+        List<ValidationError> errors = violations.stream()
                 .map(violation ->
-                        violation.getPropertyPath()
-                                + " "
-                                + violation.getMessage()
+                        new ValidationError(violation.getPropertyPath().toString(), violation.getMessage())
                 )
-                .sorted()
                 .toList();
 
-        throw new WorkoutUploadException(
-                String.format("The workout is invalid: %s", errors)
+        throw new UploadValidationException(
+                errors
         );
     }
 

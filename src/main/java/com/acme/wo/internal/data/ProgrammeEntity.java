@@ -20,6 +20,6 @@ public class ProgrammeEntity {
     private Long id;
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "programme")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "programme", orphanRemoval = true)
     private List<WeekEntity> weeks;
 }

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${workout.name}">Workout</title>
+
+    <link rel="stylesheet" th:href="@{/css/training.css}">
+</head>
+
+<body>
+
+<main class="page">
+
+    <header class="page-header">
+        <div>
+            <a class="back-link"
+               th:href="@{/programmes/{programmeId}/weeks/{weekNumber}(
+                    programmeId=${programmeId},
+                    weekNumber=${weekNumber}
+               )}">
+                ‹ Week
+            </a>
+
+            <h1 th:text="${workout.name}">Workout</h1>
+        </div>
+    </header>
+
+
+    <section class="workout-preview">
+
+        <div class="workout-preview-header">
+            <h2>Exercises</h2>
+
+            <span class="workout-exercise-count"
+                  th:text="${#lists.size(workout.exercises)} + ' exercises'">
+                0 exercises
+            </span>
+        </div>
+
+
+        <div class="exercise-list">
+
+            <article class="exercise-card"
+                     th:each="exercise, status : ${workout.exercises}">
+
+                <div class="exercise-number"
+                     th:text="${status.count}">
+                    1
+                </div>
+
+                <div class="exercise-content">
+
+                    <h3 th:text="${exercise.name}">
+                        Exercise
+                    </h3>
+
+                    <div class="exercise-details">
+
+                        <span th:if="${exercise.sets != null}">
+                            <strong th:text="${exercise.sets}">3</strong> sets
+                        </span>
+
+                        <span th:if="${exercise.reps != null}">
+                            <strong th:text="${exercise.reps}">10</strong> reps
+                        </span>
+
+                        <span th:if="${exercise.quantity != null}">
+                            <strong th:text="${exercise.quantity}">60</strong>
+                            <span th:text="${exercise.units}">KG</span>
+                        </span>
+
+                        <span th:if="${exercise.recoveryInSecs != null}">
+                            <strong th:text="${exercise.recoveryInSecs}">90</strong> recovery
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <div class="workout-preview-actions">
+
+        <form th:action="@{/sessions}" method="post">
+
+            <input type="hidden"
+                   name="workoutId"
+                   th:value="${workout.id}">
+
+            <button type="submit" class="button button-primary">
+                Start workout
+            </button>
+
+        </form>
+
+    </div>
+
+</main>
+
+</body>
+</html>

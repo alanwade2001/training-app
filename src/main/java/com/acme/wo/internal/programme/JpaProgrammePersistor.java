@@ -63,6 +63,11 @@ public class JpaProgrammePersistor implements ProgrammeSource, ProgrammePersisto
     }
 
     @Override
+    public void deleteById(Long programmeId) {
+        programmeRepository.deleteById(programmeId);
+    }
+
+    @Override
     public List<Programme> getProgrammes() {
         return programmeRepository.findAll().stream().map(p->{
             var weekList = new ArrayList<Week>();

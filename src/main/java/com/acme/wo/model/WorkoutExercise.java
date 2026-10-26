@@ -6,6 +6,6 @@ public record WorkoutExercise(
         int sets,
         int reps,
         int quantity,
-        ExerciseUnit exerciseUnit,
+        ExerciseUnit units,
         int recoveryInSecs
 ){}

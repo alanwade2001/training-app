@@ -1,0 +1,122 @@
+workouts:
+
+  - name: Force & Reactive - Upload
+    plannedDay : MONDAY
+
+    exercises:
+
+      - name: Pogos- Upload
+        sets: 2
+        reps: 20
+        quantity: 0
+        units: KG
+        recoveryInSecs: 0
+
+      - name: Deadlift - 77.0kg- Upload
+        sets: 3
+        reps: 3
+        quantity: 77
+        units: KG
+        recoveryInSecs: 180
+
+      - name: Bulgarian Split Squat 12.5 each leg- Upload
+        sets: 2
+        reps: 5
+        quantity: 10
+        units: KG
+        recoveryInSecs: 120
+
+      - name: Romanian Deadlift 57.5kg- Upload
+        sets: 2
+        reps: 5
+        quantity: 57
+        units: KG
+        recoveryInSecs: 120
+
+      - name: Standing calf raise- Upload
+        sets: 2
+        reps: 8
+        quantity: 77
+        units: KG
+        recoveryInSecs: 90
+
+      - name: Pallof Press - each side- Upload
+        sets: 3
+        reps: 10
+        quantity: 0
+        units: KG
+        recoveryInSecs: 60
+
+  - name: Robustness- Upload
+    plannedDay: WEDNESDAY
+
+    exercises:
+
+      - name: RDL Single Leg - 10kg- Upload
+        sets: 2
+        reps: 6
+        quantity: 10
+        units: KG
+        recoveryInSecs: 60
+
+      - name: Walking lunge - 20kg- Upload
+        sets: 2
+        reps: 8
+        quantity: 20
+        units: KG
+        recoveryInSecs: 60
+
+      - name: Nordic Hamstring- Upload
+        sets: 2
+        reps: 5
+        quantity: 0
+        units: KG
+        recoveryInSecs: 60
+
+      - name: CopenHagen plank - each side- Upload
+        sets: 2
+        reps: 2
+        quantity: 25
+        units: SECONDS
+        recoveryInSecs: 60
+
+      - name: Soleus raise- Upload
+        sets: 2
+        reps: 15
+        quantity: 0
+        units: KG
+        recoveryInSecs: 60
+
+  - name: Power- Upload
+    plannedDay: SATURDAY
+
+    exercises:
+
+      - name: Single Leg hops - 10m- Upload
+        sets: 4
+        reps: 2
+        quantity: 10
+        units: METERS
+        recoveryInSecs: 60
+
+      - name: Bounds - 20m- Upload
+        sets: 4
+        reps: 1
+        quantity: 20
+        units: METERS
+        recoveryInSecs: 60
+
+      - name: Jump Squat - 10kg- Upload
+        sets: 3
+        reps: 5
+        quantity: 10
+        units: KG
+        recoveryInSecs: 60
+
+      - name: Medicine ball - over,under,right,left- Upload
+        sets: 4
+        reps: 5
+        quantity: 4
+        units: KG
+        recoveryInSecs: 60
+

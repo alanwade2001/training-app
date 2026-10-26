@@ -1,14 +1,18 @@
 package com.acme.wo.internal.programme;
 
 import com.acme.wo.model.Programme;
+import com.acme.wo.model.Workout;
 import com.acme.wo.service.ProgrammeService;
 import com.acme.wo.service.SessionService;
+import com.acme.wo.service.UploadValidationException;
+import com.acme.wo.service.WorkoutService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 
@@ -18,22 +22,33 @@ public class ProgrammeController {
 
     private final ProgrammeService programmeService;
     private final SessionService sessionService;
+    private final WorkoutService workoutService;
 
     public ProgrammeController(
-            ProgrammeService programmeService, SessionService sessionService) {
+            ProgrammeService programmeService, SessionService sessionService, WorkoutService workoutService) {
 
         this.programmeService = programmeService;
         this.sessionService = sessionService;
+        this.workoutService = workoutService;
     }
 
     @PostMapping("/upload")
     public String uploadProgramme(
-            @RequestParam("file") MultipartFile file)
-            throws IOException {
+            @RequestParam("file") MultipartFile file,
+            RedirectAttributes redirectAttributes) {
+        try {
+            var programme = programmeService.persist(file);
 
-        var programme = programmeService.persist(file);
+            return "redirect:/programmes/" + programme.id();
+        }catch( UploadValidationException ex ) {
+            redirectAttributes.addFlashAttribute(
+                    "uploadErrors",
+                    ex.errors()
+            );
 
-        return "redirect:/programmes/" + programme.id();
+            return "redirect:/programmes";
+
+        }
     }
 
     @GetMapping
@@ -112,6 +127,30 @@ public class ProgrammeController {
         model.addAttribute("completedWorkouts", completedWorkouts);
 
         return "week";
+    }
+
+    @PostMapping("/{programmeId}/delete")
+    public String deleteProgramme(@PathVariable Long programmeId) {
+
+        programmeService.deleteProgramme(programmeId);
+
+        return "redirect:/programmes";
+    }
+
+    @GetMapping("/{programmeId}/weeks/{weekNumber}/workouts/{workoutId}")
+    public String workout(
+            @PathVariable Long programmeId,
+            @PathVariable Integer weekNumber,
+            @PathVariable Long workoutId,
+            Model model) {
+
+        Workout workout = workoutService.findById(workoutId);
+
+        model.addAttribute("programmeId", programmeId);
+        model.addAttribute("weekNumber", weekNumber);
+        model.addAttribute("workout", workout);
+
+        return "workout";
     }
 }
 

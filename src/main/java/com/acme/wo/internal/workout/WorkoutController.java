@@ -1,13 +1,13 @@
 package com.acme.wo.internal.workout;
 
+import com.acme.wo.model.Workout;
+import com.acme.wo.service.UploadValidationException;
 import com.acme.wo.service.WorkoutService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 
@@ -25,12 +25,21 @@ public class WorkoutController {
 
     @PostMapping("/upload")
     public String uploadProgramme(
-            @RequestParam("file") MultipartFile file)
-            throws IOException {
+            @RequestParam("file") MultipartFile file,
+            RedirectAttributes redirectAttributes) {
+        try {
+            var workout = workoutService.persist(file);
 
-        var workout = workoutService.persist(file);
+            return "redirect:/workouts";
+        }catch( UploadValidationException ex ) {
+            redirectAttributes.addFlashAttribute(
+                    "uploadErrors",
+                    ex.errors()
+            );
 
-        return "redirect:/workouts";
+            return "redirect:/workouts";
+
+        }
     }
 
     @GetMapping
@@ -43,4 +52,5 @@ public class WorkoutController {
 
         return "workouts";
     }
+
 }

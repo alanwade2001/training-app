@@ -25,6 +25,6 @@ public class SessionExerciseEntity {
     private int reps;
     private int recoveryInSecs;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private SessionEntity session;
 }

@@ -104,24 +104,15 @@
                 Completed once
             </p>
 
-            <form th:action="@{/sessions}"
-                  method="post">
+            <a th:href="@{/programmes/{programmeId}/weeks/{weekNumber}/workouts/{workoutId}(
+                programmeId=${programme.id},
+                weekNumber=${week.number},
+                workoutId=${item.workout.id}
+            )}">
+                Preview
+            </a>
 
-                <input type="hidden"
-                       name="workoutId"
-                       th:value="${item.workout.id}">
 
-                <button type="submit"
-                        class="button button-primary workout-button"
-                        th:text="${item.done
-                            ? 'Start again'
-                            : item.sessionCount > 0
-                                ? 'Try again'
-                                : 'Start workout'}">
-                    Start workout
-                </button>
-
-            </form>
 
         </article>
 
@@ -138,12 +129,7 @@
 
     <footer class="week-footer">
 
-        <a class="button button-secondary back-button"
-           th:href="@{/programmes/{programmeId}(
-               programmeId=${programme.id}
-           )}">
-            Back to weeks
-        </a>
+
 
     </footer>
 

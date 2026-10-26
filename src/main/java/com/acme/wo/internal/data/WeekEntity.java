@@ -20,9 +20,9 @@ public class WeekEntity {
 
     private int number;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL,  optional = false)
     private ProgrammeEntity programme;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "week")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "week", orphanRemoval = true)
     private List<WorkoutEntity> workouts;
 }

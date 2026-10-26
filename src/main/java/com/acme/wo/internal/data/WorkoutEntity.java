@@ -24,9 +24,9 @@ public class WorkoutEntity {
     private String name;
     private DayOfWeek plannedDay;
 
-    @ManyToOne(fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY,  cascade = CascadeType.ALL, optional = false)
     private WeekEntity week;
 
-    @OneToMany(mappedBy = "workout", fetch =  FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "workout", fetch =  FetchType.EAGER, cascade = CascadeType.ALL,  orphanRemoval = true)
     private List<WorkoutExerciseEntity> exercises;
 }

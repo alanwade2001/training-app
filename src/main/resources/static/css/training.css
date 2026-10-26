@@ -1370,3 +1370,239 @@ textarea {
         transition: none;
     }
 }
+
+.upload-errors {
+    margin: 16px 16px 0;
+    padding: 14px;
+
+    background: #fef3f2;
+    color: #912018;
+
+    border: 1px solid #fecdca;
+    border-radius: 10px;
+}
+
+.upload-errors strong {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #7a271a;
+    font-size: 15px;
+}
+
+.upload-errors p {
+    margin: 0;
+}
+
+.upload-errors ul {
+    margin: 8px 0 0;
+    padding-left: 20px;
+}
+
+.upload-errors li + li {
+    margin-top: 4px;
+}
+
+.programme-danger-zone {
+    margin-top: 2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.danger-zone-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.danger-zone-content h3 {
+    margin: 0 0 0.25rem;
+    font-size: 1rem;
+}
+
+.danger-zone-content p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+.btn-danger {
+    background: #b42318;
+    color: #fff;
+    border: 0;
+}
+
+.btn-danger:hover {
+    background: #912018;
+}
+
+/* =========================================================
+   WORKOUT PREVIEW
+   ========================================================= */
+
+.workout-preview {
+    margin-top: 1.5rem;
+}
+
+
+/* ---------------------------------------------------------
+   Header
+   --------------------------------------------------------- */
+
+.workout-preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.workout-preview-header h2 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.workout-exercise-count {
+    font-size: 0.85rem;
+    color: #6b7280;
+    white-space: nowrap;
+}
+
+
+/* ---------------------------------------------------------
+   Exercise list
+   --------------------------------------------------------- */
+
+.exercise-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+
+/* ---------------------------------------------------------
+   Exercise card
+   --------------------------------------------------------- */
+
+.exercise-card {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+
+    padding: 0.9rem 1rem;
+
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+}
+
+
+/* ---------------------------------------------------------
+   Exercise number
+   --------------------------------------------------------- */
+
+.exercise-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 2rem;
+    width: 2rem;
+    height: 2rem;
+
+    border-radius: 50%;
+
+    background: #f3f4f6;
+    color: #6b7280;
+
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+
+/* ---------------------------------------------------------
+   Exercise content
+   --------------------------------------------------------- */
+
+.exercise-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.exercise-content h3 {
+    margin: 0;
+
+    font-size: 0.95rem;
+    font-weight: 600;
+
+    color: #111827;
+}
+
+.exercise-details {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+
+    margin-top: 0.2rem;
+
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+
+/* ---------------------------------------------------------
+   Preview actions
+   --------------------------------------------------------- */
+
+.workout-preview-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+
+    margin-top: 1.5rem;
+}
+
+.workout-preview-actions form {
+    margin: 0;
+}
+
+
+/* ---------------------------------------------------------
+   Mobile
+   --------------------------------------------------------- */
+
+@media (max-width: 600px) {
+
+    .workout-preview {
+        margin-top: 1rem;
+    }
+
+    .exercise-card {
+        padding: 0.8rem;
+        gap: 0.75rem;
+    }
+
+    .exercise-number {
+        flex-basis: 1.8rem;
+        width: 1.8rem;
+        height: 1.8rem;
+    }
+
+    .workout-preview-actions {
+        margin-top: 1.5rem;
+    }
+
+    .workout-preview-actions form {
+        width: 100%;
+        margin: 0;
+    }
+
+    .workout-preview-actions .button {
+        width: 100%;
+    }
+
+}

@@ -4,7 +4,6 @@ import com.acme.wo.internal.data.WorkoutEntity;
 import com.acme.wo.internal.data.WorkoutExerciseEntity;
 import com.acme.wo.model.Workout;
 import com.acme.wo.model.WorkoutExercise;
-import org.springframework.stereotype.Component;
 
 public class WorkoutMapper {
 
@@ -22,7 +21,7 @@ public class WorkoutMapper {
                         .sequence(exercise.sequence())
                         .sets(exercise.sets())
                         .quantity(exercise.quantity())
-                        .units(exercise.exerciseUnit())
+                        .units(exercise.units())
                         .workout(workoutEntity)
                         .build()
         ).toList();

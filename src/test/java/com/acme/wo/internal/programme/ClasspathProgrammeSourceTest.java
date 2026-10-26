@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -17,7 +19,7 @@ class ClasspathProgrammeSourceTest {
     YamlUploadService uploadService;
 
     @Test
-    void getProgrammes() {
+    void getProgrammes() throws IOException {
         var source = new ClasspathProgrammeSource(uploadService);
         var programmes = source.getProgrammes();
         Assertions.assertThat(programmes).isNotEmpty();

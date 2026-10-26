@@ -38,6 +38,30 @@
 
     </header>
 
+    <section class="programme-danger-zone">
+
+        <div class="danger-zone-content">
+            <div>
+                <h3>Delete programme</h3>
+                <p>
+                    Delete this programme and its workouts.
+                    Your workout history will not be deleted.
+                </p>
+            </div>
+
+            <form th:action="@{/programmes/{programmeId}/delete(programmeId=${programme.id})}"
+                  method="post"
+                  onsubmit="return confirm('Delete this programme? Your workout history will be kept.');">
+
+                <button type="submit" class="btn btn-danger">
+                    Delete programme
+                </button>
+
+            </form>
+        </div>
+
+    </section>
+
     <nav class="week-list"
          aria-label="Programme weeks">
 
