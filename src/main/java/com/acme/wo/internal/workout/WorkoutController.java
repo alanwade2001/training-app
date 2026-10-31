@@ -53,4 +53,34 @@ public class WorkoutController {
         return "workouts";
     }
 
+    @GetMapping("/{workoutId}")
+    public String workout(
+            @PathVariable Long workoutId,
+            Model model) {
+
+        var workout = workoutService.findById(workoutId);
+
+        model.addAttribute("workout", workout);
+
+        model.addAttribute("returnUrl", "/workouts");
+
+        var programmeLocation =
+                workoutService.findProgrammeLocation(workoutId);
+        model.addAttribute(
+                "standalone",
+                programmeLocation.isEmpty()
+        );
+
+        return "workout";
+    }
+
+    @PostMapping("/{workoutId}/delete")
+    public String deleteWorkout(
+            @PathVariable Long workoutId) {
+
+        workoutService.deleteStandalone(workoutId);
+
+        return "redirect:/workouts";
+    }
+
 }

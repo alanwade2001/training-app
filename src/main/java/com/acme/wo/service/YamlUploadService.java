@@ -79,26 +79,6 @@ public class YamlUploadService {
         }
     }
 
-//    private void validateWorkout(WorkoutDefinitionsUpload upload) {
-//
-//        var violations = validator.validate(upload);
-//
-//        if (violations.isEmpty()) {
-//            return;
-//        }
-//
-//        List<ValidationError> errors = violations.stream()
-//                .map(violation ->
-//                        new ValidationError(violation.getPropertyPath().toString(), violation.getMessage())
-//                )
-//                .sorted()
-//                .toList();
-//
-//        throw new UploadValidationException(
-//                errors
-//        );
-//    }
-
     private WorkoutDefinitions maptoWorkoutDefinitions(WorkoutDefinitionsUpload upload) {
         var definitions = IntStream.range(0, upload.workouts().size())
                 .mapToObj(i->mapToWorkout((long)i, upload.workouts().get(i)))

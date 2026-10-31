@@ -1,0 +1,551 @@
+# v3.3 Regression Test Suite Notes
+
+Purpose
+-------
+This document records the regression-test baseline completed for v3.3 before the v4.0 persistence changes.
+
+The original test plan was the v4 migration test suite. During implementation the suite was refined to test the current application behaviour rather than mechanically implementing every proposed test. The resulting suite is intended to stay green while persistence is changed in v4.0.
+
+Key principle
+-------------
+The v3.3 test suite is the behavioural contract for v4.0.
+
+The suite deliberately separates:
+- upload/input validation;
+- YAML parsing and mapping;
+- model/entity mapping;
+- JPA persistence behaviour;
+- service behaviour;
+- MVC/controller behaviour;
+- Thymeleaf template contracts;
+- cross-layer integration;
+- Cucumber regression journeys.
+
+Detailed behaviour is normally tested at the lowest appropriate layer. Higher-level tests verify orchestration and cross-layer behaviour without repeating every lower-level assertion.
+
+
+1. Upload Validation Tests
+--------------------------
+Validation is tested against the immutable upload records using Jakarta Validation.
+
+Upload hierarchy:
+
+ProgrammeUpload
+  -> WeekUpload
+      -> WorkoutUpload
+          -> WorkoutExerciseUpload
+
+Tests are organised bottom-up. Each upload record tests:
+- its own validation constraints;
+- the relevant boundary values;
+- one nested invalid child to prove @Valid cascading.
+
+WorkoutExerciseUpload validation includes:
+- name must not be blank;
+- sets must be positive;
+- reps must be positive;
+- quantity may be zero but not negative;
+- units must not be null;
+- recoveryInSecs must be at least 15 seconds;
+- recovery equal to 15 seconds is valid.
+
+WorkoutUpload tests include:
+- valid workout accepted;
+- name validation;
+- plannedDay validation;
+- exercises must not be empty;
+- invalid nested WorkoutExerciseUpload causes WorkoutUpload validation to fail.
+
+WeekUpload tests include:
+- positive week number;
+- workouts must not be empty;
+- invalid nested WorkoutUpload causes WeekUpload validation to fail.
+
+ProgrammeUpload tests include:
+- programme name validation;
+- weeks must not be empty;
+- invalid nested WeekUpload causes ProgrammeUpload validation to fail.
+
+The upload records are Java records, so tests construct the required valid/invalid record rather than mutating an existing object.
+
+
+2. YAML Upload and Mapping Tests
+--------------------------------
+YamlUploadService programme tests cover the public programme-import path rather than private mapper methods.
+
+Covered behaviour:
+- valid programme YAML parses successfully;
+- programme name is mapped;
+- all weeks are mapped;
+- workouts are associated with the correct week;
+- plannedDay is mapped;
+- exercises are mapped;
+- week ordering is preserved;
+- workout ordering is preserved;
+- exercise ordering and generated sequence are preserved;
+- malformed YAML is rejected;
+- invalid nested programme data is rejected.
+
+Validation rules themselves are not exhaustively repeated here because they are covered by the upload-record validation tests.
+
+Standalone workout YAML uses WorkoutDefinitionsUpload as its root. Standalone YAML therefore has a `workouts:` collection rather than a WorkoutUpload directly at the root.
+
+ExerciseUnit YAML values use the actual enum values:
+- METERS
+- KG
+- SECONDS
+- KM
+
+
+3. Mapper Tests
+---------------
+Mapper tests verify model/entity transformations independently of persistence.
+
+WorkoutMapper tests cover:
+- Workout -> WorkoutEntity;
+- WorkoutEntity -> Workout;
+- exercise fields;
+- exercise sequence;
+- parent WorkoutEntity relationship.
+
+SessionMapper tests cover:
+- Session -> SessionEntity;
+- SessionEntity -> Session;
+- SessionExecution mapping;
+- SessionExercise snapshot mapping;
+- parent SessionEntity relationship.
+
+Mapper tests do not duplicate validation or database behaviour.
+
+
+4. Persistence Tests
+--------------------
+Persistence tests use @DataJpaTest and a real test database boundary. Tests use persist/save -> flush -> clear -> reload so that the entity graph is reconstructed from persistence rather than Hibernate's first-level cache.
+
+Workout persistence covers:
+- standalone workout round trip;
+- all workout exercises round trip;
+- plannedDay;
+- exercise sequence;
+- quantity and units;
+- recoveryInSecs;
+- standalone workout has no week relationship.
+
+Programme persistence covers:
+- persisting only the aggregate root;
+- cascade to weeks;
+- cascade to programme-owned workouts;
+- cascade to workout exercises;
+- complete hierarchy reload;
+- week numbers;
+- workout/week ownership;
+- multiple programmes remain independent.
+
+Session persistence covers:
+- startedAt;
+- updatedAt;
+- embedded SessionExecution state;
+- stateStartedAt;
+- SessionExercise historical snapshots;
+- complete session reload;
+- session snapshot remains independent if the source workout changes.
+
+
+5. Persistence Deletion Tests
+-----------------------------
+Deletion responsibilities are split between persistence and service tests.
+
+Persistence tests verify JPA ownership/cascade behaviour.
+
+Programme deletion covers:
+- deleting the ProgrammeEntity;
+- deleting owned WeekEntity records;
+- deleting programme-owned WorkoutEntity records;
+- deleting owned WorkoutExerciseEntity records;
+- historical SessionEntity records survive;
+- historical workoutName survives;
+- historical exercise snapshots survive;
+- deleting one programme does not affect another.
+
+Standalone workout deletion covers:
+- deleting the standalone WorkoutEntity;
+- deleting its WorkoutExerciseEntity records;
+- historical SessionEntity records survive;
+- historical session snapshots remain readable;
+- deleting one standalone workout does not affect another.
+
+The rule preventing independent deletion of a programme-owned workout is not a persistence rule. It is tested at the WorkoutService layer.
+
+
+6. WorkoutService Tests
+-----------------------
+WorkoutService is unit-tested with Mockito. Persistence is mocked because database behaviour is already tested separately.
+
+Covered behaviour:
+- finds standalone workout by ID;
+- finds programme-owned workout by ID;
+- combines workouts from the current source contract;
+- returns workouts sorted according to the service contract;
+- returns ProgrammeLocation for programme-owned workouts;
+- returns empty ProgrammeLocation for standalone workouts;
+- deletes standalone workouts through the persistence boundary;
+- refuses independent deletion of programme-owned workouts;
+- rejected programme-workout deletion does not call the delete persistence operation.
+
+Strict Mockito stubbing is used. Only methods actually used by the test are stubbed.
+
+
+7. ProgrammeService Tests
+-------------------------
+ProgrammeService is unit-tested with Mockito.
+
+Covered behaviour:
+- returns programmes from its sources;
+- sorts programmes according to the service contract;
+- finds programme by ID;
+- current not-found behaviour is preserved;
+- delegates YAML programme import to YamlUploadService;
+- delegates persistence to ProgrammePersistor;
+- returns the persisted Programme;
+- delegates programme deletion through the persistence boundary.
+
+Week ordering is not retested at this layer when the service does not own that behaviour.
+
+
+8. SessionService and State Machine Tests
+----------------------------------------
+SessionService is unit-tested with Mockito against its actual API.
+
+Session creation covers:
+- creates a Session snapshot from a Workout;
+- initial state is READY;
+- exercise snapshot data is copied;
+- startedAt/stateStartedAt are created appropriately;
+- Session is passed to SessionPersistor.
+
+Counting covers:
+- all attempts by workout ID;
+- completed sessions by workout ID;
+- incomplete sessions count as attempts but not completions;
+- completed sessions count as attempts and completions;
+- multiple sessions are counted independently.
+
+State-machine coverage includes:
+- READY -> ACTIVE;
+- ACTIVE -> RESTING when more sets remain;
+- ACTIVE -> EXERCISE_COMPLETE on the final set;
+- RESTING -> READY for the next set;
+- EXERCISE_COMPLETE -> READY for the next exercise;
+- EXERCISE_COMPLETE -> SESSION_COMPLETE after the final exercise;
+- currentSet progression;
+- exerciseIndex progression;
+- stateStartedAt changes on transitions;
+- invalid transitions are rejected.
+
+History-service behaviour covers:
+- find session by ID;
+- missing-session behaviour;
+- History returned newest first.
+
+updatedAt persistence is tested at the persistence/integration boundary rather than pretending SessionService directly mutates it if that responsibility belongs to SessionPersistor.
+
+
+9. Progress Tests
+-----------------
+WeekProgress is tested against its actual production API.
+
+Parameterized WeekProgress tests cover:
+- empty week is not done;
+- zero completed workouts is not done;
+- partial completion is not done;
+- all planned workouts completed is done;
+- single-workout week behaviour.
+
+The distinct-workout calculation is not forced into WeekProgress because WeekProgress receives `completedWorkouts` as input.
+
+Programme/week progress aggregation is tested where it currently occurs in ProgrammeController:
+- completed workouts are determined from completed sessions, not attempts;
+- repeated completions of one workout still count the planned workout once;
+- partial weeks are not done;
+- fully completed weeks are done.
+
+No artificial ProgrammeProgress production record was introduced purely for testing.
+
+
+10. MVC Controller Tests
+------------------------
+Controller tests use MockMvc and Mockito. InternalResourceViewResolver is used in standalone MockMvc tests so ordinary views can be asserted without causing circular view resolution and `redirect:` responses remain genuine 3xx redirects.
+
+HomeController:
+- GET / returns home view.
+
+ProgrammeController:
+- GET /programmes returns programmes view and model;
+- GET /programmes/{id} returns programme view and WeekProgress model;
+- programme progress counts a planned workout once even after repeated completions;
+- completed week is marked done;
+- week route returns week view and WorkoutProgress data;
+- completedWorkouts uses completed sessions, not total attempts;
+- successful upload redirects to the new programme;
+- failed upload redirects with uploadErrors flash feedback;
+- programme deletion delegates and redirects.
+
+WorkoutController:
+- GET /workouts returns workouts view/model;
+- standalone preview returns workout view, /workouts returnUrl and standalone=true;
+- programme-owned preview is marked standalone=false;
+- standalone delete delegates and redirects to /workouts;
+- programme-owned deletion is rejected by the service;
+- successful upload redirects according to the current MVC flow;
+- invalid upload redirects with validation feedback.
+
+The canonical programme return route is not asserted against WorkoutController where the current controller always supplies /workouts. Programme-specific preview navigation is covered by ProgrammeController/current template behaviour.
+
+SessionController:
+- POST /sessions creates a Session for workoutId and redirects to it;
+- programme Exit returns to the originating programme week;
+- standalone Exit returns to /workouts;
+- Exit does not invoke state transitions;
+- DONE routes programme and standalone sessions correctly;
+- start set endpoint invokes SessionService.startSet;
+- complete set endpoint invokes SessionService.completeSet;
+- complete rest endpoint invokes SessionService.completeRest;
+- next exercise endpoint invokes SessionService.nextExercise.
+
+HistoryController:
+- GET /history returns history view with sessions;
+- GET /history/{id} returns session-detail;
+- historical detail uses `trainingsession` model attribute;
+- historical Session exposes its SessionExercise snapshots.
+
+Missing/deleted programme routes should return a client not-found response rather than dereference a null Programme. This was identified while running the Cucumber deletion journey.
+
+
+11. Thymeleaf Template Contract Tests
+-------------------------------------
+Template tests use Jsoup to inspect the source templates. Thymeleaf is not instantiated simply to check structural contracts.
+
+For Thymeleaf attributes, tests inspect `th:*` attributes directly with Jsoup `hasAttr`/`attr` where namespace CSS selectors are unreliable.
+
+home.html:
+- navigation to Programmes;
+- navigation to Workouts;
+- navigation to History.
+
+programmes.html:
+- iterates Programme cards;
+- programme cards link to selected programme;
+- upload panel is collapsed by default;
+- upload form posts multipart data to /programmes/upload;
+- uploadErrors can reopen the upload panel;
+- validation errors can be rendered.
+
+programme.html:
+- renders programme name;
+- iterates WeekProgress entries;
+- displays completed/total workout counts;
+- completed styling uses WeekProgress.done;
+- week links contain programme ID and week number.
+
+week.html current v3.3 behaviour:
+- renders programme name and week number;
+- iterates WorkoutProgress items;
+- displays planned day;
+- displays exercise count;
+- displays attempt count;
+- displays completion count when completedSessionCount > 0;
+- completion indicator/styling is driven by item.done rather than attempt count;
+- completed workouts remain selectable;
+- current preview link uses the programme/week-specific workout route.
+
+Not locked into the v3.3 baseline because they are not current template behaviour:
+- new/retry/repeat action text;
+- canonical /workouts/{id} preview from the week page.
+
+workout.html:
+- renders workout name;
+- iterates exercises in list order;
+- displays sequence using iteration count;
+- displays sets/reps;
+- displays quantity/units;
+- displays recovery;
+- Start Workout posts workoutId to /sessions;
+- Back uses controller-supplied returnUrl;
+- delete action is conditional on `standalone`;
+- programme-owned preview therefore hides standalone deletion.
+
+plannedDay is not asserted on workout.html because it is not currently rendered there.
+
+history.html:
+- iterates sessions in the order supplied by the controller/service;
+- renders workoutName;
+- renders startedAt;
+- renders updatedAt;
+- links to session detail;
+- uses `s` rather than `session` as the Thymeleaf iteration variable.
+
+Newest-first ordering is tested in SessionService, where sorting actually occurs.
+
+session-detail.html:
+- renders historical workout name;
+- renders startedAt/updatedAt;
+- iterates historical SessionExercise snapshots;
+- renders sets/reps/recovery;
+- empty-state condition is complementary to the exercise-list condition.
+
+session.html:
+- READY view contract;
+- ACTIVE view contract;
+- RESTING view contract;
+- EXERCISE_COMPLETE view contract;
+- SESSION_COMPLETE view contract;
+- Exit uses /sessions/{sessionId}/exit;
+- Exit is hidden for SESSION_COMPLETE;
+- DONE posts to /sessions/{sessionId}/complete.
+
+
+12. Upload Integration Tests
+----------------------------
+The original HTTP/API section was refined because the application currently exposes MVC multipart upload endpoints rather than a separate REST API.
+
+Integration tests use the real Spring application context and persistence path.
+
+Programme upload integration covers:
+- multipart YAML -> ProgrammeController -> ProgrammeService -> YamlUploadService -> Jakarta Validation -> ProgrammePersistor -> database;
+- valid upload persists the Programme/Week/Workout/WorkoutExercise hierarchy and redirects to the new programme;
+- invalid nested recovery below 15 seconds is rejected;
+- validation feedback is returned;
+- invalid upload does not create a partial programme hierarchy.
+
+The MVC redirect is part of the current HTTP contract and is not treated as something an independent API must avoid.
+
+
+13. History Integrity Tests
+---------------------------
+HistoryIntegrityTest uses the real Spring context/persistence source.
+
+Covered behaviour:
+- incomplete and completed Sessions both remain in History;
+- repeated attempts for one workout remain distinct Session records;
+- History remains newest first;
+- historical workout and exercise snapshots remain independent of the current workout definition.
+
+History survival after programme/standalone deletion is also protected by the persistence deletion tests and Cucumber journeys rather than duplicated everywhere.
+
+
+14. Cucumber Regression Journeys
+--------------------------------
+Cucumber is used only for high-value cross-layer application journeys. Fine-grained validation, state-machine and persistence rules remain in JUnit tests.
+
+Shared JourneyState is scenario-scoped. Each scenario creates its own fixture data and must not depend on test execution order.
+
+Reusable SessionJourneySteps handle session creation, movement through the real state endpoints until SESSION_COMPLETE, DONE, History lookup, detail lookup and snapshot assertions.
+
+Programme journey:
+- open Home;
+- open Programmes;
+- select Programme;
+- select Week;
+- preview Workout;
+- return to Week;
+- preview again;
+- start Session;
+- complete Session through real state endpoints;
+- select DONE;
+- return to originating Week;
+- Workout is complete;
+- Week progress increments once;
+- Session appears in History;
+- Session Detail and historical exercise snapshot are readable.
+
+Repeat-programme scenario:
+- completing an already-completed planned Workout creates another historical Session;
+- planned Week progress remains counted once.
+
+Standalone workout journey:
+- open Workouts;
+- preview standalone Workout;
+- return to Workouts;
+- preview again;
+- start/complete Session;
+- DONE returns to Workouts;
+- Session appears in History;
+- Session Detail/snapshot remains readable.
+
+Programme deletion journey:
+- create Programme with planned Workout;
+- complete Session;
+- delete Programme;
+- Programme and programme Workout are no longer available through the application;
+- History remains available;
+- historical Session retains workoutName;
+- historical detail and exercise snapshot remain readable.
+
+Week/exercise row-level cascade deletion is deliberately left to persistence tests rather than exposed as Cucumber implementation detail.
+
+Standalone deletion journey:
+- create standalone Workout;
+- complete Session;
+- delete Workout;
+- Workout disappears from Workouts;
+- History remains available;
+- historical Session/detail/snapshot survives.
+
+Upload-validation journey:
+- upload Programme YAML with recoveryInSecs=14;
+- upload is rejected;
+- validation feedback is returned;
+- invalid Programme is not persisted;
+- correct recoveryInSecs to 15;
+- re-upload;
+- upload succeeds;
+- Programme and complete hierarchy are persisted.
+
+
+15. Deferred v4.0 Concerns
+--------------------------
+The original plan contained large sections for migration and transaction strategy. These were intentionally not implemented as speculative v3.3 tests.
+
+Migration testing is different from regression testing:
+- regression asks whether application behaviour remains unchanged;
+- migration testing asks whether existing stored data is transformed safely by a concrete migration mechanism.
+
+Migration-specific tests will be added when the v4 migration/storage mechanism exists.
+
+Similarly, artificial database-failure transaction tests are deferred until v4 transaction boundaries and persistence implementation are concrete. Current tests already verify normal JPA cascade, ownership, deletion and invalid-upload behaviour.
+
+
+16. v4.0 Runtime Source Decision
+--------------------------------
+A design decision emerged while completing the regression baseline:
+
+Bundled YAML files should be treated like bootstrap/seed data, similar in purpose to database seed scripts. They should not remain permanent runtime ProgrammeSource/WorkoutSource implementations.
+
+Target v4 behaviour:
+- bundled Programme/Workout YAML is discovered during bootstrap;
+- YAML uses the existing validation/import path;
+- imported defaults are persisted into the database;
+- the database becomes the runtime source of Programmes and Workouts;
+- seeded definitions behave like user-uploaded definitions;
+- seeded Programmes/Workouts can therefore be deleted normally;
+- seed handling must not recreate deleted seed data unintentionally;
+- seed import must not create duplicates.
+
+The current ClasspathProgrammeSource test asserting a non-empty classpath source is therefore disabled for the v4 regression contract. In JUnit 5 this uses @Disabled rather than @Ignore, with the reason documented as the planned replacement of runtime classpath sources by database seeding.
+
+The production classpath-source implementation does not need to be removed as part of the v3.3 baseline. It can be replaced during v4.
+
+
+17. v3.3 Regression Gate
+------------------------
+v3.3 remains the current version. No third version component was introduced solely for test hardening.
+
+Before starting v4.0:
+
+    ./gradlew clean test
+
+must complete successfully, apart from any explicitly documented @Disabled legacy classpath-source test that is intentionally outside the v4 behavioural contract.
+
+The resulting green v3.3 suite is the regression baseline for v4.0.
+
+During v4.0 persistence work, the existing behavioural suite should remain green unless a behaviour is deliberately changed and the corresponding test/requirement is consciously updated.

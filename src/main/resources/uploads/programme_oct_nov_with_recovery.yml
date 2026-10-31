@@ -1,0 +1,275 @@
+name: October-November Strength Block
+weeks:
+- number: 4
+  workouts:
+  - name: Deload
+    plannedDay: MONDAY
+    exercises:
+    - name: Pogos
+      sets: 2
+      reps: 20
+      quantity: 0
+      units: KG
+      recoveryInSecs: 45
+    - name: Deadlift
+      sets: 3
+      reps: 3
+      quantity: 82.5
+      units: KG
+      recoveryInSecs: 120
+    - name: Bulgarian split squat
+      sets: 2
+      reps: 5
+      quantity: 0
+      units: KG
+      recoveryInSecs: 90
+    - name: Romanian deadlift
+      sets: 2
+      reps: 5
+      quantity: 0
+      units: KG
+      recoveryInSecs: 90
+    - name: Standing calf raise
+      sets: 2
+      reps: 8
+      quantity: 0
+      units: KG
+      recoveryInSecs: 60
+  - name: Deload Robustness
+    plannedDay: WEDNESDAY
+    exercises:
+    - name: Single-leg Romanian deadlift
+      sets: 2
+      reps: 6
+      quantity: 0
+      units: KG
+      recoveryInSecs: 75
+    - name: Walking lunge
+      sets: 2
+      reps: 8
+      quantity: 0
+      units: KG
+      recoveryInSecs: 75
+    - name: Nordic hamstring
+      sets: 2
+      reps: 5
+      quantity: 0
+      units: KG
+      recoveryInSecs: 90
+    - name: Copenhagen plank
+      sets: 2
+      reps: 25
+      quantity: 25
+      units: SECONDS
+      recoveryInSecs: 60
+    - name: Soleus raise
+      sets: 2
+      reps: 15
+      quantity: 0
+      units: KG
+      recoveryInSecs: 60
+  - name: Deload Power
+    plannedDay: SATURDAY
+    exercises:
+    - name: Single-leg hops
+      sets: 2
+      reps: 10
+      quantity: 0
+      units: KG
+      recoveryInSecs: 90
+    - name: Bounds
+      sets: 2
+      reps: 20
+      quantity: 0
+      units: KG
+      recoveryInSecs: 90
+    - name: Jump squat
+      sets: 3
+      reps: 5
+      quantity: 0
+      units: KG
+      recoveryInSecs: 120
+- number: 5
+  workouts:
+  - name: Force + Reactive
+    plannedDay: MONDAY
+    exercises:
+    - name: Pogos
+      sets: 3
+      reps: 20
+      quantity: 0
+      units: KG
+      recoveryInSecs: 45
+    - name: Deadlift
+      sets: 5
+      reps: 3
+      quantity: 90
+      units: KG
+      recoveryInSecs: 180
+    - name: Bulgarian split squat
+      sets: 3
+      reps: 5
+      quantity: 15
+      units: KG
+      recoveryInSecs: 90
+    - name: Romanian deadlift
+      sets: 3
+      reps: 5
+      quantity: 60
+      units: KG
+      recoveryInSecs: 120
+    - name: Standing calf raise
+      sets: 3
+      reps: 8
+      quantity: 90
+      units: KG
+      recoveryInSecs: 60
+  - name: Robustness
+    plannedDay: WEDNESDAY
+    exercises:
+    - name: Single-leg Romanian deadlift
+      sets: 3
+      reps: 6
+      quantity: 0
+      units: KG
+      recoveryInSecs: 75
+    - name: Walking lunge
+      sets: 3
+      reps: 8
+      quantity: 0
+      units: KG
+      recoveryInSecs: 75
+    - name: Nordic hamstring
+      sets: 3
+      reps: 6
+      quantity: 0
+      units: KG
+      recoveryInSecs: 90
+    - name: Copenhagen plank
+      sets: 3
+      reps: 35
+      quantity: 35
+      units: SECONDS
+      recoveryInSecs: 60
+    - name: Soleus raise
+      sets: 3
+      reps: 15
+      quantity: 0
+      units: KG
+      recoveryInSecs: 60
+  - name: Power
+    plannedDay: SATURDAY
+    exercises:
+    - name: Single-leg hops
+      sets: 4
+      reps: 10
+      quantity: 0
+      units: KG
+      recoveryInSecs: 90
+    - name: Bounds
+      sets: 4
+      reps: 20
+      quantity: 0
+      units: KG
+      recoveryInSecs: 90
+    - name: Alternate bounds
+      sets: 3
+      reps: 20
+      quantity: 0
+      units: KG
+      recoveryInSecs: 90
+    - name: Jump squat
+      sets: 4
+      reps: 5
+      quantity: 0
+      units: KG
+      recoveryInSecs: 120
+- number: 6
+  workouts:
+  - name: Performance
+    plannedDay: MONDAY
+    exercises:
+    - name: Pogos
+      sets: 3
+      reps: 20
+      quantity: 0
+      units: KG
+      recoveryInSecs: 45
+    - name: Deadlift
+      sets: 3
+      reps: 3
+      quantity: 90
+      units: KG
+      recoveryInSecs: 180
+    - name: Bulgarian split squat
+      sets: 2
+      reps: 5
+      quantity: 0
+      units: KG
+      recoveryInSecs: 90
+    - name: Romanian deadlift
+      sets: 2
+      reps: 5
+      quantity: 0
+      units: KG
+      recoveryInSecs: 120
+  - name: Robustness Maintenance
+    plannedDay: WEDNESDAY
+    exercises:
+    - name: Single-leg Romanian deadlift
+      sets: 2
+      reps: 6
+      quantity: 0
+      units: KG
+      recoveryInSecs: 75
+    - name: Walking lunge
+      sets: 2
+      reps: 8
+      quantity: 0
+      units: KG
+      recoveryInSecs: 75
+    - name: Nordic hamstring
+      sets: 2
+      reps: 5
+      quantity: 0
+      units: KG
+      recoveryInSecs: 90
+    - name: Copenhagen plank
+      sets: 2
+      reps: 30
+      quantity: 30
+      units: SECONDS
+      recoveryInSecs: 60
+    - name: Soleus raise
+      sets: 2
+      reps: 15
+      quantity: 0
+      units: KG
+      recoveryInSecs: 60
+  - name: Elasticity Assessment
+    plannedDay: SATURDAY
+    exercises:
+    - name: Single-leg hops
+      sets: 3
+      reps: 10
+      quantity: 0
+      units: KG
+      recoveryInSecs: 90
+    - name: Bounds
+      sets: 3
+      reps: 20
+      quantity: 0
+      units: KG
+      recoveryInSecs: 90
+    - name: Alternate bounds
+      sets: 3
+      reps: 20
+      quantity: 0
+      units: KG
+      recoveryInSecs: 90
+    - name: Broad jump
+      sets: 5
+      reps: 3
+      quantity: 0
+      units: KG
+      recoveryInSecs: 120

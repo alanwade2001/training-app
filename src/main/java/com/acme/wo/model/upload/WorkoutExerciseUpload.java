@@ -9,6 +9,6 @@ public record WorkoutExerciseUpload(
         @Positive int reps,
         @PositiveOrZero int quantity,
         @NotNull ExerciseUnit units,
-        @PositiveOrZero @Min(15) int recoveryInSecs
+        @Min(15) int recoveryInSecs
 ) {
 }

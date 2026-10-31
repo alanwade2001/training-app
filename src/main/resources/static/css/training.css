@@ -1606,3 +1606,16 @@ textarea {
     }
 
 }
+
+.delete-form {
+    margin-top: 32px;
+}
+
+.button-danger {
+    background: var(--red);
+    color: #ffffff;
+}
+
+.button-danger:hover {
+    background: var(--red-hover);
+}

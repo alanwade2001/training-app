@@ -15,11 +15,8 @@
     <header class="page-header">
         <div>
             <a class="back-link"
-               th:href="@{/programmes/{programmeId}/weeks/{weekNumber}(
-                    programmeId=${programmeId},
-                    weekNumber=${weekNumber}
-               )}">
-                ‹ Week
+               th:href="${returnUrl}">
+                &larr; Back
             </a>
 
             <h1 th:text="${workout.name}">Workout</h1>
@@ -28,6 +25,22 @@
 
 
     <section class="workout-preview">
+
+        <form th:if="${standalone}"
+              th:action="@{/workouts/{workoutId}/delete(workoutId=${workout.id})}"
+              method="post"
+              class="delete-form">
+
+            <button type="submit"
+                    class="button button-danger"
+                    onclick="return confirm(
+                'Delete this workout? Training history will be preserved.'
+            )">
+                Delete workout
+            </button>
+
+        </form>
+
 
         <div class="workout-preview-header">
             <h2>Exercises</h2>

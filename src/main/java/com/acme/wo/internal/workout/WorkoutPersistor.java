@@ -12,4 +12,6 @@ public interface WorkoutPersistor {
     Workout persist(Workout w);
 
     Optional<ProgrammeLocation> findProgrammeLocation(Long workoutId);
+
+    void deleteWorkout(Long workoutId);
 }

@@ -51,4 +51,15 @@ public class WorkoutService {
 
         return workoutPersistor.findProgrammeLocation(workoutId);
     }
+
+    public void deleteStandalone(Long workoutId) {
+
+        if (findProgrammeLocation(workoutId).isPresent()) {
+            throw new IllegalStateException(
+                    "A programme workout cannot be deleted independently"
+            );
+        }
+
+        workoutPersistor.deleteWorkout(workoutId);
+    }
 }

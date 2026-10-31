@@ -117,6 +117,8 @@ public class ProgrammeController {
                 ))
                 .toList();
 
+
+
         long completedWorkouts = workouts.stream()
                 .filter(WorkoutProgress::done)
                 .count();
@@ -149,6 +151,9 @@ public class ProgrammeController {
         model.addAttribute("programmeId", programmeId);
         model.addAttribute("weekNumber", weekNumber);
         model.addAttribute("workout", workout);
+
+        var returnUrl = "/programmes/" + programmeId + "/weeks/"+ weekNumber;
+        model.addAttribute("returnUrl", returnUrl);
 
         return "workout";
     }

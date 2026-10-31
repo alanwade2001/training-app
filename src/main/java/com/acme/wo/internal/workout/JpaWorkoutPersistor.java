@@ -60,4 +60,9 @@ public class JpaWorkoutPersistor implements WorkoutSource, WorkoutPersistor {
     public List<Workout> getWorkouts() {
         return workoutRepository.findAll().stream().map(WorkoutMapper::fromEntity).toList();
     }
+
+    @Override
+    public void deleteWorkout(Long workoutId) {
+        workoutRepository.deleteById(workoutId);
+    }
 }

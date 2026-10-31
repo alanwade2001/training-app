@@ -108,19 +108,10 @@
                 exercises
             </p>
 
-            <form th:action="@{/sessions}"
-                  method="post">
-
-                <input type="hidden"
-                       name="workoutId"
-                       th:value="${workout.id}">
-
-                <button type="submit"
-                        class="button button-primary workout-button">
-                    Start workout
-                </button>
-
-            </form>
+            <a class="button button-primary"
+               th:href="@{/workouts/{workoutId}(workoutId=${workout.id})}">
+                View workout
+            </a>
 
         </article>
 

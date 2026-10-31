@@ -24,7 +24,7 @@ public class WorkoutEntity {
     private String name;
     private DayOfWeek plannedDay;
 
-    @ManyToOne(fetch = FetchType.LAZY,  cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY,  cascade = CascadeType.ALL, optional = true)
     private WeekEntity week;
 
     @OneToMany(mappedBy = "workout", fetch =  FetchType.EAGER, cascade = CascadeType.ALL,  orphanRemoval = true)
