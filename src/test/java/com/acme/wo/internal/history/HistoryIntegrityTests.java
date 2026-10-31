@@ -1,5 +1,6 @@
 package com.acme.wo.internal.history;
 
+import com.acme.wo.internal.data.PostgresqlIntegrationTest;
 import com.acme.wo.internal.data.SessionEntity;
 import com.acme.wo.internal.data.SessionExecutionEntity;
 import com.acme.wo.internal.data.SessionExerciseEntity;
@@ -22,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @Transactional
-class HistoryIntegrityTest {
+class HistoryIntegrityTest extends PostgresqlIntegrationTest {
 
     @Autowired
     private EntityManager entityManager;

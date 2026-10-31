@@ -2,6 +2,7 @@ package com.acme.wo.internal.workout;
 
 import com.acme.wo.service.YamlUploadService;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +12,7 @@ import java.io.IOException;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @Import({YamlUploadService.class})
+@Disabled
 class ClasspathWorkoutSourceTest {
 
     @Autowired

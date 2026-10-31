@@ -1,7 +1,5 @@
-package com.acme.wo.internal.workout;
+package com.acme.wo.internal.data;
 
-import com.acme.wo.internal.data.WorkoutEntity;
-import com.acme.wo.internal.data.WorkoutExerciseEntity;
 import com.acme.wo.model.ExerciseUnit;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
@@ -14,7 +12,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-class WorkoutPersistenceTest {
+class WorkoutPersistenceTest extends PostgresqlIntegrationTest {
 
     @Autowired
     private EntityManager entityManager;

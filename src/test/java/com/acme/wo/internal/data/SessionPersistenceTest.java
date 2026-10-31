@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 @DataJpaTest
-class SessionPersistenceTest {
+class SessionPersistenceTest extends PostgresqlIntegrationTest {
 
     @Autowired
     private EntityManager entityManager;

@@ -1,5 +1,6 @@
 package com.acme.wo.internal.workout;
 
+import com.acme.wo.internal.data.PostgresqlIntegrationTest;
 import com.acme.wo.model.ExerciseUnit;
 import com.acme.wo.model.Workout;
 import com.acme.wo.model.WorkoutExercise;
@@ -16,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @Import({JpaWorkoutPersistor.class})
-class JpaWorkoutPersistorTest {
+class JpaWorkoutPersistorTest extends PostgresqlIntegrationTest {
 
     @Autowired
     JpaWorkoutPersistor jpaWorkoutPersistor;

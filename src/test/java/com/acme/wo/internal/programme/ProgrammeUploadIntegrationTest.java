@@ -1,5 +1,6 @@
 package com.acme.wo.internal.programme;
 
+import com.acme.wo.internal.data.PostgresqlIntegrationTest;
 import com.acme.wo.internal.data.ProgrammeEntity;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-class ProgrammeUploadIntegrationTest {
+class ProgrammeUploadIntegrationTest extends PostgresqlIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
