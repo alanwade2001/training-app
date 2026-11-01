@@ -27,7 +27,7 @@ public class SessionService {
             Long workoutId) {
 
         Workout workout =
-                workoutService.findById(workoutId);
+                workoutService.findById(workoutId).orElseThrow();
 
 
         List<SessionExercise> exercises =

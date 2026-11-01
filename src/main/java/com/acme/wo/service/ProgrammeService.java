@@ -10,31 +10,26 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProgrammeService {
 
-    private final List<ProgrammeSource> sources;
     private final YamlUploadService uploadService;
     private final ProgrammePersistor programmePersistor;
 
-    public ProgrammeService(List<ProgrammeSource> sources, YamlUploadService uploadService, ProgrammePersistor programmePersistor) {
-        this.sources = sources;
+    public ProgrammeService(YamlUploadService uploadService, ProgrammePersistor programmePersistor) {
         this.uploadService = uploadService;
         this.programmePersistor = programmePersistor;
     }
 
 
     public List<Programme> findAll() {
-        var programmes = new ArrayList<Programme>();
-        sources.forEach(s->programmes.addAll(s.getProgrammes()));
-        programmes.sort(Comparator.comparingLong(Programme::id));
-        return programmes;
+        return programmePersistor.findAll();
     }
 
-    public Programme findById(Long programmeId) {
-        var programmes = findAll();
-        return programmes.stream().filter(p->programmeId.equals(p.id())).findFirst().orElse(null);
+    public Optional<Programme> findById(Long programmeId) {
+        return programmePersistor.findById(programmeId);
     }
 
     public Programme persist(InputStreamSource source) {

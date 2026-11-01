@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -134,7 +135,7 @@ class ProgrammeControllerTest {
                 );
 
         when(programmeService.findById(1L))
-                .thenReturn(programme);
+                .thenReturn(Optional.of(programme));
 
         when(sessionService
                 .countCompletedByWorkoutId(10L))
@@ -210,7 +211,7 @@ class ProgrammeControllerTest {
                 );
 
         when(programmeService.findById(1L))
-                .thenReturn(programme);
+                .thenReturn(Optional.of(programme));
 
         /*
          * Workout A has been completed three times.
@@ -278,7 +279,7 @@ class ProgrammeControllerTest {
                 );
 
         when(programmeService.findById(1L))
-                .thenReturn(programme);
+                .thenReturn(Optional.of(programme));
 
         when(sessionService
                 .countCompletedByWorkoutId(10L))
@@ -341,7 +342,7 @@ class ProgrammeControllerTest {
                 );
 
         when(programmeService.findById(1L))
-                .thenReturn(programme);
+                .thenReturn(Optional.of(programme));
 
         when(sessionService.countByWorkoutId(10L))
                 .thenReturn(3L);
@@ -415,7 +416,7 @@ class ProgrammeControllerTest {
                 );
 
         when(programmeService.findById(1L))
-                .thenReturn(programme);
+                .thenReturn(Optional.of(programme));
 
         /*
          * Workout 10 has three attempts but none completed.

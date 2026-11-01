@@ -1,6 +1,5 @@
 package com.acme.wo.internal.programme;
 
-import com.acme.wo.model.Programme;
 import com.acme.wo.model.Workout;
 import com.acme.wo.service.ProgrammeService;
 import com.acme.wo.service.SessionService;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.io.IOException;
 
 @Controller
 @RequestMapping("/programmes")
@@ -66,7 +63,7 @@ public class ProgrammeController {
             Model model) {
 
         var programme =
-                programmeService.findById(programmeId);
+                programmeService.findById(programmeId).orElseThrow();
 
         var weeks = programme.weeks().stream()
                 .map(week -> {
@@ -99,7 +96,7 @@ public class ProgrammeController {
             @PathVariable int weekNumber,
             Model model) {
 
-        var programme = programmeService.findById(programmeId);
+        var programme = programmeService.findById(programmeId).orElseThrow();
 
         var week = programme.weeks().stream()
                 .filter(w -> w.number() == weekNumber)
@@ -146,7 +143,7 @@ public class ProgrammeController {
             @PathVariable Long workoutId,
             Model model) {
 
-        Workout workout = workoutService.findById(workoutId);
+        Workout workout = workoutService.findById(workoutId).orElseThrow();
 
         model.addAttribute("programmeId", programmeId);
         model.addAttribute("weekNumber", weekNumber);

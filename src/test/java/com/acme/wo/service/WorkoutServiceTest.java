@@ -3,6 +3,7 @@ package com.acme.wo.service;
 import com.acme.wo.internal.workout.WorkoutPersistor;
 import com.acme.wo.model.ProgrammeLocation;
 import com.acme.wo.model.Workout;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,12 +20,6 @@ import static org.mockito.Mockito.*;
 class WorkoutServiceTest {
 
     @Mock
-    private WorkoutSource standaloneSource;
-
-    @Mock
-    private WorkoutSource programmeSource;
-
-    @Mock
     private YamlUploadService uploadService;
 
     @Mock
@@ -36,10 +31,6 @@ class WorkoutServiceTest {
     @BeforeEach
     void setUp() {
         service = new WorkoutService(
-                List.of(
-                        standaloneSource,
-                        programmeSource
-                ),
                 uploadService,
                 workoutPersistor
         );
@@ -50,15 +41,12 @@ class WorkoutServiceTest {
         Workout standalone =
                 mockWorkout(10L, "Standalone Workout");
 
-        when(standaloneSource.getWorkouts())
-                .thenReturn(List.of(standalone));
+        doReturn(Optional.of(standalone)).when(workoutPersistor).findById(anyLong());
 
-        when(programmeSource.getWorkouts())
-                .thenReturn(List.of());
+        var result = service.findById(10L);
+        Assertions.assertThat(result).isPresent();
 
-        Workout result = service.findById(10L);
-
-        assertSame(standalone, result);
+        assertSame(standalone, result.orElseThrow());
     }
 
     @Test
@@ -66,50 +54,15 @@ class WorkoutServiceTest {
         Workout programmeWorkout =
                 mockWorkout(20L, "Programme Workout");
 
-        when(standaloneSource.getWorkouts())
-                .thenReturn(List.of());
+        doReturn(Optional.of(programmeWorkout)).when(workoutPersistor).findById(anyLong());
 
-        when(programmeSource.getWorkouts())
-                .thenReturn(List.of(programmeWorkout));
+        var result = service.findById(20L);
+        Assertions.assertThat(result).isPresent();
 
-        Workout result = service.findById(20L);
-
-        assertSame(programmeWorkout, result);
+        assertSame(programmeWorkout, result.orElseThrow());
     }
 
-    @Test
-    void returnsAllWorkoutsSortedById() {
-        Workout workout30 =
-                mockWorkout(30L, "Workout 30");
 
-        Workout workout10 =
-                mockWorkout(10L, "Workout 10");
-
-        Workout workout20 =
-                mockWorkout(20L, "Workout 20");
-
-        when(standaloneSource.getWorkouts())
-                .thenReturn(
-                        List.of(
-                                workout30,
-                                workout10
-                        )
-                );
-
-        when(programmeSource.getWorkouts())
-                .thenReturn(
-                        List.of(workout20)
-                );
-
-        List<Workout> result = service.findAll();
-
-        assertEquals(
-                List.of(10L, 20L, 30L),
-                result.stream()
-                        .map(Workout::id)
-                        .toList()
-        );
-    }
 
     @Test
     void returnsProgrammeLocationForProgrammeOwnedWorkout() {
@@ -197,7 +150,7 @@ class WorkoutServiceTest {
     ) {
         Workout workout = mock(Workout.class);
 
-        when(workout.id()).thenReturn(id);
+        //when(workout.id()).thenReturn(id);
         //when(workout.name()).thenReturn(name);
 
         return workout;

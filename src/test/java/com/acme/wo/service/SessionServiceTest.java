@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -78,7 +79,7 @@ class SessionServiceTest {
                 org.mockito.Mockito.mock(Session.class);
 
         when(workoutService.findById(workoutId))
-                .thenReturn(workout);
+                .thenReturn(Optional.of(workout));
 
         when(sessionPersistor.persist(any(Session.class)))
                 .thenReturn(persistedSession);

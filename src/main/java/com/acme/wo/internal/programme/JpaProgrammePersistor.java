@@ -2,22 +2,18 @@ package com.acme.wo.internal.programme;
 
 import com.acme.wo.internal.data.*;
 import com.acme.wo.internal.workout.WorkoutMapper;
-import com.acme.wo.internal.workout.WorkoutPersistor;
 import com.acme.wo.model.Programme;
 import com.acme.wo.model.Week;
-import com.acme.wo.model.Workout;
-import com.acme.wo.model.WorkoutExercise;
-import com.acme.wo.service.ProgrammeSource;
-import com.acme.wo.service.WorkoutSource;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Component
-public class JpaProgrammePersistor implements ProgrammeSource, ProgrammePersistor {
+public class JpaProgrammePersistor implements ProgrammePersistor {
 
     private final ProgrammeRepository programmeRepository;
 
@@ -68,17 +64,16 @@ public class JpaProgrammePersistor implements ProgrammeSource, ProgrammePersisto
     }
 
     @Override
+    public List<Programme> findAll() {
+        return getProgrammes();
+    }
+
+    @Override
+    public Optional<Programme> findById(Long programmeId) {
+        return programmeRepository.findById(programmeId).map(ProgrammeMapper::mapFromEntity);
+    }
+
     public List<Programme> getProgrammes() {
-        return programmeRepository.findAll().stream().map(p->{
-            var weekList = new ArrayList<Week>();
-            for( var weekEntity : p.getWeeks()) {
-                var workouts = weekEntity.getWorkouts().stream().map(WorkoutMapper::fromEntity).toList();
-                var week = new Week(weekEntity.getNumber(),  workouts);
-                weekList.add(week);
-            }
-
-            return new Programme(p.getId(),p.getName(),weekList);
-
-        }).toList();
+        return programmeRepository.findAll().stream().map(ProgrammeMapper::mapFromEntity).toList();
     }
 }

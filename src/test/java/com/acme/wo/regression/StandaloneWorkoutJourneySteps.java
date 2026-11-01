@@ -2,7 +2,6 @@ package com.acme.wo.regression;
 
 import com.acme.wo.internal.workout.WorkoutPersistor;
 import com.acme.wo.model.Workout;
-import com.acme.wo.model.WorkoutDefinitions;
 import com.acme.wo.service.WorkoutService;
 import com.acme.wo.service.YamlUploadService;
 import io.cucumber.java.Before;
@@ -78,7 +77,7 @@ public class StandaloneWorkoutJourneySteps {
         workoutService.persist(source);
 
         Workout reloaded =
-                workoutService.findAll()
+                workoutService.findAllStandaloneWorkouts()
                         .stream()
                         .filter(workout ->
                                 "Standalone Speed Endurance"

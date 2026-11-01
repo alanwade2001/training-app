@@ -5,7 +5,6 @@ import com.acme.wo.model.ValidationError;
 import com.acme.wo.model.Workout;
 import com.acme.wo.service.UploadValidationException;
 import com.acme.wo.service.WorkoutService;
-import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,11 +13,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -69,7 +66,7 @@ class WorkoutControllerTest {
         List<Workout> workouts =
                 List.of(workout1, workout2);
 
-        when(workoutService.findAll())
+        when(workoutService.findAllStandaloneWorkouts())
                 .thenReturn(workouts);
 
         mockMvc.perform(
@@ -90,7 +87,7 @@ class WorkoutControllerTest {
                         )
                 );
 
-        verify(workoutService).findAll();
+        verify(workoutService).findAllStandaloneWorkouts();
     }
 
     @Test
@@ -102,7 +99,7 @@ class WorkoutControllerTest {
         Workout workout = mockWorkout();
 
         when(workoutService.findById(workoutId))
-                .thenReturn(workout);
+                .thenReturn(Optional.of(workout));
 
         when(workoutService
                 .findProgrammeLocation(workoutId))
@@ -153,7 +150,7 @@ class WorkoutControllerTest {
                 );
 
         when(workoutService.findById(workoutId))
-                .thenReturn(workout);
+                .thenReturn(Optional.of(workout));
 
         when(workoutService
                 .findProgrammeLocation(workoutId))

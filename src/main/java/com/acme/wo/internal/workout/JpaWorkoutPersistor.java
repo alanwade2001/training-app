@@ -1,24 +1,19 @@
 package com.acme.wo.internal.workout;
 
 import com.acme.wo.internal.data.WorkoutEntity;
-import com.acme.wo.internal.data.WorkoutExerciseEntity;
-import com.acme.wo.internal.data.WorkoutExerciseRepository;
 import com.acme.wo.internal.data.WorkoutRepository;
 import com.acme.wo.model.ProgrammeLocation;
 import com.acme.wo.model.Workout;
-import com.acme.wo.model.WorkoutExercise;
-import com.acme.wo.service.WorkoutSource;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 @Transactional
 @Component
-public class JpaWorkoutPersistor implements WorkoutSource, WorkoutPersistor {
+public class JpaWorkoutPersistor implements WorkoutPersistor {
 
     private final WorkoutRepository  workoutRepository;
 
@@ -64,5 +59,20 @@ public class JpaWorkoutPersistor implements WorkoutSource, WorkoutPersistor {
     @Override
     public void deleteWorkout(Long workoutId) {
         workoutRepository.deleteById(workoutId);
+    }
+
+    @Override
+    public List<Workout> getStandaloneWorkouts() {
+        return workoutRepository.findAllByWeekIsNull().stream().map(WorkoutMapper::fromEntity).toList();
+    }
+
+    @Override
+    public Optional<Workout> findById(Long workoutId) {
+        return workoutRepository.findById(workoutId).map(WorkoutMapper::fromEntity);
+    }
+
+    @Override
+    public Optional<Workout> findByName(String name) {
+        return workoutRepository.findByName(name).map(WorkoutMapper::fromEntity);
     }
 }

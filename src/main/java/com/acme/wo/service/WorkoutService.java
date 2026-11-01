@@ -14,31 +14,31 @@ import java.util.Optional;
 @Service
 public class WorkoutService {
 
-    private final List<WorkoutSource> sources;
     private final YamlUploadService uploadService;
     private final WorkoutPersistor workoutPersistor;
 
-    public WorkoutService(List<WorkoutSource> sources, YamlUploadService uploadService, WorkoutPersistor workoutPersistor) {
-        this.sources = sources;
+    public WorkoutService(YamlUploadService uploadService, WorkoutPersistor workoutPersistor) {
         this.uploadService = uploadService;
         this.workoutPersistor = workoutPersistor;
     }
 
+
     public List<Workout> findAll() {
-        var workouts = new ArrayList<Workout>();
-        sources.forEach(s->workouts.addAll(s.getWorkouts()));
+        var workouts = workoutPersistor.getWorkouts();
         workouts.sort(Comparator.comparingLong(Workout::id));
         return workouts;
     }
 
-    public Workout findById(Long workoutId) {
-        var workouts = findAll();
-        return workouts.stream().filter(w->workoutId.equals(w.id())).findFirst().orElse(null);
+    public List<Workout> findAllStandaloneWorkouts() {
+        return workoutPersistor.getStandaloneWorkouts();
     }
 
-    public Workout findByName(String name) {
-        var workouts = findAll();
-        return workouts.stream().filter(w->name.equals(w.name())).findFirst().orElse(null);
+    public Optional<Workout> findById(Long workoutId) {
+        return workoutPersistor.findById(workoutId);
+    }
+
+    public Optional<Workout> findByName(String name) {
+        return workoutPersistor.findByName(name);
     }
 
     public List<Workout> persist(InputStreamSource source) {

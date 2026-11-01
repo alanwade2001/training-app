@@ -14,4 +14,12 @@ public interface WorkoutPersistor {
     Optional<ProgrammeLocation> findProgrammeLocation(Long workoutId);
 
     void deleteWorkout(Long workoutId);
+
+    List<Workout> getWorkouts();
+
+    List<Workout> getStandaloneWorkouts();
+
+    Optional<Workout> findById(Long workoutId);
+
+    Optional<Workout> findByName(String name);
 }

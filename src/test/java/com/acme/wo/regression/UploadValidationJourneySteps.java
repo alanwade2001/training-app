@@ -16,9 +16,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class UploadValidationJourneySteps {
 
@@ -197,7 +194,7 @@ public class UploadValidationJourneySteps {
         Programme programme =
                 programmeService.findById(
                         state.getProgrammeId()
-                );
+                ).orElseThrow();
 
         assertNotNull(programme);
 
@@ -213,7 +210,7 @@ public class UploadValidationJourneySteps {
         Programme programme =
                 programmeService.findById(
                         state.getProgrammeId()
-                );
+                ).orElseThrow();
 
         assertNotNull(programme);
         assertEquals(1, programme.weeks().size());

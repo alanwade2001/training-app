@@ -2,7 +2,6 @@ package com.acme.wo.regression;
 
 import com.acme.wo.model.Programme;
 import com.acme.wo.model.Session;
-import com.acme.wo.model.Workout;
 import com.acme.wo.service.ProgrammeService;
 import com.acme.wo.service.SessionService;
 import com.acme.wo.service.WorkoutService;
@@ -10,6 +9,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.assertj.core.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -74,12 +74,12 @@ public class DeletionJourneySteps {
     @Then("the Programme is no longer available")
     public void programmeNoLongerAvailable() {
 
-        Programme programme =
+        var programme =
                 programmeService.findById(
                         state.getProgrammeId()
                 );
 
-        assertNull(programme);
+        Assertions.assertThat(programme).isEmpty();
     }
 
     @Then("the programme Workout is no longer available")
@@ -121,7 +121,7 @@ public class DeletionJourneySteps {
     public void workoutNoLongerAvailable() {
 
         boolean present =
-                workoutService.findAll()
+                workoutService.findAllStandaloneWorkouts()
                         .stream()
                         .anyMatch(workout ->
                                 state.getWorkoutId()

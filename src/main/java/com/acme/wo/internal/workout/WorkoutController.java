@@ -1,6 +1,5 @@
 package com.acme.wo.internal.workout;
 
-import com.acme.wo.model.Workout;
 import com.acme.wo.service.UploadValidationException;
 import com.acme.wo.service.WorkoutService;
 import org.springframework.stereotype.Controller;
@@ -8,8 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.io.IOException;
 
 @Controller
 @RequestMapping("/workouts")
@@ -47,7 +44,7 @@ public class WorkoutController {
 
         model.addAttribute(
                 "workouts",
-                workoutService.findAll()
+                workoutService.findAllStandaloneWorkouts()
         );
 
         return "workouts";
@@ -58,7 +55,7 @@ public class WorkoutController {
             @PathVariable Long workoutId,
             Model model) {
 
-        var workout = workoutService.findById(workoutId);
+        var workout = workoutService.findById(workoutId).orElseThrow();
 
         model.addAttribute("workout", workout);
 

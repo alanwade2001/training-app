@@ -2,6 +2,7 @@ package com.acme.wo.service;
 
 import com.acme.wo.internal.programme.ProgrammePersistor;
 import com.acme.wo.model.Programme;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.io.InputStreamSource;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -18,12 +20,6 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ProgrammeServiceTest {
-
-    @Mock
-    private ProgrammeSource sourceA;
-
-    @Mock
-    private ProgrammeSource sourceB;
 
     @Mock
     private YamlUploadService uploadService;
@@ -39,7 +35,6 @@ class ProgrammeServiceTest {
     @BeforeEach
     void setUp() {
         service = new ProgrammeService(
-                List.of(sourceA, sourceB),
                 uploadService,
                 programmePersistor
         );
@@ -47,19 +42,11 @@ class ProgrammeServiceTest {
 
     @Test
     void returnsAllProgrammesSortedById() {
-        Programme programme30 = mockProgramme(30L);
-        Programme programme10 = mockProgramme(10L);
-        Programme programme20 = mockProgramme(20L);
+        Programme programme30 = new Programme(30L, "", List.of());
+        Programme programme10 = new Programme(10L, "", List.of());
+        Programme programme20 = new Programme(20L, "", List.of());
 
-        when(sourceA.getProgrammes())
-                .thenReturn(
-                        List.of(programme30, programme10)
-                );
-
-        when(sourceB.getProgrammes())
-                .thenReturn(
-                        List.of(programme20)
-                );
+        doReturn( List.of(programme10, programme20, programme30) ).when(programmePersistor).findAll();
 
         List<Programme> result = service.findAll();
 
@@ -70,8 +57,7 @@ class ProgrammeServiceTest {
                         .toList()
         );
 
-        verify(sourceA).getProgrammes();
-        verify(sourceB).getProgrammes();
+        verify(programmePersistor).findAll();
     }
 
     @Test
@@ -79,30 +65,19 @@ class ProgrammeServiceTest {
         Programme programme10 = mockProgramme(10L);
         Programme programme20 = mockProgramme(20L);
 
-        when(sourceA.getProgrammes())
-                .thenReturn(List.of(programme10));
+        doReturn(Optional.of(programme20)).when(programmePersistor).findById(anyLong());
 
-        when(sourceB.getProgrammes())
-                .thenReturn(List.of(programme20));
-
-        Programme result = service.findById(20L);
+        Programme result = service.findById(20L).orElseThrow();
 
         assertSame(programme20, result);
     }
 
     @Test
-    void returnsNullWhenProgrammeDoesNotExist() {
+    void returnsEmptyWhenProgrammeDoesNotExist() {
         Programme programme = mockProgramme(10L);
 
-        when(sourceA.getProgrammes())
-                .thenReturn(List.of(programme));
-
-        when(sourceB.getProgrammes())
-                .thenReturn(List.of());
-
-        Programme result = service.findById(99L);
-
-        assertNull(result);
+        var result = service.findById(99L);
+        Assertions.assertThat(result).isEmpty();
     }
 
     @Test
@@ -144,7 +119,7 @@ class ProgrammeServiceTest {
     private Programme mockProgramme(Long id) {
         Programme programme = mock(Programme.class);
 
-        when(programme.id()).thenReturn(id);
+        //when(programme.id()).thenReturn(id);
 
         return programme;
     }

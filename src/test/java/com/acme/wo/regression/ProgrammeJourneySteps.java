@@ -1,6 +1,5 @@
 package com.acme.wo.regression;
 
-import com.acme.wo.internal.data.ProgrammeRepository;
 import com.acme.wo.internal.programme.ProgrammePersistor;
 import com.acme.wo.model.*;
 import com.acme.wo.service.ProgrammeService;
@@ -12,19 +11,16 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 
 import java.time.DayOfWeek;
 import java.util.List;
 
-import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -391,7 +387,7 @@ public class ProgrammeJourneySteps {
         Programme programme =
                 programmeService.findById(
                         state.getProgrammeId()
-                );
+                ).orElseThrow();
 
         assertNotNull(programme);
 
@@ -493,7 +489,7 @@ public class ProgrammeJourneySteps {
         Programme reloaded =
                 programmeService.findById(
                         persisted.id()
-                );
+                ).orElseThrow();
 
         assertNotNull(reloaded);
         assertFalse(reloaded.weeks().isEmpty());
