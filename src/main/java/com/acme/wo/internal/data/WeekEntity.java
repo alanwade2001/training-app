@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "week")
 public class WeekEntity {
     @Id
     @GeneratedValue

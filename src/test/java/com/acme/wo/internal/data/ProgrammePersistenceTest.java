@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,6 +24,7 @@ class ProgrammePersistenceTest extends PostgresqlIntegrationTest {
     void persistsAndRetrievesCompleteProgrammeHierarchy() {
         ProgrammeEntity programme = ProgrammeEntity.builder()
                 .name("400m Programme")
+                .startDate(LocalDate.now())
                 .build();
 
         WeekEntity week1 = WeekEntity.builder()
@@ -331,6 +333,7 @@ class ProgrammePersistenceTest extends PostgresqlIntegrationTest {
         ProgrammeEntity programme =
                 ProgrammeEntity.builder()
                         .name(programmeName)
+                        .startDate(LocalDate.now())
                         .build();
 
         WeekEntity week = WeekEntity.builder()

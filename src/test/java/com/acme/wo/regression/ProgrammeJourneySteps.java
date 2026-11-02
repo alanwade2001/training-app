@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -480,6 +481,7 @@ public class ProgrammeJourneySteps {
                 new Programme(
                         null,
                         "Cucumber Programme",
+                        LocalDate.now(),
                         List.of(week)
                 );
 

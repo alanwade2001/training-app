@@ -1,10 +1,7 @@
 package com.acme.wo.internal.data;
 
 import com.acme.wo.model.ExerciseUnit;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "workout_exercise")
 public class WorkoutExerciseEntity {
 
     @Id

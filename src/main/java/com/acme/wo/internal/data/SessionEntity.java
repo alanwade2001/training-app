@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "session")
 public class SessionEntity {
     @Id @GeneratedValue
     private Long id;

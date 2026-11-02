@@ -17,6 +17,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -564,6 +565,7 @@ class ProgrammeControllerTest {
         return new Programme(
                 id,
                 name,
+                LocalDate.now(),
                 weeks
         );
     }

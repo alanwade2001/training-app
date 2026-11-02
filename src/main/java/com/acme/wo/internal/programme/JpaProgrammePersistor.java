@@ -29,31 +29,13 @@ public class JpaProgrammePersistor implements ProgrammePersistor {
 
     @Override
     public Programme persist(Programme p) {
-        var programmeEntity = ProgrammeEntity.builder()
-                .name(p.name())
-                .build();
-
-        var weekEntities = p.weeks().stream().map(week -> {
-                    var weekEntity = WeekEntity.builder()
-                            .number(week.number())
-                            .programme(programmeEntity)
-                            .build();
-
-                    var workoutEntities = week.workouts().stream().map(WorkoutMapper::toEntity).toList();
-                    workoutEntities.forEach(workout -> {workout.setWeek(weekEntity);});
-
-                    weekEntity.setWorkouts(workoutEntities);
-
-            return weekEntity;
-                }
-        ).toList();
-
-        programmeEntity.setWeeks(weekEntities);
+        var programmeEntity = ProgrammeMapper.mapToEntity(p);
 
         var savedProgrammeEntity = programmeRepository.save(programmeEntity);
 
         return new Programme(savedProgrammeEntity.getId()
                 , programmeEntity.getName()
+                , programmeEntity.getStartDate()
                 , p.weeks());
 
     }

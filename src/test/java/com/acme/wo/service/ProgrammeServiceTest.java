@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.io.InputStreamSource;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,9 +43,9 @@ class ProgrammeServiceTest {
 
     @Test
     void returnsAllProgrammesSortedById() {
-        Programme programme30 = new Programme(30L, "", List.of());
-        Programme programme10 = new Programme(10L, "", List.of());
-        Programme programme20 = new Programme(20L, "", List.of());
+        Programme programme30 = new Programme(30L, "", LocalDate.now(), List.of());
+        Programme programme10 = new Programme(10L, "", LocalDate.now(), List.of());
+        Programme programme20 = new Programme(20L, "", LocalDate.now(), List.of());
 
         doReturn( List.of(programme10, programme20, programme30) ).when(programmePersistor).findAll();
 

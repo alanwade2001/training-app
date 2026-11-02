@@ -8,6 +8,7 @@ import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 
 import java.time.DayOfWeek;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -322,6 +323,7 @@ class ProgrammeDeletionPersistenceTest extends PostgresqlIntegrationTest {
         ProgrammeEntity programme =
                 ProgrammeEntity.builder()
                         .name(programmeName)
+                        .startDate(LocalDate.now())
                         .build();
 
         WeekEntity week =

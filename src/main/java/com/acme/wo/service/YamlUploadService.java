@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
@@ -195,6 +196,7 @@ public class YamlUploadService {
         return new Programme(
                 null,
                 upload.name(),
+                LocalDate.now(),
                 weeks
         );
     }
