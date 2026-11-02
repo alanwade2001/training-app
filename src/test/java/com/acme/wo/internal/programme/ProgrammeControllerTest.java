@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -548,6 +549,51 @@ class ProgrammeControllerTest {
         verify(programmeService)
                 .deleteProgramme(10L);
     }
+
+    @Test
+    void shouldAddProgrammeCompletedToModel() throws Exception {
+        Programme programme = programmeWithFourWeeks(
+                LocalDate.now().minusWeeks(5)
+        );
+
+        when(programmeService.findById(1L))
+                .thenReturn(Optional.of(programme));
+
+        mockMvc.perform(get("/programmes/1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("programme"))
+                .andExpect(model().attribute(
+                        "programmeCompleted",
+                        true
+                ));
+    }
+
+    @Test
+    void shouldRenderCompletedProgramme() throws Exception {
+        Programme programme = programmeWithFourWeeks(
+                LocalDate.now().minusWeeks(5)
+        );
+
+        when(programmeService.findById(1L))
+                .thenReturn(Optional.of(programme));
+
+        mockMvc.perform(get("/programmes/1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("programme"))
+                .andExpect(model().attribute("programmeCompleted", true));
+    }
+
+    private Programme programmeWithFourWeeks(LocalDate startDate) {
+        return new Programme(1L, "400m Programme", startDate, List.of(
+                new Week(1, List.of()),
+                new Week(2, List.of()),
+                new Week(3, List.of()),
+                new Week(4, List.of())
+        )
+        );
+    }
+
+
 
     private Programme programme(
             Long id,

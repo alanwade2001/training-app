@@ -13,6 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 @Controller
 @RequestMapping("/programmes")
 public class ProgrammeController {
@@ -83,6 +86,10 @@ public class ProgrammeController {
                     );
                 })
                 .toList();
+
+        var today = LocalDate.now();
+        model.addAttribute("currentWeek", programme.currentWeek(today));
+        model.addAttribute("programmeCompleted", programme.isCompleted(today));
 
         model.addAttribute("programme", programme);
         model.addAttribute("weeks", weeks);

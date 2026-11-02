@@ -1,5 +1,7 @@
 package com.acme.wo.internal.programme;
 
+import com.acme.wo.model.Programme;
+import com.acme.wo.model.Week;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -8,6 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -214,4 +218,6 @@ class ProgrammesTemplateTest {
                 """
         );
     }
+
+
 }

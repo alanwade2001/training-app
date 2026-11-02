@@ -33,7 +33,18 @@
         </h1>
 
         <p class="page-description">
-            Programme progress
+            Started
+            <span th:text="${#temporals.format(programme.startDate, 'd MMM yyyy')}">
+                2 Nov 2026
+            </span>
+                    ·
+                    <span th:if="${!programmeCompleted}"
+                          th:text="|Week ${currentWeek} of ${weeks.size()}|">
+                Week 1 of 4
+            </span>
+                    <span th:if="${programmeCompleted}">
+                Programme completed
+            </span>
         </p>
 
     </header>
@@ -61,13 +72,19 @@
 
         <a class="card week-button"
            th:each="item : ${weeks}"
-           th:classappend="${item.done}
-               ? 'week-button-complete'
-               : ''"
+           th:classappend="${item.done} ? ' week-button-complete' :
+           (${item.week.number == currentWeek} ? ' week-button-current' : '')"
+
            th:href="@{/programmes/{programmeId}/weeks/{weekNumber}(
                programmeId=${programme.id},
                weekNumber=${item.week.number}
            )}">
+
+            <span class="week-current"
+                  th:if="${item.week.number == currentWeek}">
+                Current
+            </span>
+
 
             <span class="week-status"
                   th:if="${item.done}"
