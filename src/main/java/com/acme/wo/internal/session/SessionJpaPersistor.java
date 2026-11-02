@@ -1,9 +1,11 @@
 package com.acme.wo.internal.session;
 
-import com.acme.wo.internal.data.*;
+import com.acme.wo.internal.data.SessionEntity;
+import com.acme.wo.internal.data.SessionExecutionEntity;
+import com.acme.wo.internal.data.SessionExerciseRepos;
+import com.acme.wo.internal.data.SessionRepos;
 import com.acme.wo.model.Session;
 import com.acme.wo.model.SessionExecution;
-import com.acme.wo.model.SessionExercise;
 import com.acme.wo.service.SessionSource;
 import lombok.Data;
 import org.springframework.stereotype.Service;

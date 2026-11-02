@@ -1,7 +1,5 @@
 package com.acme.wo.model.upload;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.acme.wo.model.ExerciseUnit;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;

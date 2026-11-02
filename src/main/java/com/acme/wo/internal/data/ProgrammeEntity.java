@@ -1,6 +1,5 @@
 package com.acme.wo.internal.data;
 
-import com.acme.wo.model.Week;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

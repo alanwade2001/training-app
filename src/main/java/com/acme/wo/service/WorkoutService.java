@@ -1,12 +1,11 @@
 package com.acme.wo.service;
 
-import com.acme.wo.model.ProgrammeLocation;
 import com.acme.wo.internal.workout.WorkoutPersistor;
+import com.acme.wo.model.ProgrammeLocation;
 import com.acme.wo.model.Workout;
 import org.springframework.core.io.InputStreamSource;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;

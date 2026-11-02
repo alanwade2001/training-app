@@ -1,7 +1,6 @@
 package com.acme.wo.internal.programme;
 
 import com.acme.wo.model.Programme;
-import com.acme.wo.model.Workout;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,13 +1,10 @@
 package com.acme.wo.internal.programme;
 
-import com.acme.wo.internal.data.*;
-import com.acme.wo.internal.workout.WorkoutMapper;
+import com.acme.wo.internal.data.ProgrammeRepository;
 import com.acme.wo.model.Programme;
-import com.acme.wo.model.Week;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

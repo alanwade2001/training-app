@@ -1,7 +1,9 @@
 package com.acme.wo.internal.data;
 
 import com.acme.wo.model.ExecutionState;
-import jakarta.persistence.*;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

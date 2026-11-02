@@ -1,7 +1,5 @@
 package com.acme.wo.model.upload;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.acme.wo.model.ExerciseUnit;
 import jakarta.validation.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -15,7 +13,6 @@ import java.time.DayOfWeek;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProgrammeUploadTest {

@@ -1,6 +1,5 @@
 package com.acme.wo.service;
 
-import com.acme.wo.internal.session.SessionJpaPersistor;
 import com.acme.wo.internal.session.SessionPersistor;
 import com.acme.wo.model.*;
 import jakarta.transaction.Transactional;

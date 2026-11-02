@@ -1,6 +1,5 @@
 package com.acme.wo.model.upload;
 
-import com.acme.wo.model.Workout;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 

@@ -1,6 +1,8 @@
 package com.acme.wo.internal.session;
 
-import com.acme.wo.model.*;
+import com.acme.wo.model.Session;
+import com.acme.wo.model.SessionExecution;
+import com.acme.wo.model.SessionExercise;
 import com.acme.wo.service.SessionService;
 import com.acme.wo.service.WorkoutService;
 import lombok.extern.slf4j.Slf4j;

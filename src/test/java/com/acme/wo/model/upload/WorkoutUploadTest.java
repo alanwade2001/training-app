@@ -1,6 +1,9 @@
 package com.acme.wo.model.upload;
 
-import jakarta.validation.*;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,10 +11,10 @@ import java.time.DayOfWeek;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import static com.acme.wo.model.upload.TestData.*;
-import static com.acme.wo.model.upload.UploadAssertions.*;
+import static com.acme.wo.model.upload.TestData.invalidWorkout;
+import static com.acme.wo.model.upload.TestData.validExercise;
+import static com.acme.wo.model.upload.UploadAssertions.assertViolationOn;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class WorkoutUploadValidationTest {
 

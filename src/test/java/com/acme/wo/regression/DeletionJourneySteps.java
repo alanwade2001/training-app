@@ -1,6 +1,5 @@
 package com.acme.wo.regression;
 
-import com.acme.wo.model.Programme;
 import com.acme.wo.model.Session;
 import com.acme.wo.service.ProgrammeService;
 import com.acme.wo.service.SessionService;
@@ -16,9 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class DeletionJourneySteps {
 

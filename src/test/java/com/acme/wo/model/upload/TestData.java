@@ -1,14 +1,10 @@
 package com.acme.wo.model.upload;
 
 import com.acme.wo.model.ExerciseUnit;
-import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Valid;
 
 import java.time.DayOfWeek;
 import java.util.List;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestData {
 

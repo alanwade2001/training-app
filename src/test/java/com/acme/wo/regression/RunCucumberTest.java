@@ -1,6 +1,5 @@
 package com.acme.wo.regression;
 
-import com.acme.wo.internal.data.PostgresqlIntegrationTest;
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.SelectClasspathResource;

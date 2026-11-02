@@ -2,16 +2,11 @@ package com.acme.wo.internal.bootstrap;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
-
-import java.nio.file.Path;
-import java.util.List;
-
-
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;

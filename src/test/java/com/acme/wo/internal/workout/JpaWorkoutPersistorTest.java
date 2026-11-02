@@ -13,8 +13,6 @@ import org.springframework.context.annotation.Import;
 import java.time.DayOfWeek;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @DataJpaTest
 @Import({JpaWorkoutPersistor.class})
 class JpaWorkoutPersistorTest extends PostgresqlIntegrationTest {
